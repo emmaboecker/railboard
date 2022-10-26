@@ -33,6 +33,15 @@ export default function StationBoardPanel() {
             value={formatDate(date)}
             className="w-full rounded-md bg-zinc-800 p-2 text-white outline-none"
           />
+          <div className={"w-5"} />
+          <button
+            className={"w-32 rounded-md bg-violet-600/60 p-2.5 text-white"}
+            onClick={() => {
+              setDate(new Date());
+            }}
+          >
+            now
+          </button>
         </div>
         <div className="h-16" />
         <Link href={`/station/${selectedStationId}/${date.getTime()}`}>
