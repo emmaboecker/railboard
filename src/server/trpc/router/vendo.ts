@@ -50,8 +50,6 @@ export const vendoRouter = router({
       const departure = await departureBoard(body);
       const arrival = await arrivalBoard(body);
 
-      console.log(body);
-
       const result: StationBoardResponse = {
         requestedStationId: stationInfo.data.station.id.toString(),
         requestedStationName: stationInfo.data.station.name.toString(),

@@ -10,6 +10,7 @@ specifiers:
   '@trpc/client': 10.0.0-rc.0
   '@trpc/next': 10.0.0-rc.0
   '@trpc/react': 10.0.0-proxy-beta.20
+  '@trpc/react-query': 10.0.0-rc.0
   '@trpc/server': 10.0.0-rc.0
   '@types/node': 18.0.0
   '@types/react': 18.0.23
@@ -50,8 +51,9 @@ dependencies:
   '@mantine/hooks': 5.5.5_react@18.2.0
   '@tanstack/react-query': 4.12.0_biqbaboplfbrettd7655fr4n2y
   '@trpc/client': 10.0.0-rc.0_@trpc+server@10.0.0-rc.0
-  '@trpc/next': 10.0.0-rc.0_56nyuggr25qtzeeca2jbc2alym
+  '@trpc/next': 10.0.0-rc.0_axcsnegek57kx4k4spqgw3dpfy
   '@trpc/react': 10.0.0-proxy-beta.20_g5gzjubgwrrg5bpeoejrg3ts5e
+  '@trpc/react-query': 10.0.0-rc.0_g5gzjubgwrrg5bpeoejrg3ts5e
   '@trpc/server': 10.0.0-rc.0
   add: 2.0.6
   clsx: 1.2.1
@@ -1649,7 +1651,7 @@ packages:
       '@trpc/server': 10.0.0-rc.0
     dev: false
 
-  /@trpc/next/10.0.0-rc.0_56nyuggr25qtzeeca2jbc2alym:
+  /@trpc/next/10.0.0-rc.0_axcsnegek57kx4k4spqgw3dpfy:
     resolution: {integrity: sha512-olZwWzNCSumvqmv8I1iDuaLLX5Bvo/DRW0H9tsfzaVTtEVYooWx+x2xEGZEFmlTzOPZ0/s4ZBFaM8I/WMQY3aA==}
     peerDependencies:
       '@tanstack/react-query': ^4.3.8
@@ -1662,11 +1664,28 @@ packages:
     dependencies:
       '@tanstack/react-query': 4.12.0_biqbaboplfbrettd7655fr4n2y
       '@trpc/client': 10.0.0-rc.0_@trpc+server@10.0.0-rc.0
+      '@trpc/react-query': 10.0.0-rc.0_g5gzjubgwrrg5bpeoejrg3ts5e
       '@trpc/server': 10.0.0-rc.0
       next: 12.3.1_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-ssr-prepass: 1.5.0_react@18.2.0
+    dev: false
+
+  /@trpc/react-query/10.0.0-rc.0_g5gzjubgwrrg5bpeoejrg3ts5e:
+    resolution: {integrity: sha512-FCCz0gfY+GUMZUOGsSV2Q4rP3KU2E43amxYo3g4pdG8d10hDrgZPruzRGyGNCL3oYjj7oDUoe+DcoDY+qOPwgg==}
+    peerDependencies:
+      '@tanstack/react-query': ^4.3.8
+      '@trpc/client': 10.0.0-rc.0
+      '@trpc/server': 10.0.0-rc.0
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@tanstack/react-query': 4.12.0_biqbaboplfbrettd7655fr4n2y
+      '@trpc/client': 10.0.0-rc.0_@trpc+server@10.0.0-rc.0
+      '@trpc/server': 10.0.0-rc.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@trpc/react/10.0.0-proxy-beta.20_g5gzjubgwrrg5bpeoejrg3ts5e:
