@@ -1,0 +1,83 @@
+import clsx from "clsx";
+import { Time } from "../../../server/trpc/router/vendo";
+import { formatTime } from "../../../utils/time";
+
+export type TimeDisplayProps = {
+  arrivalTime?: Time;
+  departureTime?: Time;
+};
+
+export default function TimeDisplay(props: TimeDisplayProps): JSX.Element {
+  const scheduledArrival = props.arrivalTime?.scheduledTime;
+  const actualArrival = props.arrivalTime?.time;
+
+  const scheduledDepart = props.departureTime?.scheduledTime;
+  const actualDepart = props.departureTime?.time;
+
+  return (
+    <div className={"flex h-full w-full flex-row justify-center align-middle"}>
+      {scheduledArrival && (
+        <InternalTimeDisplay
+          scheduledTime={scheduledArrival}
+          time={actualArrival}
+        />
+      )}
+      {scheduledDepart && (
+        <InternalTimeDisplay
+          scheduledTime={scheduledDepart}
+          time={actualDepart}
+        />
+      )}
+    </div>
+  );
+}
+
+function InternalTimeDisplay(props: {
+  scheduledTime: Date;
+  time?: Date;
+}): JSX.Element {
+  const isTooLate = props.time
+    ? props.scheduledTime.getTime() !== props.time.getTime()
+    : undefined;
+
+  const scheduledTime = new Date(props.scheduledTime.toString());
+  const time = props.time != null ? new Date(props.time.toString()) : undefined;
+
+  const diffMs = (time?.getTime() ?? 0) - scheduledTime.getTime();
+  const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+
+  return (
+    <div
+      className={clsx(
+        "m-auto flex w-full flex-col justify-center align-middle"
+      )}
+    >
+      <div className={clsx("m-auto flex flex-col")}>
+        <p
+          className={clsx(
+            isTooLate == null
+              ? "text-white"
+              : isTooLate
+              ? "text-sm text-white line-through"
+              : "text-white"
+          )}
+        >
+          {formatTime(scheduledTime)}
+        </p>
+        {isTooLate && <p className={"text-md text-red-600"}>(+{diffMins})</p>}
+      </div>
+      {time && (
+        <>
+          <div
+            className={clsx(
+              "m-auto text-lg",
+              isTooLate == null || isTooLate ? "text-red-600" : "text-green-500"
+            )}
+          >
+            {formatTime(time)}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
