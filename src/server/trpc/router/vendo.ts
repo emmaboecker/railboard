@@ -21,27 +21,15 @@ export const vendoRouter = router({
     .input(
       z.object({
         stationId: z.string(),
-        datetime: z.custom<Date>(),
+        date: z.string(),
+        time: z.string(),
         transportTypes: z.array(z.string()),
       })
     )
     .query(async ({ input }): Promise<StationBoardResponse> => {
       const body = {
-        anfragezeit: `${input.datetime
-          .getHours()
-          .toString()
-          .padStart(2, "0")}:${input.datetime
-          .getMinutes()
-          .toString()
-          .padStart(2, "0")}`,
-        datum: `${input.datetime.getFullYear().toString()}-${(
-          input.datetime.getMonth() + 1
-        )
-          .toString()
-          .padStart(2, "0")}-${input.datetime
-          .getDate()
-          .toString()
-          .padStart(2, "0")}`,
+        anfragezeit: input.time,
+        datum: input.date,
         ursprungsBahnhofId: input.stationId,
         verkehrsmittel: input.transportTypes,
       };
@@ -61,6 +49,8 @@ export const vendoRouter = router({
 
       const departure = await departureBoard(body);
       const arrival = await arrivalBoard(body);
+
+      console.log(body);
 
       const result: StationBoardResponse = {
         requestedStationId: stationInfo.data.station.id.toString(),

@@ -13,11 +13,17 @@ export default function StationBoard(): JSX.Element {
   const { data, isFetching } = trpc.vendo.stationBoard.useQuery(
     {
       stationId: station?.toString() ?? "",
-      datetime: date ?? new Date(),
+      time: `${date?.getHours().toString().padStart(2, "0")}:${date
+        ?.getMinutes()
+        .toString()
+        .padStart(2, "0")}`,
+      date: `${date?.getFullYear().toString()}-${((date?.getMonth() ?? 0) + 1)
+        .toString()
+        .padStart(2, "0")}-${date?.getDate().toString().padStart(2, "0")}`,
       transportTypes: [],
     },
     {
-      enabled: router.isReady && date !== null,
+      enabled: router.isReady && date != null,
       refetchOnMount: false,
     }
   );
