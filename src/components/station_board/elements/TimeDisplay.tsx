@@ -43,8 +43,8 @@ function InternalTimeDisplay(props: {
   const scheduledTime = new Date(props.scheduledTime.toString());
   const time = props.time != null ? new Date(props.time.toString()) : undefined;
 
-  const diffMs = (time?.getTime() ?? 0) - scheduledTime.getTime();
-  const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+  const diffSeconds = ((time?.getTime() ?? 0) - scheduledTime.getTime()) / 1000;
+  const diffMins = Math.floor(diffSeconds / 60);
 
   return (
     <div
