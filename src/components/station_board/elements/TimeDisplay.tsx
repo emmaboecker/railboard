@@ -64,14 +64,14 @@ function InternalTimeDisplay(props: {
         >
           {formatTime(scheduledTime)}
         </p>
-        {isTooLate && <p className={"text-md text-red-600"}>(+{diffMins})</p>}
+        {isTooLate && <p className={"text-md text-red-500"}>(+{diffMins})</p>}
       </div>
       {time && (
         <>
           <div
             className={clsx(
               "m-auto text-lg",
-              isTooLate == null || isTooLate ? "text-red-600" : "text-green-500"
+              isTooLate == null || isTooLate ? "text-red-500" : "text-green-500"
             )}
           >
             {formatTime(time)}
