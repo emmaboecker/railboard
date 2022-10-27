@@ -1,8 +1,8 @@
 import { useElementSize } from "@mantine/hooks";
 import { CSSProperties } from "react";
 import { FixedSizeList as List } from "react-window";
+import { StationBoardResponse } from "../../server/trpc/router/vendo";
 import StationBoardDisplayElement from "./StationBoardDisplayElement";
-import { StationBoardResponse } from "../../data/station_board";
 
 export type StationBoardDisplayContainerProps = {
   data: StationBoardResponse;

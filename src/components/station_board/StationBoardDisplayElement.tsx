@@ -1,8 +1,8 @@
+import { StationBoardTrain } from "../../server/trpc/router/vendo";
 import NameAndPlatformDisplay from "./elements/NameAndPlatformDisplay";
 import StationsDisplay from "./elements/StationsDisplay";
 import TimeDisplay from "./elements/TimeDisplay";
 import NoticesDisplay from "./elements/NoticesDisplay";
-import { StationBoardTrain } from "../../data/station_board";
 
 export type StationBoardDisplayElementProps = {
   train: StationBoardTrain;

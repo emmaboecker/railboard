@@ -1,4 +1,4 @@
-import { StationBoardTrain } from "../../../data/station_board";
+import { StationBoardTrain } from "../../../server/trpc/router/vendo";
 
 export type StationsDisplayProps = {
   trainData: StationBoardTrain;

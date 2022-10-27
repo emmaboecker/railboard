@@ -6,11 +6,9 @@ import {
 } from "@mantine/hooks";
 import { Dispatch, Fragment, SetStateAction, useState } from "react";
 import { Star } from "tabler-icons-react";
-import searchStation, {
-  StationSearchResult,
-} from "../../requests/vendo/stationSearch";
+import { StationSearchResult } from "../../requests/vendo/stationSearch";
 import Favourite from "../../utils/favourites";
-import useSWR from "swr";
+import { trpc } from "../../utils/trpc";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -32,11 +30,9 @@ export default function StationSearchBar(
   const [open, setOpen] = useState(false);
   const ref = useClickOutside(() => setOpen(false));
 
-  const { data } = useSWR(debouncedSearch, (key) =>
-    searchStation({
-      searchTerm: key,
-      locationTypes: [],
-    })
+  const { data, isFetching } = trpc.vendo.stationSearch.useQuery(
+    { term: debouncedSearch },
+    { enabled: debouncedSearch !== "" && open, refetchOnMount: false }
   );
 
   return (
@@ -97,7 +93,7 @@ export default function StationSearchBar(
             </div>
           ) : (
             <>
-              {!data ? (
+              {!data || isFetching ? (
                 <div className="flex h-32 w-full justify-center align-middle">
                   <p>Loading...</p>
                 </div>

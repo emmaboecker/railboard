@@ -1,6 +1,6 @@
 import clsx from "clsx";
+import { Time } from "../../../server/trpc/router/vendo";
 import { formatTime } from "../../../utils/time";
-import { Time } from "../../../data/station_board";
 
 export type TimeDisplayProps = {
   arrivalTime?: Time;
@@ -33,11 +33,11 @@ export default function TimeDisplay(props: TimeDisplayProps): JSX.Element {
 }
 
 function InternalTimeDisplay(props: {
-  scheduledTime: string;
-  time?: string;
+  scheduledTime: Date;
+  time?: Date;
 }): JSX.Element {
   const isTooLate = props.time
-    ? new Date(props.scheduledTime).getTime() !== new Date(props.time).getTime()
+    ? props.scheduledTime.getTime() !== props.time.getTime()
     : undefined;
 
   const scheduledTime = new Date(props.scheduledTime.toString());

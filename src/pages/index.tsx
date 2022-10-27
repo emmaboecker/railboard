@@ -1,14 +1,12 @@
-"use client";
-
-import useDetectKeyboardOpen from "use-detect-keyboard-open";
 import { Tab } from "@headlessui/react";
+import clsx from "clsx";
+import { MapPins, Train } from "tabler-icons-react";
+import useDetectKeyboardOpen from "use-detect-keyboard-open";
 import StationBoardPanel from "../components/home/StationBoardPanel";
 import TripSearchPanel from "../components/home/TripSearchPanel";
-import clsx from "clsx";
 import { TabSelection } from "../components/ui/TabSelection";
-import { MapPins, Train } from "tabler-icons-react";
 
-export default function HomePage() {
+export default function Home(): JSX.Element {
   const isKeyboardOpen = useDetectKeyboardOpen();
 
   return (

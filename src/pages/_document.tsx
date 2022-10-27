@@ -1,15 +1,10 @@
-import React from "react";
+import { Head, Html, Main, NextScript } from "next/document";
 
-import "../styles/globals.css";
-
-import "@fontsource/ubuntu";
-import "@fontsource/source-sans-pro";
-
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Document() {
   return (
     <>
-      <html lang="en">
-        <head>
+      <Html>
+        <Head>
           <meta property="og:type" content="website" />
           <meta property="og:title" content="Railboard" />
           <meta
@@ -20,9 +15,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <meta property="og:url" content="https://rail.stckoverflw.net" />
 
           <link rel="manifest" href="/manifest.json" />
-        </head>
-        <body className={"bg-zinc-900"}>{children}</body>
-      </html>
+        </Head>
+        <body className={"bg-zinc-900"}>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
     </>
   );
 }
