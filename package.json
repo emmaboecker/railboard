@@ -13,12 +13,6 @@
     "@fontsource/ubuntu": "^4.5.11",
     "@headlessui/react": "^1.7.3",
     "@mantine/hooks": "^5.5.5",
-    "@tanstack/react-query": "^4.10.0",
-    "@trpc/client": "10.0.0-rc.0",
-    "@trpc/next": "10.0.0-rc.0",
-    "@trpc/react": "10.0.0-proxy-beta.20",
-    "@trpc/server": "10.0.0-rc.0",
-    "@trpc/react-query": "10.0.0-rc.0",
     "add": "^2.0.6",
     "clsx": "^1.2.1",
     "dayjs": "^1.11.5",
@@ -32,9 +26,9 @@
     "react-virtualized-auto-sizer": "^1.0.7",
     "react-window": "^1.8.7",
     "superjson": "1.9.1",
+    "swr": "^1.3.0",
     "tabler-icons-react": "^1.55.0",
-    "use-detect-keyboard-open": "^0.2.0",
-    "zod": "^3.18.0"
+    "use-detect-keyboard-open": "^0.2.0"
   },
   "devDependencies": {
     "@tanstack/query-core": "^4.12.0",
