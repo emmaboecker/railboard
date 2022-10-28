@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import StationSearchBar from "../search/StationSearchBar";
 import { PageTitle } from "../ui/PageTitle";
 import clsx from "clsx";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function StationBoardPanel() {
   const [selectedStationId, setSelectedStationId] = useState<
@@ -10,6 +10,8 @@ export default function StationBoardPanel() {
   >(undefined);
 
   const [date, setDate] = useState(new Date());
+
+  const router = useRouter();
 
   useEffect(() => {
     console.log(date);
@@ -44,19 +46,28 @@ export default function StationBoardPanel() {
           </button>
         </div>
         <div className="h-16" />
-        <Link href={`/station/${selectedStationId}/${date.getTime()}`}>
-          <button
-            className={clsx(
-              "rounded-md p-2.5",
-              selectedStationId
-                ? "bg-violet-600/60 text-white"
-                : "bg-zinc-700/80 text-zinc-400"
-            )}
-            disabled={!selectedStationId}
-          >
-            {selectedStationId ? "View Station Board" : "Select a Station"}
-          </button>
-        </Link>
+        <button
+          className={clsx(
+            "rounded-md p-2.5",
+            selectedStationId
+              ? "bg-violet-600/60 text-white"
+              : "bg-zinc-700/80 text-zinc-400"
+          )}
+          disabled={!selectedStationId}
+          onClick={() => {
+            router
+              .push(
+                `/station/${selectedStationId}/${date.getTime()}`,
+                undefined,
+                {
+                  shallow: true,
+                }
+              )
+              .then(() => undefined);
+          }}
+        >
+          {selectedStationId ? "View Station Board" : "Select a Station"}
+        </button>
       </div>
     </>
   );
