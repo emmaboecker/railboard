@@ -19,7 +19,6 @@ specifiers:
   '@types/react-window': ^1.8.5
   '@typescript-eslint/eslint-plugin': ^5.33.0
   '@typescript-eslint/parser': ^5.33.0
-  add: ^2.0.6
   autoprefixer: ^10.4.7
   clsx: ^1.2.1
   dayjs: ^1.11.5
@@ -55,7 +54,6 @@ dependencies:
   '@trpc/react': 10.0.0-proxy-beta.20_g5gzjubgwrrg5bpeoejrg3ts5e
   '@trpc/react-query': 10.0.0-rc.0_g5gzjubgwrrg5bpeoejrg3ts5e
   '@trpc/server': 10.0.0-rc.0
-  add: 2.0.6
   clsx: 1.2.1
   dayjs: 1.11.5
   next: 13.0.0_biqbaboplfbrettd7655fr4n2y
@@ -1935,10 +1933,6 @@ packages:
     resolution: {integrity: sha512-QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==}
     engines: {node: '>=0.4.0'}
     hasBin: true
-
-  /add/2.0.6:
-    resolution: {integrity: sha512-j5QzrmsokwWWp6kUcJQySpbG+xfOBqqKnup3OIk1pz+kB/80SLorZ9V8zHFLO92Lcd+hbvq8bT+zOGoPkmBV0Q==}
-    dev: false
 
   /ajv-keywords/3.5.2_ajv@6.12.6:
     resolution: {integrity: sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==}
