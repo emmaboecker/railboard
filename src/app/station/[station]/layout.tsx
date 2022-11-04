@@ -6,7 +6,6 @@ export default async function Layout({
   params,
 }: {
   children?: React.ReactNode;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   params?: { station?: string };
 }) {
   const data = await getStationInfoData(params?.station ?? "8000105");
