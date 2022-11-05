@@ -1,3 +1,5 @@
+"use client";
+
 import { useElementSize } from "@mantine/hooks";
 import { CSSProperties } from "react";
 import { FixedSizeList as List } from "react-window";

@@ -1,9 +1,4 @@
-import {
-  arrivalBoard,
-  ArrivalBoardResult,
-  departureBoard,
-  DepartureBoardResult,
-} from "../requests/vendo/stationBoard";
+import { arrivalBoard, ArrivalBoardResult, departureBoard, DepartureBoardResult } from "../requests/vendo/stationBoard";
 
 export default async function getStationBoardData(
   stationId: string,

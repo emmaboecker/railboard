@@ -1,9 +1,9 @@
-import StationBoard from "./StationBoard";
 import getStationBoardData from "../../../../data/station_board";
+import StationBoardDisplayContainer from "../../../../components/station_board/StationBoardDisplayContainer";
 
 export default async function Page({
-  params,
-}: {
+                                     params
+                                   }: {
   params: { station: string; datetime: string };
 }) {
   const data = await getStationBoardData(
@@ -11,5 +11,11 @@ export default async function Page({
     parseInt(params.datetime)
   );
 
-  return <StationBoard data={data} />;
+  return (
+    <>
+      <div className={"h-screen w-screen pt-14"}>
+        <StationBoardDisplayContainer data={data} />
+      </div>
+    </>
+  );
 }
