@@ -18,21 +18,19 @@ export type StationSearchResult = {
   weight: number;
 };
 
+const getBaseUrl = () => {
+  if (typeof window !== "undefined") return ""; // browser should use relative url
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; // SSR should use vercel url
+  return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
+};
+
 export default async function searchStation(
   body: StationSearchRequest
 ): Promise<StationSearchResponse> {
-  const response = await fetch(
-    "https://app.vendo.noncd.db.de/mob/location/search",
-    {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/x.db.vendo.mob.location.v3+json",
-        Accept: "application/x.db.vendo.mob.location.v3+json",
-        "X-Correlation-ID": "ratio",
-      },
-    }
-  );
+  const response = await fetch(`${getBaseUrl()}/api/vendo/search`, {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
 
   return response.json();
 }

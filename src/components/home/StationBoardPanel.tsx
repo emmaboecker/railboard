@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import { useState } from "react";
 import StationSearchBar from "../search/StationSearchBar";
 import { PageTitle } from "../ui/PageTitle";
 import clsx from "clsx";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function StationBoardPanel() {
   const [selectedStationId, setSelectedStationId] = useState<
@@ -12,10 +14,6 @@ export default function StationBoardPanel() {
   const [date, setDate] = useState(new Date());
 
   const router = useRouter();
-
-  useEffect(() => {
-    console.log(date);
-  }, [date]);
 
   return (
     <>
@@ -53,18 +51,10 @@ export default function StationBoardPanel() {
               ? "bg-violet-600/60 text-white"
               : "bg-zinc-700/80 text-zinc-400"
           )}
+          onClick={() =>
+            router.push(`/station/${selectedStationId}/${date.getTime()}`)
+          }
           disabled={!selectedStationId}
-          onClick={() => {
-            router
-              .push(
-                `/station/${selectedStationId}/${date.getTime()}`,
-                undefined,
-                {
-                  shallow: true,
-                }
-              )
-              .then(() => undefined);
-          }}
         >
           {selectedStationId ? "View Station Board" : "Select a Station"}
         </button>

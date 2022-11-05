@@ -55,6 +55,9 @@ export async function departureBoard(
         Accept: "application/x.db.vendo.mob.bahnhofstafeln.v1+json",
         "X-Correlation-ID": "ratio",
       },
+      next: {
+        revalidate: 30,
+      },
     }
   );
 
@@ -73,6 +76,9 @@ export async function arrivalBoard(
         "Content-Type": "application/x.db.vendo.mob.bahnhofstafeln.v1+json",
         Accept: "application/x.db.vendo.mob.bahnhofstafeln.v1+json",
         "X-Correlation-ID": "ratio",
+      },
+      next: {
+        revalidate: 30,
       },
     }
   );
