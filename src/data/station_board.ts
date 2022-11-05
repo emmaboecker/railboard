@@ -1,34 +1,35 @@
 import { arrivalBoard, ArrivalBoardResult, departureBoard, DepartureBoardResult } from "../requests/vendo/stationBoard";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc"
+import timezone from "dayjs/plugin/timezone"
 
 export default async function getStationBoardData(
   stationId: string,
   datetimeParam: number
 ) {
+  dayjs.extend(utc)
+  dayjs.extend(timezone)
+
   const datetime = new Date(datetimeParam);
 
-  const time = `${datetime.getHours().toString().padStart(2, "0")}:${datetime
-    .getMinutes()
-    .toString()
-    .padStart(2, "0")}`;
+  const germanDate = dayjs(datetime).tz("Europe/Berlin");
 
-  const date = `${datetime.getFullYear().toString()}-${(
-    (datetime.getMonth() ?? 0) + 1
-  )
-    .toString()
-    .padStart(2, "0")}-${datetime.getDate().toString().padStart(2, "0")}`;
+  const time = germanDate.format("HH:mm");
+
+  const date = germanDate.format("YYYY-MM-DD");
 
   const body = {
     anfragezeit: time,
     datum: date,
     ursprungsBahnhofId: stationId,
-    verkehrsmittel: [],
+    verkehrsmittel: []
   };
 
   const departure = await departureBoard(body);
   const arrival = await arrivalBoard(body);
 
   const result: StationBoardResponse = {
-    trains: [],
+    trains: []
   };
 
   const map = new Map<string, (DepartureBoardResult | ArrivalBoardResult)[]>();
@@ -51,10 +52,10 @@ export default async function getStationBoardData(
         ? "ankunftsDatum" in first
           ? (first as ArrivalBoardResult)
           : second != null
-          ? "ankunftsDatum" in second
-            ? (second as ArrivalBoardResult)
+            ? "ankunftsDatum" in second
+              ? (second as ArrivalBoardResult)
+              : undefined
             : undefined
-          : undefined
         : undefined;
 
     const departure =
@@ -62,10 +63,10 @@ export default async function getStationBoardData(
         ? "abgangsDatum" in first
           ? (first as DepartureBoardResult)
           : second != null
-          ? "abgangsDatum" in second
-            ? (second as DepartureBoardResult)
+            ? "abgangsDatum" in second
+              ? (second as DepartureBoardResult)
+              : undefined
             : undefined
-          : undefined
         : undefined;
 
     if (arrival == null && departure == null) {
@@ -86,7 +87,7 @@ export default async function getStationBoardData(
       notices:
         departure != null
           ? departure.echtzeitNotizen.map((notice) => notice.text)
-          : arrival?.echtzeitNotizen.map((notice) => notice.text) ?? [],
+          : arrival?.echtzeitNotizen.map((notice) => notice.text) ?? []
     };
 
     if (arrival != null) {
@@ -94,8 +95,8 @@ export default async function getStationBoardData(
         origin: arrival.abgangsOrt,
         time: {
           scheduledTime: arrival.ankunftsDatum,
-          time: arrival.ezAnkunftsDatum,
-        },
+          time: arrival.ezAnkunftsDatum
+        }
       };
     }
     if (departure != null) {
@@ -103,8 +104,8 @@ export default async function getStationBoardData(
         destination: departure.richtung,
         time: {
           scheduledTime: departure.abgangsDatum,
-          time: departure.ezAbgangsDatum,
-        },
+          time: departure.ezAbgangsDatum
+        }
       };
     }
 
@@ -116,12 +117,12 @@ export default async function getStationBoardData(
       a.departure != null
         ? new Date(a.departure.time.scheduledTime).getTime()
         : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          new Date(a.arrival!.time.scheduledTime).getTime();
+        new Date(a.arrival!.time.scheduledTime).getTime();
     const bTime =
       b.departure != null
         ? new Date(b.departure.time.scheduledTime).getTime()
         : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          new Date(b.arrival!.time.scheduledTime).getTime();
+        new Date(b.arrival!.time.scheduledTime).getTime();
 
     return aTime - bTime;
   });
