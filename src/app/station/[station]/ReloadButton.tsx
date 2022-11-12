@@ -11,7 +11,7 @@ export default function ReloadButton(props: {stationId: string, className: strin
       className={`bg-violet-600/50 p-2.5 rounded-md ${props.className}`}
       onClick={() => {
         const date = new Date()
-        router.push(`/station/${props.stationId}/${date.getTime()}`)
+        router.replace(`/station/${props.stationId}/${date.getTime()}`)
       }}
     >
       <div className={"flex flex-row gap-2 align-middle"}>
