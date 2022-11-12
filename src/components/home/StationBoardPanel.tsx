@@ -7,13 +7,13 @@ import clsx from "clsx";
 import { useRouter } from "next/navigation";
 
 export default function StationBoardPanel() {
-  const [selectedStationId, setSelectedStationId] = useState<
-    string | undefined
-  >(undefined);
+  const [selectedStationId, setSelectedStationId] = useState<string | undefined>(undefined);
 
   const [date, setDate] = useState(new Date());
 
   const router = useRouter();
+
+  const [redirecting, setRedirecting] = useState(false);
 
   return (
     <>
@@ -48,15 +48,16 @@ export default function StationBoardPanel() {
           className={clsx(
             "rounded-md p-2.5",
             selectedStationId
-              ? "bg-violet-600/60 text-white"
+              ? (redirecting ? "bg-violet-600/20 text-white" : "bg-violet-600/60 text-white")
               : "bg-zinc-700/80 text-zinc-400"
           )}
-          onClick={() =>
-            router.push(`/station/${selectedStationId}/${date.getTime()}`)
-          }
-          disabled={!selectedStationId}
+          onClick={() => {
+            setRedirecting(true);
+            router.push(`/station/${selectedStationId}/${date.getTime()}`);
+          }}
+          disabled={!selectedStationId || redirecting}
         >
-          {selectedStationId ? "View Station Board" : "Select a Station"}
+          {selectedStationId ? (redirecting ? "Loading stationboard" : "View Station Board") : "Select a Station"}
         </button>
       </div>
     </>
