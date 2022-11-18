@@ -91,7 +91,7 @@ export default function StationSearchBar(
                 </div>
               ) : (
                 <p className="text-sm text-gray-400">
-                  You don&apos;t have any favourites
+                  Du hast keine Favoriten
                 </p>
               )}
             </div>
@@ -99,7 +99,7 @@ export default function StationSearchBar(
             <>
               {!data ? (
                 <div className="flex h-32 w-full justify-center align-middle">
-                  <p>Loading...</p>
+                  <p>Lädt...</p>
                 </div>
               ) : (
                 <div className="flex w-full flex-col">
