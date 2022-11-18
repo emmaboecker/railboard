@@ -9,7 +9,7 @@ export default function NoticeDisplay(props: {text: string}) {
 
   return (
     <button
-      className={clsx("flex flex-row gap-2 m-auto mr-5", !clicked && "w-full truncate")}
+      className={clsx("flex flex-row gap-2 m-auto mr-5 ml-0", !clicked && "w-full truncate")}
       onClick={() => {
         setClicked(prevState => !prevState)
       }}

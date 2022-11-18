@@ -15,10 +15,10 @@ export default function StationsDisplay(
       return (
         <>
           <div className={"flex truncate font-sans text-zinc-400"}>
-            From: <p className={"ml-2 truncate text-white"}>{arrival.origin}</p>
+            Von: <p className={"ml-2 truncate text-white"}>{arrival.origin}</p>
           </div>
           <div className={"flex truncate font-sans text-zinc-400"}>
-            To:{" "}
+            Nach:
             <p className={"ml-2 truncate text-white"}>
               {departure.destination}
             </p>
@@ -30,7 +30,7 @@ export default function StationsDisplay(
     if (arrival && !departure) {
       return (
         <div className={"flex truncate font-sans text-zinc-400"}>
-          From: <p className={"ml-2 truncate text-white"}>{arrival.origin}</p>
+          Von: <p className={"ml-2 truncate text-white"}>{arrival.origin}</p>
         </div>
       );
     }
@@ -38,7 +38,7 @@ export default function StationsDisplay(
     if (!arrival && departure) {
       return (
         <div className={"flex truncate font-sans text-zinc-400"}>
-          To:{" "}
+          Nach:
           <p className={"ml-2 truncate text-white"}>{departure.destination}</p>
         </div>
       );

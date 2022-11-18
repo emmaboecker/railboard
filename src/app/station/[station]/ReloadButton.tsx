@@ -16,7 +16,7 @@ export default function ReloadButton(props: {stationId: string, className: strin
     >
       <div className={"flex flex-row gap-2 align-middle"}>
         <Reload size={22} className={"m-auto"} />
-        <div className={"m-auto hidden sm:block"}>Reload</div>
+        <div className={"m-auto hidden sm:block"}>Aktualisieren</div>
       </div>
     </button>
   );

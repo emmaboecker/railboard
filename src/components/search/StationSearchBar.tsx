@@ -52,7 +52,7 @@ export default function StationSearchBar(
           setOpen(true);
         }}
         value={search}
-        placeholder={"Search a Station"}
+        placeholder={"Suche eine Station"}
       />
       <Transition
         show={open}
@@ -72,7 +72,7 @@ export default function StationSearchBar(
         >
           {search == "" ? (
             <div className="flex w-full flex-col p-1">
-              <p className="text-lg font-semibold text-white">Favourites</p>
+              <p className="text-lg font-semibold text-white">Favoriten</p>
               {favourites.length > 0 ? (
                 <div className="flex w-full flex-col">
                   {favourites.map((favourite) => (

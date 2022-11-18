@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: { journey: string } }):
               {data.normalName}
             </div>
             <div className={"my-auto text-sm uppercase text-zinc-400"}>
-              to
+              nach
             </div>
             <div className={"my-auto truncate"}>
               {data.direction}
@@ -34,13 +34,13 @@ export default async function Page({ params }: { params: { journey: string } }):
         <div className={"flex align-middle pt-14 w-full"}>
           <div className={"flex flex-col sm:flex-row gap-0 sm:gap-1 sm:m-auto text-lg font-bold p-2 text-zinc-400"}>
             <span className={"text-white"}>{data.longName}</span>
-            Operated by
+            betrieben durch
             <span className={"text-white"}>
               {data.attributeNotices.find(value => value.key === "OP")?.text}
             </span>
           </div>
         </div>
-        <div className={"flex flex-col gap-1 p-2 mb-5"}>
+        <div className={"flex flex-col gap-1 p-2 mb-5 w-full"}>
           {data.himNotices.map(notice => (
             <NoticeDisplay text={notice.text} key={notice.text} />
           ))}
@@ -98,7 +98,7 @@ export default async function Page({ params }: { params: { journey: string } }):
                 {stop.platform != null && (
                   <div className={"absolute right-0 flex flex-row p-1 z-0 bg-zinc-700 rounded-md mr-2"}>
                     <div className={"flex flex-row m-auto"}>
-                      <p className={""}>Pl.</p>
+                      <p className={""}>Gl.</p>
                       <div
                         className={clsx(
                           "my-auto pl-1",

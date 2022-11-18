@@ -40,7 +40,7 @@ export default function StationBoardPanel() {
               setDate(new Date());
             }}
           >
-            now
+            jetzt
           </button>
         </div>
         <div className="h-16" />
@@ -57,7 +57,7 @@ export default function StationBoardPanel() {
           }}
           disabled={!selectedStationId || redirecting}
         >
-          {selectedStationId ? (redirecting ? "Loading stationboard" : "View Station Board") : "Select a Station"}
+          {selectedStationId ? (redirecting ? "Lade Station Board" : "Station Board anzeigen") : "Wähle eine Station aus"}
         </button>
       </div>
     </>
