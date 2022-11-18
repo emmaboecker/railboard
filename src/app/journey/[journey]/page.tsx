@@ -33,7 +33,7 @@ export default async function Page({ params }: { params: { journey: string } }):
         </div>
         <div className={"flex align-middle pt-14 w-full"}>
           <div className={"flex flex-col sm:flex-row gap-0 sm:gap-1 sm:m-auto text-lg font-bold p-2 text-zinc-400"}>
-            <span className={"text-white"}>{data.longName}</span>
+            <span className={"text-white"}>{data.normalName} {data.productType === "RB" && `(${data.vehicleNumber})`}</span>
             betrieben durch
             <span className={"text-white"}>
               {data.attributeNotices.find(value => value.key === "OP")?.text}
