@@ -26,6 +26,7 @@ specifiers:
   react: 18.2.0
   react-datepicker: ^4.8.0
   react-dom: 18.2.0
+  react-icons: ^4.6.0
   react-loader-spinner: ^5.3.4
   react-virtualized-auto-sizer: ^1.0.7
   react-window: ^1.8.7
@@ -48,6 +49,7 @@ dependencies:
   react: 18.2.0
   react-datepicker: 4.8.0_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
+  react-icons: 4.6.0_react@18.2.0
   react-loader-spinner: 5.3.4_biqbaboplfbrettd7655fr4n2y
   react-virtualized-auto-sizer: 1.0.7_biqbaboplfbrettd7655fr4n2y
   react-window: 1.8.7_biqbaboplfbrettd7655fr4n2y
@@ -3871,6 +3873,14 @@ packages:
 
   /react-fast-compare/3.2.0:
     resolution: {integrity: sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==}
+    dev: false
+
+  /react-icons/4.6.0_react@18.2.0:
+    resolution: {integrity: sha512-rR/L9m9340yO8yv1QT1QurxWQvWpbNHqVX0fzMln2HEb9TEIrQRGsqiNFQfiv9/JEUbyHmHPlNTB2LWm2Ttz0g==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is/16.13.1:

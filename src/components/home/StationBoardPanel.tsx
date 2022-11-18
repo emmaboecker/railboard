@@ -35,7 +35,7 @@ export default function StationBoardPanel() {
           />
           <div className={"w-5"} />
           <button
-            className={"w-32 rounded-md bg-violet-600/60 p-2.5 text-white"}
+            className={"w-32 rounded-md bg-violet-600/60 hover:bg-violet-600/70 transition-all duration-75 p-2.5 text-white"}
             onClick={() => {
               setDate(new Date());
             }}
@@ -48,7 +48,7 @@ export default function StationBoardPanel() {
           className={clsx(
             "rounded-md p-2.5",
             selectedStationId
-              ? (redirecting ? "bg-violet-600/20 text-white" : "bg-violet-600/60 text-white")
+              ? (redirecting ? "bg-violet-600/20 text-white" : "bg-violet-600/60 hover:bg-violet-600/70 transition-all duration-75 text-white")
               : "bg-zinc-700/80 text-zinc-400"
           )}
           onClick={() => {

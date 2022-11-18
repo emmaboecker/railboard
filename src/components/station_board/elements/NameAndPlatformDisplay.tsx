@@ -24,21 +24,23 @@ export default function NameAndPlatformDisplay(
         {props.trainData.name}
       </div>
       {props.trainData.scheduledPlatform != null && (
-        <div className={"absolute right-0 flex flex-row"}>
-          <p className={"m-auto"}>Pl.</p>
-          <div
-            className={clsx(
-              "my-auto pl-1",
-              isDifferentPlatform === true && "text-red-500 line-through"
+        <div className={"absolute right-0 flex flex-row bg-zinc-700 rounded-md"}>
+          <div className={"flex flex-row p-1"}>
+            <p className={"m-auto"}>Pl.</p>
+            <div
+              className={clsx(
+                "my-auto pl-1",
+                isDifferentPlatform === true && "text-red-500 line-through"
+              )}
+            >
+              {props.trainData.scheduledPlatform}
+            </div>
+            {isDifferentPlatform === true && (
+              <>
+                <div className={"my-auto pl-1"}>{props.trainData.platform}</div>
+              </>
             )}
-          >
-            {props.trainData.scheduledPlatform}
           </div>
-          {isDifferentPlatform === true && (
-            <>
-              <div className={"my-auto pl-1"}>{props.trainData.platform}</div>
-            </>
-          )}
         </div>
       )}
     </div>

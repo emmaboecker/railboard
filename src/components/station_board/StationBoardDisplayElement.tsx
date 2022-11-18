@@ -12,19 +12,19 @@ export default function StationBoardDisplayElement(
   props: StationBoardDisplayElementProps
 ): JSX.Element {
   return (
-    <div className="flex h-full w-full flex-row ">
-      <div className={"h-full w-[20%] min-w-[100px] max-w-[150px]"}>
+    <div className="flex h-full w-full flex-row">
+      <div className={"h-full w-full min-w-[100px] max-w-[120px]"}>
         <TimeDisplay
           arrivalTime={props.train.arrival?.time}
           departureTime={props.train.departure?.time}
         />
       </div>
-      <div className="flex w-full flex-col truncate pr-4 align-middle">
+      <div className="flex w-full flex-col truncate pr-1 align-middle justify-start">
         <div className="my-auto w-full">
           <NameAndPlatformDisplay trainData={props.train} />
         </div>
         {props.train.notices.length > 0 && (
-          <div className="my-auto">
+          <div className="my-auto ml-0 w-full">
             <NoticesDisplay notices={props.train.notices} />
           </div>
         )}
