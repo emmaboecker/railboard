@@ -15,8 +15,8 @@ export default async function Layout({ children, params }: {
           "fixed flex h-14 w-full border-b-4 border-b-zinc-700 bg-zinc-800 align-middle"
         }
       >
-        <div className={"absolute flex h-full px-2 left-0"}>
-          <GoBackButton className={"my-auto"} />
+        <div className={"absolute flex h-full ml-3 left-0"}>
+            <GoBackButton className={"my-[9px]"} />
         </div>
         <div className={"my-auto sm:m-auto ml-3 text-lg font-semibold"}>
           <Suspense fallback={""}>

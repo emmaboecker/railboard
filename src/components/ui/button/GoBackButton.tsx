@@ -7,7 +7,7 @@ import Button from "../../../components/ui/button/Button";
 export default function GoBackButton(props: {className?: string}) {
   return (
     <Button onClick={() => window.history.back()} {...props}>
-      <ImArrowLeft2 className={"m-auto"} />
+      <ImArrowLeft2 size={18} className={"m-auto"} />
     </Button>
   )
 }
