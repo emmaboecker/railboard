@@ -18,7 +18,7 @@ export default async function Layout({ children, params }: {
         <div className={"absolute flex h-full ml-3 left-0"}>
             <GoBackButton className={"my-[9px]"} />
         </div>
-        <div className={"my-auto sm:m-auto ml-3 text-lg font-semibold"}>
+        <div className={"my-auto sm:m-auto ml-14 text-lg font-semibold"}>
           <Suspense fallback={""}>
             <StationName stationId={params?.station ?? "8000105"} />
           </Suspense>
