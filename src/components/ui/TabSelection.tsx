@@ -12,7 +12,7 @@ export function TabSelection(props: {
         clsx(
           "w-full rounded-t-lg py-2.5 text-sm font-medium leading-5 transition-all",
           "ring-white focus:outline-none",
-          selected && "bg-violet-800"
+          selected && "bg-violet-700"
         )
       }
       disabled={props.disabled ?? false}

@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import StationSearchBar from "../search/StationSearchBar";
-import { PageTitle } from "../ui/PageTitle";
-import clsx from "clsx";
 import { useRouter } from "next/navigation";
+import { PageTitle } from "../components/ui/PageTitle";
+import StationSearchBar from "../components/search/StationSearchBar";
+import Button from "../components/ui/button/Button";
 
 export default function StationBoardPanel() {
   const [selectedStationId, setSelectedStationId] = useState<string | undefined>(undefined);
@@ -34,23 +34,18 @@ export default function StationBoardPanel() {
             className="w-full rounded-md bg-zinc-800 p-2 text-white outline-none"
           />
           <div className={"w-5"} />
-          <button
-            className={"w-32 rounded-md bg-violet-600/60 hover:bg-violet-600/70 transition-all duration-75 p-2.5 text-white"}
+          <Button
+            className={"w-32"}
             onClick={() => {
               setDate(new Date());
             }}
           >
             jetzt
-          </button>
+          </Button>
         </div>
         <div className="h-16" />
-        <button
-          className={clsx(
-            "rounded-md p-2.5",
-            selectedStationId
-              ? (redirecting ? "bg-violet-600/20 text-white" : "bg-violet-600/60 hover:bg-violet-600/70 transition-all duration-75 text-white")
-              : "bg-zinc-700/80 text-zinc-400"
-          )}
+        <Button
+          className={"p-3"}
           onClick={() => {
             setRedirecting(true);
             router.push(`/station/${selectedStationId}/${date.getTime()}`);
@@ -58,7 +53,7 @@ export default function StationBoardPanel() {
           disabled={!selectedStationId || redirecting}
         >
           {selectedStationId ? (redirecting ? "Lade Station Board" : "Station Board anzeigen") : "Wähle eine Station aus"}
-        </button>
+        </Button>
       </div>
     </>
   );

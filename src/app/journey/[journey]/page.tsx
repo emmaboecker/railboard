@@ -1,9 +1,9 @@
 import journeyDetails from "../../../requests/vendo/journeyDetails";
 import React from "react";
-import GoBackButton from "./GoBackButton";
 import StopTimeDisplay from "./StopTimeDisplay";
 import clsx from "clsx";
 import NoticeDisplay from "./NoticeDisplay";
+import GoBackButton from "../../../components/ui/button/GoBackButton";
 
 export default async function Page({ params }: { params: { journey: string } }): Promise<JSX.Element> {
   const data = await journeyDetails(params.journey);
@@ -33,11 +33,16 @@ export default async function Page({ params }: { params: { journey: string } }):
         </div>
         <div className={"flex align-middle pt-14 w-full"}>
           <div className={"flex flex-col sm:flex-row gap-0 sm:gap-1 sm:m-auto text-lg font-bold p-2 text-zinc-400"}>
-            <span className={"text-white"}>{data.normalName} {data.productType === "RB" && `(${data.vehicleNumber})`}</span>
-            betrieben durch
-            <span className={"text-white"}>
+            <span
+              className={"text-white"}>{data.normalName} {data.productType === "RB" && `(${data.vehicleNumber})`}</span>
+            {data.attributeNotices.find(value => value.key === "OP") && (
+              <>
+                betrieben durch
+                <span className={"text-white"}>
               {data.attributeNotices.find(value => value.key === "OP")?.text}
             </span>
+              </>
+            )}
           </div>
         </div>
         <div className={"flex flex-col gap-1 p-2 mb-5 w-full"}>

@@ -2,22 +2,23 @@
 
 import { useRouter } from "next/navigation";
 import { Reload } from "tabler-icons-react";
+import Button from "../../../components/ui/button/Button";
 
 export default function ReloadButton(props: {stationId: string, className: string}) {
   const router = useRouter();
 
   return (
-    <button
-      className={`bg-violet-600/50 p-2.5 rounded-md ${props.className}`}
+    <Button
+      className={props.className}
       onClick={() => {
         const date = new Date()
         router.replace(`/station/${props.stationId}/${date.getTime()}`)
       }}
     >
       <div className={"flex flex-row gap-2 align-middle"}>
-        <Reload size={22} className={"m-auto"} />
+        <Reload size={20} className={"m-auto"} />
         <div className={"m-auto hidden sm:block"}>Aktualisieren</div>
       </div>
-    </button>
+    </Button>
   );
 }

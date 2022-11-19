@@ -2,11 +2,11 @@
 
 import useDetectKeyboardOpen from "use-detect-keyboard-open";
 import { Tab } from "@headlessui/react";
-import StationBoardPanel from "../components/home/StationBoardPanel";
-import TripSearchPanel from "../components/home/TripSearchPanel";
 import clsx from "clsx";
 import { TabSelection } from "../components/ui/TabSelection";
 import { MapPins, Train } from "tabler-icons-react";
+import StationBoardPanel from "./StationBoardPanel";
+import TripSearchPanel from "./TripSearchPanel";
 
 export default function HomePage() {
   const isKeyboardOpen = useDetectKeyboardOpen();
