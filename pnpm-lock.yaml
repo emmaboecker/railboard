@@ -7,7 +7,7 @@ specifiers:
   '@mantine/hooks': ^5.5.5
   '@tanstack/query-core': ^4.12.0
   '@types/node': 18.0.0
-  '@types/react': 18.0.23
+  '@types/react': 18.0.25
   '@types/react-dom': 18.0.7
   '@types/react-virtualized-auto-sizer': ^1.0.1
   '@types/react-window': ^1.8.5
@@ -61,7 +61,7 @@ dependencies:
 devDependencies:
   '@tanstack/query-core': 4.12.0
   '@types/node': 18.0.0
-  '@types/react': 18.0.23
+  '@types/react': 18.0.25
   '@types/react-dom': 18.0.7
   '@types/react-virtualized-auto-sizer': 1.0.1
   '@types/react-window': 1.8.5
@@ -1656,23 +1656,23 @@ packages:
   /@types/react-dom/18.0.7:
     resolution: {integrity: sha512-HaXc+BbqAZE1RdsK3tC8SbkFy6UL2xF76lT9rQs5JkPrJg3rWA3Ou/Lhw3YJQzEDkBpmJ79nBsfnd05WrBd2QQ==}
     dependencies:
-      '@types/react': 18.0.23
+      '@types/react': 18.0.25
     dev: true
 
   /@types/react-virtualized-auto-sizer/1.0.1:
     resolution: {integrity: sha512-GH8sAnBEM5GV9LTeiz56r4ZhMOUSrP43tAQNSRVxNexDjcNKLCEtnxusAItg1owFUFE6k0NslV26gqVClVvong==}
     dependencies:
-      '@types/react': 18.0.23
+      '@types/react': 18.0.25
     dev: true
 
   /@types/react-window/1.8.5:
     resolution: {integrity: sha512-V9q3CvhC9Jk9bWBOysPGaWy/Z0lxYcTXLtLipkt2cnRj1JOSFNF7wqGpkScSXMgBwC+fnVRg/7shwgddBG5ICw==}
     dependencies:
-      '@types/react': 18.0.23
+      '@types/react': 18.0.25
     dev: true
 
-  /@types/react/18.0.23:
-    resolution: {integrity: sha512-R1wTULtCiJkudAN2DJGoYYySbGtOdzZyUWAACYinKdiQC8auxso4kLDUhQ7AJ2kh3F6A6z4v69U6tNY39hihVQ==}
+  /@types/react/18.0.25:
+    resolution: {integrity: sha512-xD6c0KDT4m7n9uD4ZHi02lzskaiqcBxf4zi+tXZY98a04wvc0hi/TcCPC2FOESZi51Nd7tlUeOJY8RofL799/g==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
