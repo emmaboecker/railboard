@@ -2,12 +2,12 @@ import { Transition } from "@headlessui/react";
 import {
   useClickOutside,
   useDebouncedValue,
-  useLocalStorage,
+  useLocalStorage
 } from "@mantine/hooks";
 import { Dispatch, Fragment, SetStateAction, useState } from "react";
 import { Star } from "tabler-icons-react";
 import searchStation, {
-  StationSearchResult,
+  StationSearchResult
 } from "../../requests/vendo/stationSearch";
 import Favourite from "../../utils/favourites";
 import useSWR from "swr";
@@ -26,7 +26,7 @@ export default function StationSearchBar(
 
   const [favourites, setFavourites] = useLocalStorage<Favourite[]>({
     key: "favourites",
-    defaultValue: [],
+    defaultValue: []
   });
 
   const [open, setOpen] = useState(false);
@@ -35,7 +35,7 @@ export default function StationSearchBar(
   const { data } = useSWR(debouncedSearch, (key) =>
     searchStation({
       searchTerm: key,
-      locationTypes: [],
+      locationTypes: []
     })
   );
 
@@ -162,8 +162,8 @@ function StationResultDisplay(props: StationResultDisplayProps): JSX.Element {
                 {
                   evaNr: props.station.evaNr,
                   name: props.station.name,
-                  locationId: props.station.locationId,
-                },
+                  locationId: props.station.locationId
+                }
               ])
             );
           }

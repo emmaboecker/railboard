@@ -5,8 +5,12 @@ import clsx from "clsx";
 import NoticeDisplay from "./NoticeDisplay";
 import GoBackButton from "../../../components/ui/button/GoBackButton";
 
+export const revalidate = 60;
+
 export default async function Page({ params }: { params: { journey: string } }): Promise<JSX.Element> {
   const data = await journeyDetails(params.journey);
+
+  console.log(data)
 
   return (
     <>
@@ -50,9 +54,6 @@ export default async function Page({ params }: { params: { journey: string } }):
             <NoticeDisplay text={notice.text} key={notice.text} />
           ))}
         </div>
-        {/*<div className={"pt-14 whitespace-pre"}>*/}
-        {/*  {JSON.stringify(data, null, "\t")}*/}
-        {/*</div>*/}
         <div className={"h-screen w-full"}>
           {data.stops.map(stop => {
             const scheduledPlatform = stop.platform;

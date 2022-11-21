@@ -76,16 +76,13 @@ type VendoResponse = {
 export default async function journeyDetails(id: string): Promise<JourneyDetails> {
 
   const rawResponse = await fetch(
-    `https://app.vendo.noncd.db.de/mob/zuglauf/${encodeURIComponent(id)}`,
+    `https://app.vendo.noncd.db.de/mob/zuglauf/${id}`,
     {
       method: "GET",
       headers: {
         "Content-Type": "application/x.db.vendo.mob.zuglauf.v1+json",
         "Accept": "application/x.db.vendo.mob.zuglauf.v1+json",
         "X-Correlation-ID": "ratio"
-      },
-      next: {
-        revalidate: 60
       }
     }
   );

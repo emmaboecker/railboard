@@ -1,6 +1,6 @@
 "use client";
 
-import { ImArrowLeft2 } from "react-icons/all";
+import { ImArrowLeft2 } from "react-icons/im";
 import React from "react";
 import Button from "../../../components/ui/button/Button";
 
