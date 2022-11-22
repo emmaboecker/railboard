@@ -10,6 +10,7 @@ import TransportTypeFilter, {
   transportTypes
 } from "../components/station_board/filter/TransportTypeFilter";
 import { useLocalStorage } from "@mantine/hooks";
+import RailboardInfo from "./RailboardInfo";
 
 export default function StationBoardPanel() {
   const [selectedStationId, setSelectedStationId] = useState<string | undefined>(undefined);
@@ -68,6 +69,8 @@ export default function StationBoardPanel() {
         >
           {selectedStationId ? (redirecting ? "Lade Station Board" : "Station Board anzeigen") : "Wähle eine Station aus"}
         </Button>
+        <div className="h-32" />
+        <RailboardInfo />
       </div>
     </>
   );

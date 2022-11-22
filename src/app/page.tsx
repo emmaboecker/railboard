@@ -21,7 +21,6 @@ export default function HomePage() {
           <TripSearchPanel />
         </Tab.Panel>
       </Tab.Panels>
-
       <div className="flex w-screen justify-center align-middle">
         <Tab.List
           className={clsx(
