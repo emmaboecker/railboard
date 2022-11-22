@@ -5,6 +5,11 @@ import { useRouter } from "next/navigation";
 import { PageTitle } from "../components/ui/PageTitle";
 import StationSearchBar from "../components/search/StationSearchBar";
 import Button from "../components/ui/button/Button";
+import TransportTypeFilter, {
+  TransportType,
+  transportTypes
+} from "../components/station_board/filter/TransportTypeFilter";
+import { useLocalStorage } from "@mantine/hooks";
 
 export default function StationBoardPanel() {
   const [selectedStationId, setSelectedStationId] = useState<string | undefined>(undefined);
@@ -15,15 +20,25 @@ export default function StationBoardPanel() {
 
   const [redirecting, setRedirecting] = useState(false);
 
+  const [currentTransportTypes, setTransportTypes] = useLocalStorage<TransportType[]>({
+    key: "transport-types",
+    defaultValue: transportTypes
+  });
+
   return (
     <>
       <div className="flex w-full flex-col justify-center text-center align-middle">
         <PageTitle title="Station Board" />
       </div>
       <div className="mt-8 flex w-screen flex-col justify-center px-6 align-middle md:w-[70vw] xl:w-[50vw]">
-        <StationSearchBar setSelectedStationId={setSelectedStationId} />
+        <div className={"flex flex-row gap-5"}>
+          <StationSearchBar setSelectedStationId={setSelectedStationId} />
+          <div className={"w-fit"}>
+            <TransportTypeFilter setTransportTypes={setTransportTypes} transportTypes={currentTransportTypes} />
+          </div>
+        </div>
         <div className="h-5" />
-        <div className="flex w-full flex-grow flex-row ">
+        <div className="flex w-full flex-grow flex-row gap-5">
           <input
             type={"datetime-local"}
             onChange={(event) => {
@@ -33,7 +48,6 @@ export default function StationBoardPanel() {
             value={formatDate(date)}
             className="w-full rounded-md bg-zinc-800 p-2 text-white outline-none"
           />
-          <div className={"w-5"} />
           <Button
             className={"w-32"}
             onClick={() => {

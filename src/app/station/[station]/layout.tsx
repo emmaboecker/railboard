@@ -3,6 +3,7 @@ import { getStationInfoData } from "../../../data/station_info";
 import { asyncComponent } from "../../../utils/async_component_fix";
 import ReloadButton from "./ReloadButton";
 import GoBackButton from "../../../components/ui/button/GoBackButton";
+import FilterButtonContainer from "./FilterButtonContainer";
 
 export default async function Layout({ children, params }: {
   children?: React.ReactNode;
@@ -23,8 +24,9 @@ export default async function Layout({ children, params }: {
             <StationName stationId={params?.station ?? "8000105"} />
           </Suspense>
         </div>
-        <div className={"absolute flex h-full px-2 right-0"}>
+        <div className={"absolute flex h-full px-2 right-0 gap-1"}>
           <ReloadButton stationId={params?.station ?? "8000105"} className={"my-auto text-sm"} />
+          <FilterButtonContainer />
         </div>
       </div>
       {children}

@@ -10,8 +10,6 @@ export const revalidate = 60;
 export default async function Page({ params }: { params: { journey: string } }): Promise<JSX.Element> {
   const data = await journeyDetails(params.journey);
 
-  console.log(data)
-
   return (
     <>
       <div className={"h-screen text-white"}>

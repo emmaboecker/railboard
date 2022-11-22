@@ -1,6 +1,6 @@
 "use client";
 
-import { IoIosInformationCircle } from "react-icons/all";
+import { IoIosInformationCircle } from "react-icons/io";
 import React, { useState } from "react";
 import clsx from "clsx";
 
