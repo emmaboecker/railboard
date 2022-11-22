@@ -5,10 +5,10 @@ import React from "react";
 
 export default function RailboardInfo() {
   return (
-    <div className={"flex flex-row w-full justify-center"}>
+    <div className={"flex flex-row w-full justify-center align-middle"}>
       <Link
         href={"https://github.com/StckOverflw/railboard"}
-        className={"flex flex-row gap-2 h-full align-middle p-2 hover:bg-zinc-800 transition-all duration-200 rounded-md"}
+        className={"flex flex-row gap-2 h-full align-middle p-2 hover:bg-zinc-800 transition-all duration-200 rounded-md my-auto"}
         target={"_blank"}
       >
         <FaGithub size={28} color={"white"} className={"m-auto"} />
