@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { formatTime } from "../../../utils/time";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -51,10 +50,10 @@ function InternalStopTimeDisplay(props: {
     ? new Date(props.scheduledTime).getTime() !== new Date(props.time).getTime()
     : undefined;
 
-  const scheduledTime = dayjs.tz(new Date(props.scheduledTime.toString()), "Europe/Berlin").toDate();
-  const time = props.time != null ? dayjs.tz(new Date(props.time.toString()), "Europe/Berlin").toDate() : undefined;
+  const scheduledTime = dayjs.tz(new Date(props.scheduledTime.toString()), "Europe/Berlin").tz("Europe/Berlin");
+  const time = props.time != null ? dayjs.tz(new Date(props.time.toString()), "Europe/Berlin").tz("Europe/Berlin") : undefined;
 
-  const diffSeconds = ((time?.getTime() ?? 0) - scheduledTime.getTime()) / 1000;
+  const diffSeconds = ((time?.unix() ?? 0) - scheduledTime.unix());
   const diffMins = Math.floor(diffSeconds / 60);
 
   return (
@@ -73,7 +72,7 @@ function InternalStopTimeDisplay(props: {
                 : "text-white"
           )}
         >
-          {formatTime(scheduledTime)}
+          {scheduledTime.format("HH:mm")}
         </p>
         {isTooLate && <p className={"text-md text-red-500"}>(+{diffMins})</p>}
       </div>
@@ -85,7 +84,7 @@ function InternalStopTimeDisplay(props: {
               isTooLate == null || isTooLate ? "text-red-500" : "text-green-500"
             )}
           >
-            {formatTime(time)}
+            {scheduledTime.format("HH:mm")}
           </div>
         </>
       )}
