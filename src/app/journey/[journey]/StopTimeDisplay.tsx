@@ -43,17 +43,24 @@ function InternalStopTimeDisplay(props: {
   scheduledTime: string;
   time?: string;
 }): JSX.Element {
-  dayjs.extend(utc)
-  dayjs.extend(timezone)
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
 
   const isTooLate = props.time
     ? new Date(props.scheduledTime).getTime() !== new Date(props.time).getTime()
     : undefined;
 
-  const scheduledTime = dayjs.tz(new Date(props.scheduledTime.toString()), "Europe/Berlin").tz("Europe/Berlin");
-  const time = props.time != null ? dayjs.tz(new Date(props.time.toString()), "Europe/Berlin").tz("Europe/Berlin") : undefined;
+  const scheduledTime = dayjs
+    .tz(new Date(props.scheduledTime.toString()), "Europe/Berlin")
+    .tz("Europe/Berlin");
+  const time =
+    props.time != null
+      ? dayjs
+          .tz(new Date(props.time.toString()), "Europe/Berlin")
+          .tz("Europe/Berlin")
+      : undefined;
 
-  const diffSeconds = ((time?.unix() ?? 0) - scheduledTime.unix());
+  const diffSeconds = (time?.unix() ?? 0) - scheduledTime.unix();
   const diffMins = Math.floor(diffSeconds / 60);
 
   return (
@@ -84,7 +91,7 @@ function InternalStopTimeDisplay(props: {
               isTooLate == null || isTooLate ? "text-red-500" : "text-green-500"
             )}
           >
-            {scheduledTime.format("HH:mm")}
+            {time.format("HH:mm")}
           </div>
         </>
       )}
