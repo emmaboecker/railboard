@@ -1,5 +1,8 @@
 import clsx from "clsx";
 import { formatTime } from "../../../utils/time";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 export type TimeDisplayProps = {
   arrivalTime?: {
@@ -41,12 +44,15 @@ function InternalStopTimeDisplay(props: {
   scheduledTime: string;
   time?: string;
 }): JSX.Element {
+  dayjs.extend(utc)
+  dayjs.extend(timezone)
+
   const isTooLate = props.time
     ? new Date(props.scheduledTime).getTime() !== new Date(props.time).getTime()
     : undefined;
 
-  const scheduledTime = new Date(props.scheduledTime.toString());
-  const time = props.time != null ? new Date(props.time.toString()) : undefined;
+  const scheduledTime = dayjs(new Date(props.scheduledTime.toString())).tz("Europe/Berlin").toDate();
+  const time = props.time != null ? dayjs(new Date(props.time.toString())).tz("Europe/Berlin").toDate() : undefined;
 
   const diffSeconds = ((time?.getTime() ?? 0) - scheduledTime.getTime()) / 1000;
   const diffMins = Math.floor(diffSeconds / 60);
