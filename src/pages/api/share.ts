@@ -32,7 +32,6 @@ export default async function handler(
   }
 
   const share = result.data;
-  share.type;
 
   const id = generateShareId();
   const shareData = {
@@ -41,7 +40,7 @@ export default async function handler(
   };
   await redis.setex(id, 60 * 60 * 24 * 30 /* one month */, shareData);
 
-  const baseUrl = getBaseUrl();
+  const baseUrl = getBaseUrl(true, req.headers.host);
 
   return res.status(200).json({
     url: `${baseUrl}/s/${id}`,

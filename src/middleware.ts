@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
         url = `/journey/${encodeURIComponent(result.data.journeyId)}`;
         break;
     }
-    const baseUrl = getBaseUrl();
+    const baseUrl = getBaseUrl(true, request.nextUrl.host);
     return NextResponse.redirect(`${baseUrl}${url}`);
   }
 }
