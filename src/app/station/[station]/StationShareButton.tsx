@@ -3,7 +3,6 @@
 import { useCallback } from "react";
 import ShareButton from "../../../components/ui/button/ShareButton";
 import { getStationInfoData } from "../../../data/station_info";
-import { getBaseUrl } from "../../../server/base-url";
 import { createShare } from "../../../utils/share";
 
 export default function StationShareButton({
@@ -27,7 +26,7 @@ export default function StationShareButton({
       ]);
       await navigator.share({
         url: share,
-        text: `${data.name} auf ${getBaseUrl(false)}`,
+        text: `${data.name} auf ${document.location.host}`,
       });
     })();
   }, [datetime, station]);

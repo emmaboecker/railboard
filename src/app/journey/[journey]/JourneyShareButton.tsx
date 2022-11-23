@@ -23,7 +23,7 @@ export default function JourneyShareButton({
       });
       await navigator.share({
         url: share,
-        text: `${journey.normalName} auf ${getBaseUrl(false)}`,
+        text: `${journey.normalName} auf ${document.location.host}`,
       });
     })();
   }, [journey.normalName, journeyId]);
