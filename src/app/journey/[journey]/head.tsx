@@ -8,12 +8,12 @@ export default async function Head({
   const data = await journeyDetails(params.journey);
   return (
     <>
-      <title>{`${data.normalName} - Journey | Railboard`}</title>
+      <title>{`${data.mitteltext} - Journey | Railboard`}</title>
       <meta property="og:type" content="website" />
-      <meta property="og:title" content={`${data.normalName} auf Railboard`} />
+      <meta property="og:title" content={`${data.mitteltext} auf Railboard`} />
       <meta
         property="og:description"
-        content={`Die aktuelle Reise des ${data.normalName} auf Railboard.`}
+        content={`Die aktuelle Reise des ${data.mitteltext} auf Railboard.`}
       />
       <meta property="og:site_name" content="Railboard" />
       <meta property="og:url" content="https://rail.stckoverflw.net" />

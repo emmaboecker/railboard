@@ -2,9 +2,8 @@
 
 import { useCallback } from "react";
 import ShareButton from "../../../components/ui/button/ShareButton";
-import { JourneyDetails } from "../../../requests/vendo/journeyDetails";
-import { getBaseUrl } from "../../../server/base-url";
 import { createShare } from "../../../utils/share";
+import { JourneyDetailsVendoResponse } from "../../../requests/vendo/journeyDetails";
 
 export default function JourneyShareButton({
   journeyId,
@@ -13,7 +12,7 @@ export default function JourneyShareButton({
 }: {
   journeyId: string;
   className?: string;
-  journey: JourneyDetails;
+  journey: JourneyDetailsVendoResponse;
 }) {
   const shareJourney = useCallback(() => {
     (async () => {
@@ -23,10 +22,10 @@ export default function JourneyShareButton({
       });
       await navigator.share({
         url: share,
-        text: `${journey.normalName} auf ${document.location.host}`,
+        text: `${journey.mitteltext} auf ${document.location.host}`,
       });
     })();
-  }, [journey.normalName, journeyId]);
+  }, [journey.mitteltext, journeyId]);
 
   return <ShareButton onClick={shareJourney} className={className} />;
 }

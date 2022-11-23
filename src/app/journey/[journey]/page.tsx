@@ -29,11 +29,11 @@ export default async function Page({
             }
           >
             <GoBackButton />
-            <div className={"my-auto "}>{data.normalName}</div>
+            <div className={"my-auto "}>{data.mitteltext}</div>
             <div className={"my-auto text-sm uppercase text-zinc-400"}>
               nach
             </div>
-            <div className={"my-auto truncate"}>{data.direction}</div>
+            <div className={"my-auto truncate"}>{data.richtung}</div>
           </div>
           <JourneyShareButton
             journey={data}
@@ -48,15 +48,15 @@ export default async function Page({
             }
           >
             <span className={"text-white"}>
-              {data.normalName}{" "}
-              {data.productType === "RB" && `(${data.vehicleNumber})`}
+              {data.mitteltext}{" "}
+              {data.produktGattung === "RB" && `(${data.verkehrsmittelNummer})`}
             </span>
-            {data.attributeNotices.find((value) => value.key === "OP") && (
+            {data.attributNotizen.find((value) => value.key === "OP") && (
               <>
                 betrieben durch
                 <span className={"text-white"}>
                   {
-                    data.attributeNotices.find((value) => value.key === "OP")
+                    data.attributNotizen.find((value) => value.key === "OP")
                       ?.text
                   }
                 </span>
@@ -65,21 +65,26 @@ export default async function Page({
           </div>
         </div>
         <div className={"mb-5 flex w-full flex-col gap-1 p-2"}>
-          {data.realtimeNotes.map((notice) => (
+          {data.echtzeitNotizen.map((notice) => (
             <NoticeDisplay text={notice.text} key={notice.text} color={"red"} />
           ))}
-          {data.himNotices.map((notice) => (
+          {data.himNotizen.map((notice) => (
             <NoticeDisplay
               text={notice.text}
               key={notice.text}
               color={"gray"}
             />
           ))}
+          <div className={"mt-2 flex flex-col text-zinc-300"}>
+            <h3 className={"text-lg font-semibold text-zinc-100"}>Fahrplan</h3>
+            <p>{data.fahrplan.regulaererFahrplan}</p>
+            <p>{data.fahrplan.tageOhneFahrt}</p>
+          </div>
         </div>
         <div className={"h-screen w-full"}>
-          {data.stops.map((stop) => {
-            const scheduledPlatform = stop.platform;
-            const platform = stop.realtimePlatform;
+          {data.halte.map((stop) => {
+            const scheduledPlatform = stop.gleis;
+            const platform = stop.ezGleis;
 
             const isDifferentPlatform =
               scheduledPlatform != null
@@ -91,21 +96,27 @@ export default async function Page({
             return (
               <div
                 className="flex min-h-[5.5rem] w-full flex-row border-t-[1px] border-zinc-600 p-2"
-                key={stop.station}
+                key={stop.ort}
               >
                 <div className={"w-full min-w-[100px] max-w-[120px]"}>
                   <StopTimeDisplay
-                    arrivalTime={stop.arrivalTime}
-                    departureTime={stop.departureTime}
+                    arrivalTime={{
+                      scheduled: stop.ankunftsDatum,
+                      realtime: stop.ezAnkunftsDatum,
+                    }}
+                    departureTime={{
+                      scheduled: stop.abgangsDatum,
+                      realtime: stop.ezAbgangsDatum,
+                    }}
                   />
                 </div>
                 <div className="flex w-full flex-col justify-start truncate pr-4 align-middle">
                   <div className={"mr-6 truncate text-lg font-bold"}>
-                    {stop.station}
+                    {stop.ort}
                   </div>
-                  {stop.attributeNotices.length > 0 && (
+                  {stop.attributNotizen.length > 0 && (
                     <>
-                      {stop.attributeNotices.map((notice) => (
+                      {stop.attributNotizen.map((notice) => (
                         <div
                           className={"truncate text-zinc-300"}
                           key={notice.text}
@@ -115,14 +126,14 @@ export default async function Page({
                       ))}
                     </>
                   )}
-                  {stop.serviceNotice && (
+                  {stop.serviceNotiz && (
                     <div className={"truncate text-red-500"}>
-                      {stop.serviceNotice.text}
+                      {stop.serviceNotiz.text}
                     </div>
                   )}
-                  {stop.realtimeNotices.length > 0 && (
+                  {stop.echtzeitNotizen.length > 0 && (
                     <>
-                      {stop.realtimeNotices.map((notice) => (
+                      {stop.echtzeitNotizen.map((notice) => (
                         <div
                           className={"truncate text-red-500"}
                           key={notice.text}
@@ -133,7 +144,7 @@ export default async function Page({
                     </>
                   )}
                 </div>
-                {stop.platform != null && (
+                {stop.gleis != null && (
                   <div
                     className={
                       "absolute right-0 z-0 mr-2 flex flex-row rounded-md bg-zinc-700 p-1"

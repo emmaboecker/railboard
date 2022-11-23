@@ -1,50 +1,16 @@
-export type JourneyDetails = {
-  stops: Stop[];
-  schedule: {
-    regularSchedule: string;
-    daysWithoutJourney: string;
-  };
-  normalName: string;
-  longName: string;
-  realtimeNotes: Text[];
-  himNotices: HimNotice[];
-  attributeNotices: Text[];
-  direction: string;
-  vehicleNumber: string;
-  productType: string;
-  dayOfJourney: string;
-};
-
-type HimNotice = {
+export type HimNotice = {
   text: string;
   priority: string;
   heading: string;
   lastUpdate: string;
 };
 
-type Text = {
+export type Text = {
   text: string;
   key?: string;
 };
 
-type Stop = {
-  arrivalTime: {
-    scheduled?: string;
-    realtime?: string;
-  };
-  departureTime: {
-    scheduled?: string;
-    realtime?: string;
-  };
-  station: string;
-  platform?: string;
-  realtimePlatform?: string;
-  realtimeNotices: Text[];
-  himNotices: HimNotice[];
-  attributeNotices: Text[];
-  serviceNotice?: { text: string; key: string };
-};
-type VendoResponse = {
+export type JourneyDetailsVendoResponse = {
   fahrplan: {
     regulaererFahrplan: string;
     tageOhneFahrt: string;
@@ -77,7 +43,7 @@ type VendoResponse = {
 
 export default async function journeyDetails(
   id: string
-): Promise<JourneyDetails> {
+): Promise<JourneyDetailsVendoResponse> {
   const rawResponse = await fetch(
     `https://app.vendo.noncd.db.de/mob/zuglauf/${id}`,
     {
@@ -90,40 +56,5 @@ export default async function journeyDetails(
     }
   );
 
-  const response: VendoResponse = await rawResponse.json();
-
-  return {
-    stops: response.halte.map((value) => {
-      return {
-        departureTime: {
-          scheduled: value.abgangsDatum,
-          realtime: value.ezAbgangsDatum,
-        },
-        arrivalTime: {
-          scheduled: value.ankunftsDatum,
-          realtime: value.ezAnkunftsDatum,
-        },
-        station: value.ort,
-        platform: value.gleis,
-        realtimePlatform: value.ezGleis,
-        attributeNotices: value.attributNotizen,
-        realtimeNotices: value.echtzeitNotizen,
-        himNotices: value.himNotizen,
-        serviceNotice: value.serviceNotiz,
-      };
-    }),
-    schedule: {
-      regularSchedule: response.fahrplan.regulaererFahrplan,
-      daysWithoutJourney: response.fahrplan.tageOhneFahrt,
-    },
-    normalName: response.mitteltext,
-    longName: response.langtext,
-    direction: response.richtung,
-    productType: response.produktGattung,
-    vehicleNumber: response.verkehrsmittelNummer,
-    himNotices: response.himNotizen,
-    attributeNotices: response.attributNotizen,
-    realtimeNotes: response.echtzeitNotizen,
-    dayOfJourney: response.reisetag,
-  };
+  return rawResponse.json();
 }
