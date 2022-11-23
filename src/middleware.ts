@@ -19,8 +19,6 @@ export async function middleware(request: NextRequest) {
         break;
     }
     const baseUrl = getBaseUrl();
-    console.log(`${baseUrl}${url}`);
-
     return NextResponse.redirect(`${baseUrl}${url}`);
   }
 }
