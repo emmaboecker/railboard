@@ -6,6 +6,8 @@ import Button from "../../ui/button/Button";
 import { FaFilter } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
 import clsx from "clsx";
+import { BiSelectMultiple } from "react-icons/bi";
+import { FiXSquare } from "react-icons/fi";
 
 export enum TransportType {
   HighspeedTrains = "HOCHGESCHWINDIGKEITSZUEGE",
@@ -111,12 +113,38 @@ export default function TransportTypeFilter(props: TransportTypeFilterProps) {
                         </Fragment>
                       );
                     })}
-                    <Button
-                      className={"text-white"}
-                      onClick={() => props.setTransportTypes(transportTypes)}
+                    <div
+                      className={
+                        "flex w-full flex-col gap-2 sm:flex-row sm:gap-1 md:gap-2"
+                      }
                     >
-                      Filter zurücksetzen
-                    </Button>
+                      <Button
+                        className={"w-full text-white"}
+                        onClick={() => props.setTransportTypes(transportTypes)}
+                      >
+                        <div
+                          className={
+                            "m-auto flex flex-row justify-center gap-2"
+                          }
+                        >
+                          <BiSelectMultiple size={22} className={"my-auto"} />
+                          <p className={"my-auto"}>Alle Auswählen</p>
+                        </div>
+                      </Button>
+                      <Button
+                        className={"w-full text-white"}
+                        onClick={() => props.setTransportTypes([])}
+                      >
+                        <div
+                          className={
+                            "m-auto flex flex-row justify-center gap-2"
+                          }
+                        >
+                          <FiXSquare size={22} className={"my-auto"} />
+                          <p className={"my-auto"}>Alle Abwählen</p>
+                        </div>
+                      </Button>
+                    </div>
                   </Dialog.Description>
                 </Dialog.Panel>
               </Transition.Child>
