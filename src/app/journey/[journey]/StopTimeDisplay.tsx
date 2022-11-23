@@ -51,8 +51,8 @@ function InternalStopTimeDisplay(props: {
     ? new Date(props.scheduledTime).getTime() !== new Date(props.time).getTime()
     : undefined;
 
-  const scheduledTime = dayjs(new Date(props.scheduledTime.toString())).tz("Europe/Berlin").toDate();
-  const time = props.time != null ? dayjs(new Date(props.time.toString())).tz("Europe/Berlin").toDate() : undefined;
+  const scheduledTime = dayjs.tz(new Date(props.scheduledTime.toString()), "Europe/Berlin").toDate();
+  const time = props.time != null ? dayjs.tz(new Date(props.time.toString()), "Europe/Berlin").toDate() : undefined;
 
   const diffSeconds = ((time?.getTime() ?? 0) - scheduledTime.getTime()) / 1000;
   const diffMins = Math.floor(diffSeconds / 60);
