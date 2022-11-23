@@ -65,8 +65,15 @@ export default async function Page({
           </div>
         </div>
         <div className={"mb-5 flex w-full flex-col gap-1 p-2"}>
+          {data.realtimeNotes.map((notice) => (
+            <NoticeDisplay text={notice.text} key={notice.text} color={"red"} />
+          ))}
           {data.himNotices.map((notice) => (
-            <NoticeDisplay text={notice.text} key={notice.text} />
+            <NoticeDisplay
+              text={notice.text}
+              key={notice.text}
+              color={"gray"}
+            />
           ))}
         </div>
         <div className={"h-screen w-full"}>

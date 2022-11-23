@@ -6,6 +6,7 @@ export type JourneyDetails = {
   };
   normalName: string;
   longName: string;
+  realtimeNotes: Text[];
   himNotices: HimNotice[];
   attributeNotices: Text[];
   direction: string;
@@ -65,6 +66,7 @@ type VendoResponse = {
     himNotizen: HimNotice[];
     auslastungsInfos: Text[];
   }[];
+  echtzeitNotizen: Text[];
   himNotizen: HimNotice[];
   attributNotizen: Text[];
   verkehrsmittelNummer: string;
@@ -121,6 +123,7 @@ export default async function journeyDetails(
     vehicleNumber: response.verkehrsmittelNummer,
     himNotices: response.himNotizen,
     attributeNotices: response.attributNotizen,
+    realtimeNotes: response.echtzeitNotizen,
     dayOfJourney: response.reisetag,
   };
 }
