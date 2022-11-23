@@ -1,5 +1,5 @@
 export async function getStationInfoData(
-  stationId: string
+  stationId: number
 ): Promise<StationInfo> {
   const options = {
     method: "POST",

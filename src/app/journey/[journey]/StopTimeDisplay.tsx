@@ -5,13 +5,13 @@ import timezone from "dayjs/plugin/timezone";
 
 export type TimeDisplayProps = {
   arrivalTime?: {
-    scheduled?: string,
-    realtime?: string
-  }
+    scheduled?: string;
+    realtime?: string;
+  };
   departureTime?: {
-    scheduled?: string,
-    realtime?: string
-  }
+    scheduled?: string;
+    realtime?: string;
+  };
 };
 
 export default function StopTimeDisplay(props: TimeDisplayProps): JSX.Element {
@@ -68,8 +68,8 @@ function InternalStopTimeDisplay(props: {
             isTooLate == null
               ? "text-white"
               : isTooLate
-                ? "text-sm text-white line-through"
-                : "text-white"
+              ? "text-sm text-white line-through"
+              : "text-white"
           )}
         >
           {scheduledTime.format("HH:mm")}

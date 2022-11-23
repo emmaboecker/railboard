@@ -1,12 +1,12 @@
 // @ts-check
 
-// @ts-ignore
+// @ts-expect-error no types available :()
 import next_pwa from "next-pwa";
 
 const withPWA = next_pwa({
-    dest: 'public',
-    disable: process.env.NODE_ENV === 'development'
-})
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+});
 
 /**
  * @template {import('next').NextConfig} T
@@ -14,13 +14,14 @@ const withPWA = next_pwa({
  * @constraint {{import('next').NextConfig}}
  */
 function defineNextConfig(config) {
-    return withPWA(config);
+  return withPWA(config);
 }
 
 export default defineNextConfig({
-    reactStrictMode: true,
-    swcMinify: true,
-    experimental: {
-        appDir: true
-    },
+  reactStrictMode: true,
+  swcMinify: true,
+  experimental: {
+    appDir: true,
+    allowMiddlewareResponseBody: true,
+  },
 });

@@ -6,9 +6,15 @@ export default function NoticesDisplay(
   props: NoticesDisplayProps
 ): JSX.Element {
   return (
-    <div className={"flex flex-col text-md text-red-500 justify-start ml-0 mr-auto"}>
+    <div
+      className={
+        "text-md ml-0 mr-auto flex flex-col justify-start text-red-500"
+      }
+    >
       {props.notices.map((notice) => (
-        <p className={"mr-auto"} key={notice}>- {notice}</p>
+        <p className={"mr-auto"} key={notice}>
+          - {notice}
+        </p>
       ))}
     </div>
   );
