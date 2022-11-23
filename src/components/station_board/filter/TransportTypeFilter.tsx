@@ -17,7 +17,7 @@ export enum TransportType {
   Boats = "SCHIFFE",
   Subway = "UBAHN",
   Tram = "STRASSENBAHN",
-  CallRequiringTransportTypes = "ANRUFPFLICHTIGEVERKEHRE"
+  CallRequiringTransportTypes = "ANRUFPFLICHTIGEVERKEHRE",
 }
 
 export const transportTypes = [
@@ -30,24 +30,28 @@ export const transportTypes = [
   TransportType.Tram,
   TransportType.Busses,
   TransportType.Boats,
-  TransportType.CallRequiringTransportTypes
+  TransportType.CallRequiringTransportTypes,
 ];
 
 export type TransportTypeFilterProps = {
-  transportTypes: TransportType[]
-  setTransportTypes: Dispatch<SetStateAction<TransportType[]>>
-}
+  transportTypes: TransportType[];
+  setTransportTypes: Dispatch<SetStateAction<TransportType[]>>;
+};
 
 export default function TransportTypeFilter(props: TransportTypeFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)} className={"px-3 h-full"}>
+      <Button onClick={() => setIsOpen(true)} className={"h-full px-3"}>
         <FaFilter />
       </Button>
       <Transition appear show={isOpen} as={"div"}>
-        <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => setIsOpen(false)}
+        >
           <Transition.Child
             as={"div"}
             enter="ease-out duration-300"
@@ -71,16 +75,32 @@ export default function TransportTypeFilter(props: TransportTypeFilterProps) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className={"bg-zinc-800 p-5 rounded-lg text-violet-400 flex flex-col w-[90vw] md:w-[70vw] xl:w-[50vw]"}>
-                  <Dialog.Title className={"flex flex-row justify-between text-xl font-bold w-full"}>
+                  className={
+                    "flex w-[90vw] flex-col rounded-lg bg-zinc-800 p-5 text-violet-400 md:w-[70vw] xl:w-[50vw]"
+                  }
+                >
+                  <Dialog.Title
+                    className={
+                      "flex w-full flex-row justify-between text-xl font-bold"
+                    }
+                  >
                     <p>Verkehrsmittel</p>
-                    <button className={"hover:bg-zinc-900 p-1 transition-all duration-200 rounded-md"}
-                            onClick={() => setIsOpen(false)}>
+                    <button
+                      className={
+                        "rounded-md p-1 transition-all duration-200 hover:bg-zinc-900"
+                      }
+                      onClick={() => setIsOpen(false)}
+                    >
                       <IoCloseOutline color={"white"} size={24} />
                     </button>
                   </Dialog.Title>
-                  <Dialog.Description as={"div"} className={"flex flex-col gap-4 w-full h-fit justify-start pt-5"}>
-                    {transportTypes.map(type => {
+                  <Dialog.Description
+                    as={"div"}
+                    className={
+                      "flex h-fit w-full flex-col justify-start gap-4 pt-5"
+                    }
+                  >
+                    {transportTypes.map((type) => {
                       return (
                         <Fragment key={type}>
                           <TransportTypeToggle
@@ -91,7 +111,10 @@ export default function TransportTypeFilter(props: TransportTypeFilterProps) {
                         </Fragment>
                       );
                     })}
-                    <Button className={"text-white"} onClick={() => props.setTransportTypes(transportTypes)}>
+                    <Button
+                      className={"text-white"}
+                      onClick={() => props.setTransportTypes(transportTypes)}
+                    >
                       Filter zurücksetzen
                     </Button>
                   </Dialog.Description>
@@ -105,27 +128,31 @@ export default function TransportTypeFilter(props: TransportTypeFilterProps) {
   );
 }
 
-function TransportTypeToggle(props: TransportTypeFilterProps & { transportType: TransportType }) {
-
-  const enabled = props.transportTypes.includes(props.transportType)
+function TransportTypeToggle(
+  props: TransportTypeFilterProps & { transportType: TransportType }
+) {
+  const enabled = props.transportTypes.includes(props.transportType);
 
   return (
     <div className={"flex flex-row gap-2"}>
       <Switch
         checked={props.transportTypes.includes(props.transportType)}
-        onChange={value => {
+        onChange={(value) => {
           if (value) {
-            props.setTransportTypes(prevState => prevState.concat(props.transportType));
+            props.setTransportTypes((prevState) =>
+              prevState.concat(props.transportType)
+            );
           } else {
-            props.setTransportTypes(prevState => prevState.filter(filter => filter !== props.transportType));
+            props.setTransportTypes((prevState) =>
+              prevState.filter((filter) => filter !== props.transportType)
+            );
           }
         }}
-        className={
-          clsx(enabled ? "bg-violet-500" : "bg-zinc-900",
-            "relative inline-flex w-11 h-6 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors",
-            "duration 200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-          )
-        }
+        className={clsx(
+          enabled ? "bg-violet-500" : "bg-zinc-900",
+          "relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors",
+          "duration 200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+        )}
       >
         <span className="sr-only">{getReadableName(props.transportType)}</span>
         <span
@@ -134,7 +161,9 @@ function TransportTypeToggle(props: TransportTypeFilterProps & { transportType: 
             pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
         />
       </Switch>
-      <p className={"text-white/70 font-semibold truncate"}>{getReadableName(props.transportType)}</p>
+      <p className={"truncate font-semibold text-white/70"}>
+        {getReadableName(props.transportType)}
+      </p>
     </div>
   );
 }

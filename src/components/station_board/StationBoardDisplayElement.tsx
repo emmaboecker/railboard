@@ -19,7 +19,7 @@ export default function StationBoardDisplayElement(
           departureTime={props.train.departure?.time}
         />
       </div>
-      <div className="flex w-full flex-col truncate pr-1 align-middle justify-start">
+      <div className="flex w-full flex-col justify-start truncate pr-1 align-middle">
         <div className="my-auto w-full">
           <NameAndPlatformDisplay trainData={props.train} />
         </div>

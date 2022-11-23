@@ -7,13 +7,15 @@ import StationSearchBar from "../components/search/StationSearchBar";
 import Button from "../components/ui/button/Button";
 import TransportTypeFilter, {
   TransportType,
-  transportTypes
+  transportTypes,
 } from "../components/station_board/filter/TransportTypeFilter";
 import { useLocalStorage } from "@mantine/hooks";
 import RailboardInfo from "./RailboardInfo";
 
 export default function StationBoardPanel() {
-  const [selectedStationId, setSelectedStationId] = useState<string | undefined>(undefined);
+  const [selectedStationId, setSelectedStationId] = useState<
+    string | undefined
+  >(undefined);
 
   const [date, setDate] = useState(new Date());
 
@@ -21,9 +23,11 @@ export default function StationBoardPanel() {
 
   const [redirecting, setRedirecting] = useState(false);
 
-  const [currentTransportTypes, setTransportTypes] = useLocalStorage<TransportType[]>({
+  const [currentTransportTypes, setTransportTypes] = useLocalStorage<
+    TransportType[]
+  >({
     key: "transport-types",
-    defaultValue: transportTypes
+    defaultValue: transportTypes,
   });
 
   return (
@@ -35,7 +39,10 @@ export default function StationBoardPanel() {
         <div className={"flex flex-row gap-5"}>
           <StationSearchBar setSelectedStationId={setSelectedStationId} />
           <div className={"w-fit"}>
-            <TransportTypeFilter setTransportTypes={setTransportTypes} transportTypes={currentTransportTypes} />
+            <TransportTypeFilter
+              setTransportTypes={setTransportTypes}
+              transportTypes={currentTransportTypes}
+            />
           </div>
         </div>
         <div className="h-5" />
@@ -67,7 +74,11 @@ export default function StationBoardPanel() {
           }}
           disabled={!selectedStationId || redirecting}
         >
-          {selectedStationId ? (redirecting ? "Lade Station Board" : "Station Board anzeigen") : "Wähle eine Station aus"}
+          {selectedStationId
+            ? redirecting
+              ? "Lade Station Board"
+              : "Station Board anzeigen"
+            : "Wähle eine Station aus"}
         </Button>
         <div className="h-32" />
         <RailboardInfo />

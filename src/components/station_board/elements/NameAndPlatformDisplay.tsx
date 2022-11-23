@@ -24,7 +24,9 @@ export default function NameAndPlatformDisplay(
         {props.trainData.name}
       </div>
       {props.trainData.scheduledPlatform != null && (
-        <div className={"absolute right-0 flex flex-row bg-zinc-700 rounded-md"}>
+        <div
+          className={"absolute right-0 flex flex-row rounded-md bg-zinc-700"}
+        >
           <div className={"flex flex-row p-1"}>
             <p className={"m-auto"}>Gl.</p>
             <div

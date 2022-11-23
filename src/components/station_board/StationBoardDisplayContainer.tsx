@@ -19,25 +19,25 @@ export default function StationBoardDisplayContainer(
 
   const [currentTransportTypes] = useLocalStorage<TransportType[]>({
     key: "transport-types",
-    defaultValue: transportTypes
+    defaultValue: transportTypes,
   });
 
-  const filteredData = props.data.trains.filter(train => {
+  const filteredData = props.data.trains.filter((train) => {
     let isIncluded = false;
-    currentTransportTypes.forEach(value => {
+    currentTransportTypes.forEach((value) => {
       const productTypes = getProductTypesFromVendoType(value);
       if (productTypes.includes(train.product)) {
         isIncluded = true;
       }
-    })
+    });
     return isIncluded;
-  })
+  });
 
   const Row = ({ index, style }: { index: number; style: CSSProperties }) => {
     /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
     const trainData = filteredData[index]!;
 
-    const router = useRouter()
+    const router = useRouter();
 
     return (
       <div style={style}>
@@ -47,7 +47,7 @@ export default function StationBoardDisplayContainer(
           }
           key={trainData.journeyId}
           onClick={() => {
-            router.push(`/journey/${encodeURIComponent(trainData.journeyId)}`)
+            router.push(`/journey/${encodeURIComponent(trainData.journeyId)}`);
           }}
         >
           <StationBoardDisplayElement train={trainData} />
@@ -68,17 +68,14 @@ export default function StationBoardDisplayContainer(
       </List>
     </div>
   );
-
-
 }
-
 
 function getProductTypesFromVendoType(transportType: TransportType): string[] {
   let productTypes: string[];
 
   switch (transportType) {
     case TransportType.HighspeedTrains:
-      productTypes = ["ICE"]
+      productTypes = ["ICE"];
       break;
     case TransportType.ICAndECTrains:
       productTypes = ["IC_EC"];
@@ -109,5 +106,5 @@ function getProductTypesFromVendoType(transportType: TransportType): string[] {
       break;
   }
 
-  return productTypes
+  return productTypes;
 }
