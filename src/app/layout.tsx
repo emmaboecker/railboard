@@ -26,6 +26,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <meta name="format-detection" content="telephone=yes" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta name="msapplication-TileColor" content="#6d28d9" />
+
+          <link rel="apple-touch-icon" sizes="180x180" href="/assets/railboard_180x180_violet.png" />
+          <link rel="apple-touch-icon" sizes="192x192" href="/assets/railboard_192x192_violet.png" />
+          <link rel="apple-touch-icon" sizes="384x384" href="/assets/railboard_384x384_violet.png" />
+          <link rel="apple-touch-icon" sizes="512x512" href="/assets/railboard_512x512_violet.png" />
         </head>
         <body className={"bg-zinc-900"}>{children}</body>
       </html>
