@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <meta name="apple-mobile-web-app-title" content="Railboard" />
           <meta
             name="description"
-            content="Railboard is a web-app to easily view information like delay, platform(-changes) of your Trains"
+            content="Railboard ist eine Web-App, mit der Du Informationen wie Verspätungen, Gleis(-wechsel) deiner Züge einfach einsehen kannst."
           />
           <meta name="format-detection" content="telephone=yes" />
           <meta name="mobile-web-app-capable" content="yes" />
