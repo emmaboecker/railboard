@@ -6,6 +6,8 @@
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
+  "prefer_related_applications": false,
+  "related_applications": [],
   "icons": [
     {
       "src": "/assets/railboard_192x192_violet.png",
