@@ -10,12 +10,9 @@ import TransportTypeFilter, {
   transportTypes,
 } from "../components/station_board/filter/TransportTypeFilter";
 import { useLocalStorage } from "@mantine/hooks";
-import RailboardInfo from "./RailboardInfo";
 
 export default function StationBoardPanel() {
-  const [selectedStationId, setSelectedStationId] = useState<
-    string | undefined
-  >(undefined);
+  const [selectedStationId, setSelectedStationId] = useState<string | undefined>(undefined);
 
   const [date, setDate] = useState(new Date());
 
@@ -23,9 +20,7 @@ export default function StationBoardPanel() {
 
   const [redirecting, setRedirecting] = useState(false);
 
-  const [currentTransportTypes, setTransportTypes] = useLocalStorage<
-    TransportType[]
-  >({
+  const [currentTransportTypes, setTransportTypes] = useLocalStorage<TransportType[]>({
     key: "transport-types",
     defaultValue: transportTypes,
   });
@@ -39,10 +34,7 @@ export default function StationBoardPanel() {
         <div className={"flex flex-row gap-5"}>
           <StationSearchBar setSelectedStationId={setSelectedStationId} />
           <div className={"w-fit"}>
-            <TransportTypeFilter
-              setTransportTypes={setTransportTypes}
-              transportTypes={currentTransportTypes}
-            />
+            <TransportTypeFilter setTransportTypes={setTransportTypes} transportTypes={currentTransportTypes} />
           </div>
         </div>
         <div className="h-5" />
@@ -80,30 +72,20 @@ export default function StationBoardPanel() {
               : "Station Board anzeigen"
             : "Wähle eine Station aus"}
         </Button>
-        <div className="h-32" />
-        <RailboardInfo />
       </div>
     </>
   );
 }
 
-function formatDate(date: Date): string {
+export function formatDate(date: Date, full = true): string {
   let formattedDate = "";
   formattedDate = formattedDate.concat(date.getFullYear().toString(), "-");
-  formattedDate = formattedDate.concat(
-    (date.getMonth() + 1).toString().padStart(2, "0"),
-    "-"
-  );
-  formattedDate = formattedDate.concat(
-    date.getDate().toString().padStart(2, "0"),
-    "T"
-  );
-  formattedDate = formattedDate.concat(
-    date.getHours().toString().padStart(2, "0"),
-    ":"
-  );
-  formattedDate = formattedDate.concat(
-    date.getMinutes().toString().padStart(2, "0")
-  );
+  formattedDate = formattedDate.concat((date.getMonth() + 1).toString().padStart(2, "0"), "-");
+  formattedDate = formattedDate.concat(date.getDate().toString().padStart(2, "0"));
+  if (full) {
+    formattedDate = formattedDate.concat("T");
+    formattedDate = formattedDate.concat(date.getHours().toString().padStart(2, "0"), ":");
+    formattedDate = formattedDate.concat(date.getMinutes().toString().padStart(2, "0"));
+  }
   return formattedDate;
 }
