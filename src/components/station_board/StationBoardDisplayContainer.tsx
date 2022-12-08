@@ -26,7 +26,7 @@ export default function StationBoardDisplayContainer(
     let isIncluded = false;
     currentTransportTypes.forEach((value) => {
       const productTypes = getProductTypesFromVendoType(value);
-      if (productTypes.includes(train.product)) {
+      if (productTypes.includes(train.product ?? "")) {
         isIncluded = true;
       }
     });
