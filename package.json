@@ -16,7 +16,6 @@
     "@upstash/redis": "^1.16.1",
     "clsx": "^1.2.1",
     "dayjs": "^1.11.5",
-    "hafas-client": "^6.0.0",
     "nanoid": "^4.0.0",
     "nanoid-dictionary": "^4.3.0",
     "net": "^1.0.2",

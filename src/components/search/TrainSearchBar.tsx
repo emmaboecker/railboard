@@ -4,8 +4,7 @@ import { Fragment, useState } from "react";
 import { useClickOutside, useDebouncedValue } from "@mantine/hooks";
 import useSWR from "swr";
 import { Transition } from "@headlessui/react";
-import journeyMatch from "../../requests/hafas/journey_match";
-import { Trip } from "hafas-client";
+import journeyMatch, { Trip } from "../../requests/hafas/journey_match";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 
@@ -56,20 +55,16 @@ export default function TrainSearchBar(props: TrainSearchBarProps): JSX.Element 
               </div>
             ) : (
               <div className="flex w-full flex-col">
-                {"error" in data ? (
-                  <>
-                    {data.error.hafasCode === "NO_MATCH"
-                      ? "Kein Ergebnis gefunden"
-                      : `Fehler: ${typeof data.error === "string" ? data.error : data.error.hafasMessage}`}
-                  </>
+                {data.length === 0 ? (
+                  <>Kein Ergebnis gefunden</>
                 ) : (
                   <div className={"max-h-96 overflow-auto"}>
-                    {(data.trips as Array<Trip>).map((trip) => (
+                    {data.map((trip) => (
                       <TrainResultDisplay
-                        key={trip.id}
+                        key={trip.jid}
                         trip={trip}
                         onClick={async () => {
-                          await router.push(`/journey/${trip.id}`);
+                          await router.push(`/journey/${trip.jid}`);
                         }}
                       />
                     ))}
@@ -102,22 +97,26 @@ function TrainResultDisplay(props: TrainResultDisplayProps) {
           <div className="flex h-full w-full flex-row">
             <div className="flex w-full flex-col justify-start truncate pr-1 align-middle">
               <div className="my-auto w-full">
-                <div className="my-auto text-lg font-semibold">{props.trip.line?.name}</div>
+                <div className="my-auto text-lg font-semibold">{props.trip.train.name}</div>
               </div>
               <div className="my-auto">
                 <div className={"flex flex-row gap-1 truncate font-sans text-zinc-400"}>
                   <p>Von:</p>
-                  <p className={"truncate text-white"}>{props.trip.origin?.name} </p>
+                  <p className={"truncate text-white"}>{props.trip.firstStop.station.title} </p>
                   <p>um</p>
-                  {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-                  <p className={"text-white"}>{dayjs(new Date(props.trip!.departure!)).format("HH:mm")}</p>
+                  <p className={"text-white"}>
+                    {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+                    {dayjs(new Date(props.trip.firstStop.departure!.scheduledTime)).format("HH:mm")}
+                  </p>
                 </div>
                 <div className={"flex flex-row gap-1 truncate font-sans text-zinc-400"}>
                   <p>Nach:</p>
-                  <p className={"truncate text-white"}>{props.trip.destination?.name}</p>
+                  <p className={"truncate text-white"}>{props.trip.lastStop.station.title}</p>
                   <p>um</p>
-                  {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-                  <p className={"text-white"}>{dayjs(new Date(props.trip!.departure!)).format("HH:mm")}</p>
+                  <p className={"text-white"}>
+                    {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+                    {dayjs(new Date(props.trip.lastStop.arrival!.scheduledTime!)).format("HH:mm")}
+                  </p>
                 </div>
               </div>
             </div>
