@@ -11,7 +11,7 @@ export default function TrainSearchPanel() {
     <>
       <div className={"row-auto flex w-full flex-col justify-center text-center align-middle"}>
         <div className={"m-auto"}>
-          <PageTitle title="Trip Search" />
+          <PageTitle title="Zugsuche" />
         </div>
         <div className="h-10" />
         <div className="mt-8 flex w-screen flex-col justify-center px-6 align-middle md:w-[70vw] xl:w-[50vw]">
