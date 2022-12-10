@@ -1,0 +1,43 @@
+import { PageTitle } from "../components/ui/PageTitle";
+import { useState } from "react";
+import TrainSearchBar from "../components/search/TrainSearchBar";
+
+export default function TrainSearchPanel() {
+  const [date] = useState(new Date());
+
+  // Dates are ignored by hafas-client for some reason
+
+  return (
+    <>
+      <div className={"row-auto flex w-full flex-col justify-center text-center align-middle"}>
+        <div className={"m-auto"}>
+          <PageTitle title="Trip Search" />
+        </div>
+        <div className="h-10" />
+        <div className="mt-8 flex w-screen flex-col justify-center px-6 align-middle md:w-[70vw] xl:w-[50vw]">
+          <div className={"flex flex-col gap-5"}>
+            {/*<div className={"flex flex-row gap-5"}>*/}
+            {/*  <input*/}
+            {/*    type={"date"}*/}
+            {/*    onChange={(event) => {*/}
+            {/*      setDate(new Date(event.target.value));*/}
+            {/*    }}*/}
+            {/*    value={formatDate(date, false)}*/}
+            {/*    className="w-full rounded-md bg-zinc-800 p-2 text-white outline-none"*/}
+            {/*  />*/}
+            {/*  <Button*/}
+            {/*    className={"w-32"}*/}
+            {/*    onClick={() => {*/}
+            {/*      setDate(new Date());*/}
+            {/*    }}*/}
+            {/*  >*/}
+            {/*    jetzt*/}
+            {/*  </Button>*/}
+            {/*</div>*/}
+            <TrainSearchBar date={date} />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

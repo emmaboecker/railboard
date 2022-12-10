@@ -5,11 +5,11 @@ import React from "react";
 
 export default function RailboardInfo() {
   return (
-    <div className={"flex w-full flex-row justify-center align-middle"}>
+    <div className={"mt-10 flex w-full flex-row justify-center align-middle"}>
       <Link
         href={"https://github.com/StckOverflw/railboard"}
         className={
-          "flex h-full flex-row gap-2 rounded-md p-2 align-middle transition-all duration-200 hover:bg-zinc-800 my-auto"
+          "my-auto flex h-full flex-row gap-2 rounded-md p-2 align-middle transition-all duration-200 hover:bg-zinc-800"
         }
         target={"_blank"}
       >

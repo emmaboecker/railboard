@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { TabSelection } from "../components/ui/TabSelection";
 import { Search, Train } from "tabler-icons-react";
 import StationBoardPanel from "./StationBoardPanel";
-import TrainSearchPanel from "./TripSearchPanel";
+import TrainSearchPanel from "./TrainSearchPanel";
 import RailboardInfo from "./RailboardInfo";
 
 export default function HomePage() {

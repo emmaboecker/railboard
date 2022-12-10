@@ -42,7 +42,6 @@ export default function StationBoardPanel() {
           <input
             type={"datetime-local"}
             onChange={(event) => {
-              console.log(event.target.value);
               setDate(new Date(event.target.value));
             }}
             value={formatDate(date)}

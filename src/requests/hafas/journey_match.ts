@@ -11,10 +11,15 @@ export type Trip = {
   };
 };
 
-export default async function journeyMatch(input: string, date: Date): Promise<Array<Trip>> {
-  const response = await fetch(`/api/hafas/journey_match?q=${input}&date=${date}`, {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function journeyMatch(input: string, date: Date): Promise<Array<Trip> | any> {
+  const response = await fetch(`/api/hafas/journey_match?q=${input}&date=${date.getTime()}`, {
     method: "GET",
   });
 
-  return response.json();
+  if (response.status === 200) {
+    return response.json();
+  } else {
+    return response.json();
+  }
 }
