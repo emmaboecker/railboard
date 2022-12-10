@@ -4,9 +4,10 @@ import useDetectKeyboardOpen from "use-detect-keyboard-open";
 import { Tab } from "@headlessui/react";
 import clsx from "clsx";
 import { TabSelection } from "../components/ui/TabSelection";
-import { MapPins, Train } from "tabler-icons-react";
+import { Search, Train } from "tabler-icons-react";
 import StationBoardPanel from "./StationBoardPanel";
-import TripSearchPanel from "./TripSearchPanel";
+import TrainSearchPanel from "./TrainSearchPanel";
+import RailboardInfo from "./RailboardInfo";
 
 export default function HomePage() {
   const isKeyboardOpen = useDetectKeyboardOpen();
@@ -17,10 +18,13 @@ export default function HomePage() {
         <Tab.Panel key={"stationboard"}>
           <StationBoardPanel />
         </Tab.Panel>
-        <Tab.Panel key={"tripsearch"}>
-          <TripSearchPanel />
+        <Tab.Panel key={"trainsearch"}>
+          <TrainSearchPanel />
         </Tab.Panel>
       </Tab.Panels>
+      <div className={"absolute mb-5 w-full text-white"}>
+        <RailboardInfo />
+      </div>
       <div className="flex w-screen justify-center align-middle">
         <Tab.List
           className={clsx(
@@ -28,16 +32,8 @@ export default function HomePage() {
             isKeyboardOpen ? "hidden" : "absolute"
           )}
         >
-          <TabSelection
-            key={"stationboard"}
-            selection="Station Board"
-            icon={<Train color="white" />}
-          />
-          <TabSelection
-            key={"tripsearch"}
-            selection="Trip Search"
-            icon={<MapPins color="white" />}
-          />
+          <TabSelection key={"stationboard"} selection="Station Board" icon={<Train color="white" />} />
+          <TabSelection key={"trainsearch"} selection="Zugsuche" icon={<Search color="white" />} />
         </Tab.List>
       </div>
     </Tab.Group>

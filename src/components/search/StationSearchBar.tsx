@@ -1,26 +1,16 @@
 import { Transition } from "@headlessui/react";
-import {
-  useClickOutside,
-  useDebouncedValue,
-  useLocalStorage,
-} from "@mantine/hooks";
+import { useClickOutside, useDebouncedValue, useLocalStorage } from "@mantine/hooks";
 import { Dispatch, Fragment, SetStateAction, useState } from "react";
 import { Star } from "tabler-icons-react";
-import searchStation, {
-  StationSearchResult,
-} from "../../requests/vendo/stationSearch";
+import searchStation, { StationSearchResult } from "../../requests/vendo/stationSearch";
 import Favourite from "../../utils/favourites";
 import useSWR from "swr";
-
-import "react-datepicker/dist/react-datepicker.css";
 
 export type StationSearchBarProps = {
   setSelectedStationId: Dispatch<SetStateAction<string | undefined>>;
 };
 
-export default function StationSearchBar(
-  props: StationSearchBarProps
-): JSX.Element {
+export default function StationSearchBar(props: StationSearchBarProps): JSX.Element {
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebouncedValue(search, 500);
 
@@ -64,12 +54,7 @@ export default function StationSearchBar(
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-1"
       >
-        <div
-          className={
-            "absolute z-30 m-auto mt-2 flex w-full rounded-md bg-zinc-800 p-2 text-white"
-          }
-          ref={ref}
-        >
+        <div className={"absolute z-30 m-auto mt-2 flex w-full rounded-md bg-zinc-800 p-2 text-white"} ref={ref}>
           {search == "" ? (
             <div className="flex w-full flex-col p-1">
               <p className="text-lg font-semibold text-white">Favoriten</p>
@@ -147,13 +132,9 @@ function StationResultDisplay(props: StationResultDisplayProps): JSX.Element {
         className="z-40"
         onClick={(event) => {
           event.preventDefault();
-          const foundFav = props.favourites.find(
-            (value) => value.evaNr === props.station.evaNr
-          );
+          const foundFav = props.favourites.find((value) => value.evaNr === props.station.evaNr);
           if (foundFav) {
-            props.setFavourites((prevState) =>
-              prevState.filter((value) => value.evaNr !== props.station.evaNr)
-            );
+            props.setFavourites((prevState) => prevState.filter((value) => value.evaNr !== props.station.evaNr));
           } else {
             props.setFavourites((prevState) =>
               prevState.concat([
@@ -168,20 +149,8 @@ function StationResultDisplay(props: StationResultDisplayProps): JSX.Element {
         }}
       >
         <Star
-          fill={
-            props.favourites.filter(
-              (value) => value.evaNr === props.station.evaNr
-            ).length > 0
-              ? "orange"
-              : "gray"
-          }
-          color={
-            props.favourites.filter(
-              (value) => value.evaNr === props.station.evaNr
-            ).length > 0
-              ? "orange"
-              : "gray"
-          }
+          fill={props.favourites.filter((value) => value.evaNr === props.station.evaNr).length > 0 ? "orange" : "gray"}
+          color={props.favourites.filter((value) => value.evaNr === props.station.evaNr).length > 0 ? "orange" : "gray"}
         />
       </button>
     </div>

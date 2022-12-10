@@ -82,7 +82,7 @@ export default async function getStationBoardData(
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       arrival ?? departure!;
 
-    const train: StationBoardTrain = {
+    const train: FullStationBoardTrain = {
       journeyId: key,
       scheduledPlatform: arrivalOrDeparture.gleis,
       platform: arrivalOrDeparture.ezGleis,
@@ -136,21 +136,31 @@ export default async function getStationBoardData(
 }
 
 export type StationBoardResponse = {
-  trains: StationBoardTrain[];
+  trains: FullStationBoardTrain[];
 };
 
-export type StationBoardTrain = {
-  journeyId: string;
+export type FullStationBoardTrain = StationBoardTrain & {
   arrival?: {
-    origin: string;
     time: Time;
   };
   departure?: {
     destination: string;
     time: Time;
   };
-  product: string;
-  shortName: string;
+}
+
+export type StationBoardTrain = {
+  journeyId: string;
+  arrival?: {
+    origin: string;
+    time?: Time;
+  };
+  departure?: {
+    destination: string;
+    time?: Time;
+  };
+  product?: string;
+  shortName?: string;
   name: string;
   scheduledPlatform?: string;
   platform?: string;
