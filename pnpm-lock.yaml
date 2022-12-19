@@ -35,7 +35,7 @@ specifiers:
   react-loader-spinner: ^5.3.4
   react-virtualized-auto-sizer: ^1.0.7
   react-window: ^1.8.7
-  superjson: 1.12.0
+  superjson: 1.12.1
   swr: ^2.0.0
   tabler-icons-react: ^1.55.0
   tailwindcss: ^3.1.6
@@ -63,7 +63,7 @@ dependencies:
   react-loader-spinner: 5.3.4_biqbaboplfbrettd7655fr4n2y
   react-virtualized-auto-sizer: 1.0.7_biqbaboplfbrettd7655fr4n2y
   react-window: 1.8.7_biqbaboplfbrettd7655fr4n2y
-  superjson: 1.12.0
+  superjson: 1.12.1
   swr: 2.0.0_react@18.2.0
   tabler-icons-react: 1.55.0_react@18.2.0
   tls: 0.0.1
@@ -4468,8 +4468,8 @@ packages:
     resolution: {integrity: sha512-IjLxzM20RMwAsx8M1QoRlCG/Kmq8lKzCGyospjtSXt/BTIIcvgTonaxQAsKnBrsZNwhpHzO9ADx5te0h76ILVg==}
     dev: false
 
-  /superjson/1.12.0:
-    resolution: {integrity: sha512-B4tefmFqj8KDShHi2br2rz0kBlUJuQHtxMCydEuHvooL+6EscROTNWRfOLMDxW1dS/daK2zZr3C3N9DU+jXATQ==}
+  /superjson/1.12.1:
+    resolution: {integrity: sha512-HMTj43zvwW5bD+JCZCvFf4DkZQCmiLTen4C+W1Xogj0SPOpnhxsriogM04QmBVGH5b3kcIIOr6FqQ/aoIDx7TQ==}
     engines: {node: '>=10'}
     dependencies:
       copy-anything: 3.0.2
