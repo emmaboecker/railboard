@@ -8,6 +8,5 @@ module.exports = withPWA({
   swcMinify: true,
   experimental: {
     appDir: true,
-    allowMiddlewareResponseBody: true,
   },
 });

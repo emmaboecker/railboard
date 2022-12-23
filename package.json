@@ -18,7 +18,6 @@
     "dayjs": "^1.11.5",
     "nanoid": "^4.0.0",
     "nanoid-dictionary": "^4.3.0",
-    "net": "^1.0.2",
     "next": "13.1.0",
     "next-pwa": "^5.6.0",
     "react": "18.2.0",
@@ -27,10 +26,8 @@
     "react-loader-spinner": "^5.3.4",
     "react-virtualized-auto-sizer": "^1.0.7",
     "react-window": "^1.8.7",
-    "superjson": "1.12.0",
     "swr": "^2.0.0",
     "tabler-icons-react": "^1.55.0",
-    "tls": "^0.0.1",
     "use-detect-keyboard-open": "^0.2.0",
     "zod": "^3.19.1"
   },

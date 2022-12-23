@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../styles/globals.css";
+import "./globals.css";
 
 import "@fontsource/ubuntu";
 import "@fontsource/source-sans-pro";
