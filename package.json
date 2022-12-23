@@ -39,7 +39,7 @@
     "@types/nanoid-dictionary": "^4.2.0",
     "@types/node": "18.11.17",
     "@types/react": "18.0.26",
-    "@types/react-dom": "18.0.9",
+    "@types/react-dom": "18.0.10",
     "@types/react-virtualized-auto-sizer": "^1.0.1",
     "@types/react-window": "^1.8.5",
     "@types/hafas-client": "^6.0.0",
