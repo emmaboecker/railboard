@@ -98,6 +98,23 @@ export default function DetailsPopup(props: {
                           />
                         </div>
                       )}
+                      {props.train.scheduledPlatform && (
+                        <div>
+                          <h5 className={"mb-2 text-xl font-semibold text-zinc-400"}>Auf Gleis</h5>
+                          <p
+                            className={clsx(
+                              props.train.platform &&
+                                props.train.platform !== props.train.scheduledPlatform &&
+                                "text-red-500 line-through"
+                            )}
+                          >
+                            {props.train.scheduledPlatform}
+                          </p>
+                          {props.train.platform && props.train.platform !== props.train.scheduledPlatform && (
+                            <p>{props.train.platform}</p>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
                   {props.train.notices.length > 0 && (
