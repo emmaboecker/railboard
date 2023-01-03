@@ -15,16 +15,11 @@ export default async function Layout({
 }) {
   const station = parseInt(params?.station ?? "8000105");
 
-  const datetime =
-    (params?.datetime && parseInt(params.datetime)) || Date.now();
+  const datetime = (params?.datetime && parseInt(params.datetime)) || Date.now();
 
   return (
-    <div className={"h-screen text-white"}>
-      <div
-        className={
-          "fixed flex h-14 w-full border-b-4 border-b-zinc-700 bg-zinc-800 align-middle"
-        }
-      >
+    <div className={"relative h-screen text-white"}>
+      <div className={"absolute flex h-14 w-full border-b-4 border-b-zinc-700 bg-zinc-800 align-middle"}>
         <div className={"absolute left-0 ml-3 flex h-full"}>
           <GoBackButton className={"my-[9px]"} />
         </div>
@@ -36,14 +31,10 @@ export default async function Layout({
         <div className={"absolute right-0 flex h-full gap-1 px-2"}>
           <ReloadButton stationId={station} className={"my-auto text-sm"} />
           <FilterButtonContainer />
-          <StationShareButton
-            className="my-auto text-sm"
-            station={station}
-            datetime={datetime}
-          />
+          <StationShareButton className="my-auto text-sm" station={station} datetime={datetime} />
         </div>
       </div>
-      {children}
+      <div className="h-full pt-14">{children}</div>
     </div>
   );
 }

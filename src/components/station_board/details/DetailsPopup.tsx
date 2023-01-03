@@ -8,6 +8,10 @@ import { HiExternalLink } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { formatTime } from "../../../utils/time";
+import CoachSequence from "../../coach_sequence/CoachSequence";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 export default function DetailsPopup(props: {
   open: boolean;
@@ -17,6 +21,12 @@ export default function DetailsPopup(props: {
   const router = useRouter();
 
   const number = props.train.name.match(/\d+/);
+
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const date = new Date((props.train.departure ?? props.train.arrival!).time.scheduledTime);
+  const time = dayjs.tz(date, "Europe/Berlin");
 
   return (
     <Transition appear show={props.open} as={"div"}>
@@ -132,7 +142,14 @@ export default function DetailsPopup(props: {
                     props.train.product === "RB") && (
                     <>
                       <h4 className={"text-xl font-semibold"}>Wagenreihung (Coming soon)</h4>
-                      {number != null && <>{number[0]}</>}
+                      {number != null && (
+                        <CoachSequence
+                          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                          lineNummer={number[0]!}
+                          time={time.format("YYYYMMDDHHmm")}
+                          visible={true}
+                        />
+                      )}
                     </>
                   )}
                   <div className={"flex w-full flex-row justify-end"}>

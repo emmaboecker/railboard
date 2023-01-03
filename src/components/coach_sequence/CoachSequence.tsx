@@ -1,23 +1,27 @@
 "use client";
 
-import { TbTrain } from "react-icons/tb";
+import { Bars } from "react-loader-spinner";
+import useSWR from "swr";
+import coachSequence from "../../requests/coach_sequence/coach_sequence";
 
 export type CoachSequenceProps = {
   lineNummer: string;
   time: string;
+  visible: boolean;
 };
 
-export default function CoachSequence() {
+export default function CoachSequence(props: CoachSequenceProps) {
+  const { data } = useSWR(props.lineNummer, (key) => coachSequence(key, props.time), {});
+
   return (
     <>
-      <button
-        className={"z-30 rounded-md bg-zinc-700 p-2 transition-all duration-100 hover:bg-zinc-600"}
-        onClick={(event) => {
-          event.preventDefault();
-        }}
-      >
-        <TbTrain size={24} />
-      </button>
+      {!data ? (
+        <Bars wrapperClass={"m-auto"} color={"#6d28d9"} height={"80"} width={"100"} />
+      ) : "error" in data ? (
+        <>Wagenreihung nicht gefunden</>
+      ) : (
+        <>{data.data.istformation.zuggattung}</>
+      )}
     </>
   );
 }
