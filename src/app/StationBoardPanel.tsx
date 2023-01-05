@@ -31,7 +31,7 @@ export default function StationBoardPanel() {
         <PageTitle title="Station Board" />
       </div>
       <div className="mt-8 flex w-screen flex-col justify-center px-6 align-middle md:w-[70vw] xl:w-[50vw]">
-        <div className={"flex flex-row gap-5"}>
+        <div className={"flex flex-row gap-2"}>
           <StationSearchBar setSelectedStationId={setSelectedStationId} />
           <div className={"w-fit"}>
             <TransportTypeFilter setTransportTypes={setTransportTypes} transportTypes={currentTransportTypes} />

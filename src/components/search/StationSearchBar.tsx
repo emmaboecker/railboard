@@ -5,6 +5,8 @@ import { Star } from "tabler-icons-react";
 import searchStation, { StationSearchResult } from "../../requests/vendo/stationSearch";
 import Favourite from "../../utils/favourites";
 import useSWR from "swr";
+import Button from "../ui/button/Button";
+import { FiMapPin } from "react-icons/fi";
 
 export type StationSearchBarProps = {
   setSelectedStationId: Dispatch<SetStateAction<string | undefined>>;
@@ -31,19 +33,40 @@ export default function StationSearchBar(props: StationSearchBarProps): JSX.Elem
 
   return (
     <div className="relative w-full">
-      <input
-        className=" w-full rounded-md bg-zinc-800 p-2 text-white outline-none"
-        onFocus={() => setOpen(true)}
-        onChange={(e) => {
-          setSearch(e.currentTarget.value);
-          props.setSelectedStationId(undefined);
-        }}
-        onClick={() => {
-          setOpen(true);
-        }}
-        value={search}
-        placeholder={"Suche eine Station"}
-      />
+      <div className={"flex w-full flex-row gap-2"}>
+        <input
+          className=" w-full rounded-md bg-zinc-800 p-2 text-white outline-none"
+          onFocus={() => setOpen(true)}
+          onChange={(e) => {
+            setSearch(e.currentTarget.value);
+            props.setSelectedStationId(undefined);
+          }}
+          onClick={() => {
+            setOpen(true);
+          }}
+          value={search}
+          placeholder={"Suche eine Station"}
+        />
+        <Button
+          onClick={() => {
+            const geolocation = navigator.geolocation;
+            geolocation.getCurrentPosition((position) => {
+              fetch(
+                `https://v6.db.transport.rest/locations/nearby?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&results=1&language=de`
+              )
+                .then((response) => response.json())
+                .then((data) => {
+                  setSearch(data[0].name);
+                  props.setSelectedStationId(data[0].id);
+                });
+            });
+          }}
+          className={"px-3"}
+          title={"Station mit aktuellem Standort suchen"}
+        >
+          <FiMapPin />
+        </Button>
+      </div>
       <Transition
         show={open}
         as={Fragment}
