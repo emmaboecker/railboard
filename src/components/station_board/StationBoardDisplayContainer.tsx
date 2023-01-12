@@ -73,7 +73,7 @@ function getProductTypesFromVendoType(transportType: TransportType): string[] {
       productTypes = ["IC_EC"];
       break;
     case TransportType.InterregionalAndFastTrains:
-      productTypes = [""]; // idk
+      productTypes = ["IR"];
       break;
     case TransportType.RegionalAndOtherTrains:
       productTypes = ["RB"];
