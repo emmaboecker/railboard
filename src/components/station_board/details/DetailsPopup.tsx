@@ -8,7 +8,6 @@ import { HiExternalLink } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { formatTime } from "../../../utils/time";
-import CoachSequence from "../../coach_sequence/CoachSequence";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -137,21 +136,21 @@ export default function DetailsPopup(props: {
                       </div>
                     </div>
                   )}
-                  {(props.train.product === "ICE" ||
-                    props.train.product === "IC_EC" ||
-                    props.train.product === "RB") && (
-                    <>
-                      <h4 className={"text-xl font-semibold"}>Wagenreihung (Coming soon)</h4>
-                      {number != null && (
-                        <CoachSequence
-                          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                          lineNummer={number[0]!}
-                          time={time.format("YYYYMMDDHHmm")}
-                          visible={true}
-                        />
-                      )}
-                    </>
-                  )}
+                  {/*{(props.train.product === "ICE" ||*/}
+                  {/*  props.train.product === "IC_EC" ||*/}
+                  {/*  props.train.product === "RB") && (*/}
+                  {/*  <>*/}
+                  {/*    <h4 className={"text-xl font-semibold"}>Wagenreihung (Coming soon)</h4>*/}
+                  {/*    {number != null && (*/}
+                  {/*      <CoachSequence*/}
+                  {/*        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion*/}
+                  {/*        lineNummer={number[0]!}*/}
+                  {/*        time={time.format("YYYYMMDDHHmm")}*/}
+                  {/*        visible={true}*/}
+                  {/*      />*/}
+                  {/*    )}*/}
+                  {/*  </>*/}
+                  {/*)}*/}
                   <div className={"flex w-full flex-row justify-end"}>
                     <button
                       onClick={() => {
