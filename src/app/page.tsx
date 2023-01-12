@@ -25,7 +25,7 @@ export default function HomePage() {
       <div className={"absolute mb-5 w-full text-white"}>
         <RailboardInfo />
       </div>
-      <div className="flex w-screen justify-center align-middle">
+      <div className="flex w-full justify-center align-middle">
         <Tab.List
           className={clsx(
             "bottom-0 flex h-16 w-screen flex-row bg-zinc-800 md:w-[70vw] md:rounded-t-md xl:w-[50vw]",

@@ -6,7 +6,7 @@ export type CoachSequence = {
 
 export type CoachSequenceData = {
   fahrtrichtung: string;
-  allFahrzeuggruppe: [];
+  allFahrzeuggruppe: CoachSequenceVehicle[];
   halt: CoachSequenceStop;
   liniebezeichnung: string;
   zuggattung: string;

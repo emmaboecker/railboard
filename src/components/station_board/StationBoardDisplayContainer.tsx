@@ -1,20 +1,18 @@
 "use client";
 
 import { useElementSize, useLocalStorage } from "@mantine/hooks";
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
 import { FixedSizeList as List } from "react-window";
 import StationBoardDisplayElement from "./StationBoardDisplayElement";
 import { StationBoardResponse } from "../../data/station_board";
-import { useRouter } from "next/navigation";
 import { TransportType, transportTypes } from "./filter/TransportTypeFilter";
+import DetailsPopup from "./details/DetailsPopup";
 
 export type StationBoardDisplayContainerProps = {
   data: StationBoardResponse;
 };
 
-export default function StationBoardDisplayContainer(
-  props: StationBoardDisplayContainerProps
-): JSX.Element {
+export default function StationBoardDisplayContainer(props: StationBoardDisplayContainerProps): JSX.Element {
   const { ref, width, height } = useElementSize();
 
   const [currentTransportTypes] = useLocalStorage<TransportType[]>({
@@ -37,20 +35,19 @@ export default function StationBoardDisplayContainer(
     /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
     const trainData = filteredData[index]!;
 
-    const router = useRouter();
+    const [open, setOpen] = useState(false);
 
     return (
       <div style={style}>
         <button
-          className={
-            "h-full w-full border-b-[1px] border-zinc-600 pr-2 hover:bg-zinc-800/50"
-          }
+          className={"absolute h-full w-full border-b-[1px] border-zinc-600 pr-2 hover:bg-zinc-800/50"}
           key={trainData.journeyId}
           onClick={() => {
-            router.push(`/journey/${encodeURIComponent(trainData.journeyId)}`);
+            setOpen(!open);
           }}
         >
           <StationBoardDisplayElement train={trainData} />
+          <DetailsPopup open={open} setOpen={setOpen} train={trainData} />
         </button>
       </div>
     );
@@ -58,12 +55,7 @@ export default function StationBoardDisplayContainer(
 
   return (
     <div className={"flex h-full w-full"} ref={ref}>
-      <List
-        itemSize={100}
-        height={height}
-        itemCount={filteredData.length}
-        width={width}
-      >
+      <List itemSize={100} height={height} itemCount={filteredData.length} width={width}>
         {Row}
       </List>
     </div>
@@ -81,7 +73,7 @@ function getProductTypesFromVendoType(transportType: TransportType): string[] {
       productTypes = ["IC_EC"];
       break;
     case TransportType.InterregionalAndFastTrains:
-      productTypes = [""]; // idk
+      productTypes = ["IR"];
       break;
     case TransportType.RegionalAndOtherTrains:
       productTypes = ["RB"];
