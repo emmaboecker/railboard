@@ -73,19 +73,21 @@ export default function DetailsPopup(props: {
                   as={"div"}
                   className={"relative flex h-fit w-full flex-col justify-start gap-4 pt-5 text-white"}
                 >
-                  <div className={"flex flex-col gap-0 truncate"}>
-                    {props.train.arrival && (
-                      <div className={"flex w-full flex-row gap-1"}>
-                        <h4 className={"font-semibold text-zinc-500"}>Von: </h4>
-                        <p className={"truncate"}>{props.train.arrival.origin}</p>
-                      </div>
-                    )}
-                    {props.train.departure && (
-                      <div className={"flex w-full flex-row gap-1"}>
-                        <h4 className={"font-semibold text-zinc-500"}>Nach: </h4>
-                        <p className={"truncate"}>{props.train.departure.destination}</p>
-                      </div>
-                    )}
+                  <div>
+                    <table className="border-spacing-5">
+                      {props.train.arrival && (
+                        <tr>
+                          <td className={"text-left font-semibold text-zinc-500"}>Von: </td>
+                          <td className={"truncate pl-2 text-left"}>{props.train.arrival.origin}</td>
+                        </tr>
+                      )}
+                      {props.train.departure && (
+                        <tr>
+                          <td className={"text-left font-semibold text-zinc-500"}>Nach: </td>
+                          <td className={"truncate pl-2 text-left"}>{props.train.departure.destination}</td>
+                        </tr>
+                      )}
+                    </table>
                   </div>
                   <div>
                     <div className={"mx-5 flex flex-row justify-center gap-10"}>
