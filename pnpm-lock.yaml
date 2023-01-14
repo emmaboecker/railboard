@@ -38,7 +38,7 @@ specifiers:
   tabler-icons-react: ^1.55.0
   tailwindcss: ^3.1.6
   typescript: ^4.8.4
-  use-detect-keyboard-open: ^0.2.0
+  use-detect-keyboard-open: ^0.4.0
   zod: ^3.19.1
 
 dependencies:
@@ -61,7 +61,7 @@ dependencies:
   react-window: 1.8.7_biqbaboplfbrettd7655fr4n2y
   swr: 2.0.0_react@18.2.0
   tabler-icons-react: 1.55.0_react@18.2.0
-  use-detect-keyboard-open: 0.2.0
+  use-detect-keyboard-open: 0.4.0
   zod: 3.19.1
 
 devDependencies:
@@ -4727,8 +4727,8 @@ packages:
     dependencies:
       punycode: 2.1.1
 
-  /use-detect-keyboard-open/0.2.0:
-    resolution: {integrity: sha512-tW1MHQ5rKFshz0xxcUSdTrLoXPH5VG+X671wQerW7rgMZbp0b9YcTxnq3a8oOT5urxWS3C2TckOYs7LGOp6CiA==}
+  /use-detect-keyboard-open/0.4.0:
+    resolution: {integrity: sha512-g26dzEDF9qh1VSwYT7ILOdzS0v9xPo5IF3R804HksW+NAOiNd2P2KYrmTfd/5ApfYixlrX2P7+PlsEgAx/lZ6w==}
     dev: false
 
   /use-sync-external-store/1.2.0_react@18.2.0:
