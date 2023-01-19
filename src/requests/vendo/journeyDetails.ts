@@ -1,8 +1,9 @@
+import { Time } from "./stationBoard";
+
 export type HimNotice = {
   text: string;
   priority: string;
   heading: string;
-  lastUpdate: string;
 };
 
 export type Text = {
@@ -11,52 +12,47 @@ export type Text = {
 };
 
 export type JourneyDetailsVendoResponse = {
-  fahrplan: {
-    regulaererFahrplan: string;
-    tageOhneFahrt: string;
+  schedule: {
+    regularSchedule: string;
+    daysOfOperation: string;
   };
-  kurztext: string;
-  mitteltext: string;
-  langtext: string;
-  halte: VendoStop[];
-  echtzeitNotizen: Text[];
-  himNotizen: HimNotice[];
-  attributNotizen: Text[];
+  shortName: string;
+  name: string;
+  longName: string;
+  stops: VendoStop[];
+  notes: string[];
+  himNotices: HimNotice[];
+  attributes: Text[];
   verkehrsmittelNummer: string;
-  richtung: string;
-  produktGattung: string;
-  reisetag: string;
+  destination: string;
+  productType: string;
+  journeyDay: string;
 };
 
 export type VendoStop = {
-  ankunftsDatum?: string;
-  abgangsDatum?: string;
-  ezAnkunftsDatum?: string;
-  ezAbgangsDatum?: string;
-  ort: string;
-  gleis?: string;
-  ezGleis?: string;
-  attributNotizen: Text[];
-  echtzeitNotizen: Text[];
-  serviceNotiz?: { text: string; key: string };
-  himNotizen: HimNotice[];
-  auslastungsInfos: DemandInformation[];
+  name: string;
+  arrival?: Time;
+  departure?: Time;
+  platform?: string;
+  realtimePlatform?: string;
+  attributes: Text[];
+  notes: string[];
+  serviceNote?: { text: string; key: string };
+  himNotes: HimNotice[];
 };
 
-export type DemandInformation = {
-  klasse: "KLASSE_1" | "KLASSE_2";
-  stufe: number;
-  anzeigeTextKurz: string;
-  anzeigeTextLang: string;
-};
+// export type DemandInformation = {
+//   klasse: "KLASSE_1" | "KLASSE_2";
+//   stufe: number;
+//   anzeigeTextKurz: string;
+//   anzeigeTextLang: string;
+// }; // Vendo currently doesn't actually respond with this
 
 export default async function journeyDetails(id: string): Promise<JourneyDetailsVendoResponse> {
-  const rawResponse = await fetch(`https://app.vendo.noncd.db.de/mob/zuglauf/${id}`, {
+  const rawResponse = await fetch(`https://api.rail.stckoverflw.net/vendo/v1/journey_details/${id}`, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/x.db.vendo.mob.zuglauf.v1+json",
-      Accept: "application/x.db.vendo.mob.zuglauf.v1+json",
-      "X-Correlation-ID": "ratio",
+    next: {
+      revalidate: 60,
     },
   });
 

@@ -2,7 +2,7 @@ import NameAndPlatformDisplay from "./elements/NameAndPlatformDisplay";
 import StationsDisplay from "./elements/StationsDisplay";
 import TimeDisplay from "./elements/TimeDisplay";
 import NoticesDisplay from "./elements/NoticesDisplay";
-import { StationBoardTrain } from "../../data/station_board";
+import { StationBoardTrain } from "../../requests/vendo/stationBoard";
 
 export type StationBoardDisplayElementProps = {
   train: StationBoardTrain;
@@ -22,9 +22,9 @@ export default function StationBoardDisplayElement(props: StationBoardDisplayEle
           <div className="my-auto w-full">
             <NameAndPlatformDisplay trainData={props.train} />
           </div>
-          {props.train.notices.length > 0 && (
+          {props.train.notes.length > 0 && (
             <div className="my-auto ml-0 w-full">
-              <NoticesDisplay notices={props.train.notices} />
+              <NoticesDisplay notices={props.train.notes} />
             </div>
           )}
           <div className="relative my-auto">

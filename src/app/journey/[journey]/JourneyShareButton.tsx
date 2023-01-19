@@ -22,10 +22,10 @@ export default function JourneyShareButton({
       });
       await navigator.share({
         url: share,
-        text: `${journey.mitteltext} auf ${document.location.host}`,
+        text: `${journey.name} auf ${document.location.host}`,
       });
     })();
-  }, [journey.mitteltext, journeyId]);
+  }, [journey.name, journeyId]);
 
   return <ShareButton onClick={shareJourney} className={className} />;
 }

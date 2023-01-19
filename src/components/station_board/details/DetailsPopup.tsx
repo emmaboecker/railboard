@@ -3,29 +3,26 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Dispatch, Fragment, SetStateAction } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { FullStationBoardTrain } from "../../../data/station_board";
 import { HiExternalLink } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { formatTime } from "../../../utils/time";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
+import { StationBoardTrain } from "../../../requests/vendo/stationBoard";
 
 export default function DetailsPopup(props: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  train: FullStationBoardTrain;
+  train: StationBoardTrain;
 }) {
   const router = useRouter();
 
-  const number = props.train.name.match(/\d+/);
-
-  dayjs.extend(utc);
-  dayjs.extend(timezone);
+  // const number = props.train.name.match(/\d+/);
+  //
+  // dayjs.extend(utc);
+  // dayjs.extend(timezone);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const date = new Date((props.train.departure ?? props.train.arrival!).time.scheduledTime);
-  const time = dayjs.tz(date, "Europe/Berlin");
+  // const date = new Date((props.train.departure ?? props.train.arrival!).time.scheduledTime);
+  // const time = dayjs.tz(date, "Europe/Berlin");
 
   return (
     <Transition appear show={props.open} as={"div"}>
@@ -91,12 +88,12 @@ export default function DetailsPopup(props: {
                   </div>
                   <div>
                     <div className={"mx-5 flex flex-row justify-center gap-10"}>
-                      {props.train.arrival && (
+                      {props.train.arrival != null && (
                         <div>
                           <h5 className={"mb-2 text-xl font-semibold text-zinc-400"}>Ankunft</h5>
                           <TimeDisplay
-                            scheduledTime={props.train.arrival.time.scheduledTime}
-                            time={props.train.arrival.time.time}
+                            scheduledTime={props.train.arrival.time.scheduled}
+                            time={props.train.arrival.time.realtime}
                           />
                         </div>
                       )}
@@ -104,8 +101,8 @@ export default function DetailsPopup(props: {
                         <div>
                           <h5 className={"mb-2 text-xl font-semibold text-zinc-400"}>Abfahrt</h5>
                           <TimeDisplay
-                            scheduledTime={props.train.departure.time.scheduledTime}
-                            time={props.train.departure.time.time}
+                            scheduledTime={props.train.departure.time.scheduled}
+                            time={props.train.departure.time.realtime}
                           />
                         </div>
                       )}
@@ -114,25 +111,26 @@ export default function DetailsPopup(props: {
                           <h5 className={"mb-2 text-xl font-semibold text-zinc-400"}>Auf Gleis</h5>
                           <p
                             className={clsx(
-                              props.train.platform &&
-                                props.train.platform !== props.train.scheduledPlatform &&
+                              props.train.realtimePlatform &&
+                                props.train.realtimePlatform !== props.train.scheduledPlatform &&
                                 "text-red-500 line-through"
                             )}
                           >
                             {props.train.scheduledPlatform}
                           </p>
-                          {props.train.platform && props.train.platform !== props.train.scheduledPlatform && (
-                            <p>{props.train.platform}</p>
-                          )}
+                          {props.train.realtimePlatform &&
+                            props.train.realtimePlatform !== props.train.scheduledPlatform && (
+                              <p>{props.train.realtimePlatform}</p>
+                            )}
                         </div>
                       )}
                     </div>
                   </div>
-                  {props.train.notices.length > 0 && (
+                  {props.train.notes.length > 0 && (
                     <div>
                       <h4 className={"text-xl font-semibold"}>Nachrichten</h4>
                       <div className={"flex flex-col text-red-500"}>
-                        {props.train.notices.map((notice) => (
+                        {props.train.notes.map((notice) => (
                           <p key={notice}>{notice}</p>
                         ))}
                       </div>

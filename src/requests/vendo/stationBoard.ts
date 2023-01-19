@@ -1,82 +1,39 @@
-export type StationBoardRequest = {
-  anfragezeit: string;
-  datum: string;
-  ursprungsBahnhofId: string;
-  verkehrsmittel: string[];
+export type StationBoardResponse = {
+  day: string;
+  time: string;
+  id: string;
+  stationBoard: StationBoardTrain[];
 };
 
-export type DepartureBoardResponse = {
-  bahnhofstafelAbfahrtPositionen: DepartureBoardResult[];
-};
-export type ArrivalBoardResponse = {
-  bahnhofstafelAnkunftPositionen: ArrivalBoardResult[];
-};
-
-export type DepartureBoardResult = {
-  abfrageOrt: string;
-  abfrageOrtId: string;
-  abgangsDatum: string;
-  ezAbgangsDatum?: string;
-  echtzeitNotizen: { text: string }[];
-  gleis: string;
-  ezGleis?: string;
-  kurztext: string;
-  mitteltext: string;
-  produktGattung: string;
-  richtung: string;
-  zuglaufId: string;
+export type StationBoardTrain = {
+  journeyId: string;
+  arrival?: {
+    origin: string;
+    time: Time;
+  };
+  departure?: {
+    destination: string;
+    time: Time;
+  };
+  productType?: string;
+  shortName?: string;
+  name: string;
+  scheduledPlatform?: string;
+  realtimePlatform?: string;
+  notes: string[];
 };
 
-export type ArrivalBoardResult = {
-  abfrageOrt: string;
-  abfrageOrtId: string;
-  ankunftsDatum: string;
-  ezAnkunftsDatum?: string;
-  echtzeitNotizen: { text: string }[];
-  gleis: string;
-  ezGleis?: string;
-  kurztext: string;
-  mitteltext: string;
-  produktGattung: string;
-  abgangsOrt: string;
-  zuglaufId: string;
+export type Time = {
+  scheduled: string;
+  realtime?: string;
 };
 
-export async function departureBoard(
-  body: StationBoardRequest
-): Promise<DepartureBoardResponse> {
+export async function stationBoard(eva: string, date: number): Promise<StationBoardResponse> {
+  const normalized_date = date / 1000;
   const response = await fetch(
-    "https://app.vendo.noncd.db.de/mob/bahnhofstafel/abfahrt",
+    `https://api.rail.stckoverflw.net/vendo/v1/station_board/${eva}?date=${normalized_date.toString().split(".")[0]}`,
     {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/x.db.vendo.mob.bahnhofstafeln.v1+json",
-        Accept: "application/x.db.vendo.mob.bahnhofstafeln.v1+json",
-        "X-Correlation-ID": "ratio",
-      },
-      next: {
-        revalidate: 30,
-      },
-    }
-  );
-
-  return response.json();
-}
-
-export async function arrivalBoard(
-  body: StationBoardRequest
-): Promise<ArrivalBoardResponse> {
-  const response = await fetch(
-    "https://app.vendo.noncd.db.de/mob/bahnhofstafel/ankunft",
-    {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/x.db.vendo.mob.bahnhofstafeln.v1+json",
-        Accept: "application/x.db.vendo.mob.bahnhofstafeln.v1+json",
-        "X-Correlation-ID": "ratio",
-      },
+      method: "GET",
       next: {
         revalidate: 30,
       },

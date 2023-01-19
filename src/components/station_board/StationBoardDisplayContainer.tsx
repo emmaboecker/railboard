@@ -4,9 +4,9 @@ import { useElementSize, useLocalStorage } from "@mantine/hooks";
 import { CSSProperties, useState } from "react";
 import { FixedSizeList as List } from "react-window";
 import StationBoardDisplayElement from "./StationBoardDisplayElement";
-import { StationBoardResponse } from "../../data/station_board";
 import { TransportType, transportTypes } from "./filter/TransportTypeFilter";
 import DetailsPopup from "./details/DetailsPopup";
+import { StationBoardResponse } from "../../requests/vendo/stationBoard";
 
 export type StationBoardDisplayContainerProps = {
   data: StationBoardResponse;
@@ -20,11 +20,11 @@ export default function StationBoardDisplayContainer(props: StationBoardDisplayC
     defaultValue: transportTypes,
   });
 
-  const filteredData = props.data.trains.filter((train) => {
+  const filteredData = props.data.stationBoard.filter((train) => {
     let isIncluded = false;
     currentTransportTypes.forEach((value) => {
       const productTypes = getProductTypesFromVendoType(value);
-      if (productTypes.includes(train.product ?? "")) {
+      if (productTypes.includes(train.productType ?? "")) {
         isIncluded = true;
       }
     });

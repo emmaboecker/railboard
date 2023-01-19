@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { StationBoardTrain } from "../../../data/station_board";
+import { StationBoardTrain } from "../../../requests/vendo/stationBoard";
 
 export type NameDisplayProps = {
   trainData: StationBoardTrain;
@@ -7,7 +7,7 @@ export type NameDisplayProps = {
 
 export default function NameAndPlatformDisplay(props: NameDisplayProps): JSX.Element {
   const scheduledPlatform = props.trainData.scheduledPlatform;
-  const platform = props.trainData.platform;
+  const platform = props.trainData.realtimePlatform;
 
   const isDifferentPlatform =
     scheduledPlatform != null ? (platform != null ? scheduledPlatform !== platform : undefined) : undefined;
@@ -17,7 +17,7 @@ export default function NameAndPlatformDisplay(props: NameDisplayProps): JSX.Ele
       <div
         className={clsx(
           "my-auto text-lg font-semibold",
-          props.trainData.notices.includes("Halt entfällt") && "italic line-through"
+          props.trainData.notes.includes("Halt entfällt") && "italic line-through"
         )}
       >
         {props.trainData.name}
@@ -31,7 +31,7 @@ export default function NameAndPlatformDisplay(props: NameDisplayProps): JSX.Ele
             </div>
             {isDifferentPlatform === true && (
               <>
-                <div className={"my-auto pl-1"}>{props.trainData.platform}</div>
+                <div className={"my-auto pl-1"}>{props.trainData.realtimePlatform}</div>
               </>
             )}
           </div>

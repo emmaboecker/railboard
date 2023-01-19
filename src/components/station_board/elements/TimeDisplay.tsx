@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { formatTime } from "../../../utils/time";
-import { Time } from "../../../data/station_board";
+import { Time } from "../../../requests/vendo/stationBoard";
 
 export type TimeDisplayProps = {
   arrivalTime?: Time;
@@ -8,37 +8,22 @@ export type TimeDisplayProps = {
 };
 
 export default function TimeDisplay(props: TimeDisplayProps): JSX.Element {
-  const scheduledArrival = props.arrivalTime?.scheduledTime;
-  const actualArrival = props.arrivalTime?.time;
+  const scheduledArrival = props.arrivalTime?.scheduled;
+  const actualArrival = props.arrivalTime?.realtime;
 
-  const scheduledDepart = props.departureTime?.scheduledTime;
-  const actualDepart = props.departureTime?.time;
+  const scheduledDepart = props.departureTime?.scheduled;
+  const actualDepart = props.departureTime?.realtime;
 
   return (
     <div className={"flex h-full w-full flex-row justify-center align-middle"}>
-      {scheduledArrival && (
-        <InternalTimeDisplay
-          scheduledTime={scheduledArrival}
-          time={actualArrival}
-        />
-      )}
-      {scheduledDepart && (
-        <InternalTimeDisplay
-          scheduledTime={scheduledDepart}
-          time={actualDepart}
-        />
-      )}
+      {scheduledArrival && <InternalTimeDisplay scheduledTime={scheduledArrival} time={actualArrival} />}
+      {scheduledDepart && <InternalTimeDisplay scheduledTime={scheduledDepart} time={actualDepart} />}
     </div>
   );
 }
 
-function InternalTimeDisplay(props: {
-  scheduledTime: string;
-  time?: string;
-}): JSX.Element {
-  const isTooLate = props.time
-    ? new Date(props.scheduledTime).getTime() !== new Date(props.time).getTime()
-    : undefined;
+function InternalTimeDisplay(props: { scheduledTime: string; time?: string }): JSX.Element {
+  const isTooLate = props.time ? new Date(props.scheduledTime).getTime() !== new Date(props.time).getTime() : undefined;
 
   const scheduledTime = new Date(props.scheduledTime.toString());
   const time = props.time != null ? new Date(props.time.toString()) : undefined;
@@ -47,19 +32,11 @@ function InternalTimeDisplay(props: {
   const diffMins = Math.floor(diffSeconds / 60);
 
   return (
-    <div
-      className={clsx(
-        "m-auto flex w-full flex-col justify-center align-middle"
-      )}
-    >
+    <div className={clsx("m-auto flex w-full flex-col justify-center align-middle")}>
       <div className={clsx("m-auto flex flex-col")}>
         <p
           className={clsx(
-            isTooLate == null
-              ? "text-white"
-              : isTooLate
-              ? "text-sm text-white line-through"
-              : "text-white"
+            isTooLate == null ? "text-white" : isTooLate ? "text-sm text-white line-through" : "text-white"
           )}
         >
           {formatTime(scheduledTime)}
@@ -68,12 +45,7 @@ function InternalTimeDisplay(props: {
       </div>
       {time && (
         <>
-          <div
-            className={clsx(
-              "m-auto text-lg",
-              isTooLate == null || isTooLate ? "text-red-500" : "text-green-500"
-            )}
-          >
+          <div className={clsx("m-auto text-lg", isTooLate == null || isTooLate ? "text-red-500" : "text-green-500")}>
             {formatTime(time)}
           </div>
         </>

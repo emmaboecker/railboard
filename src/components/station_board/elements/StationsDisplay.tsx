@@ -1,12 +1,10 @@
-import { StationBoardTrain } from "../../../data/station_board";
+import { StationBoardTrain } from "../../../requests/vendo/stationBoard";
 
 export type StationsDisplayProps = {
   trainData: StationBoardTrain;
 };
 
-export default function StationsDisplay(
-  props: StationsDisplayProps
-): JSX.Element {
+export default function StationsDisplay(props: StationsDisplayProps): JSX.Element {
   const arrival = props.trainData.arrival;
   const departure = props.trainData.departure;
 
@@ -19,9 +17,7 @@ export default function StationsDisplay(
           </div>
           <div className={"flex truncate font-sans text-zinc-400"}>
             Nach:
-            <p className={"ml-2 truncate text-white"}>
-              {departure.destination}
-            </p>
+            <p className={"ml-2 truncate text-white"}>{departure.destination}</p>
           </div>
         </>
       );
@@ -47,9 +43,5 @@ export default function StationsDisplay(
     return <></>;
   }
 
-  return (
-    <div className="flex max-w-full flex-col truncate text-sm">
-      {getElement()}
-    </div>
-  );
+  return <div className="flex max-w-full flex-col truncate text-sm">{getElement()}</div>;
 }

@@ -25,12 +25,7 @@ export default function StationSearchBar(props: StationSearchBarProps): JSX.Elem
   const [open, setOpen] = useState(false);
   const ref = useClickOutside(() => setOpen(false));
 
-  const { data } = useSWR(debouncedSearch, (key) =>
-    searchStation({
-      searchTerm: key,
-      locationTypes: [],
-    })
-  );
+  const { data } = useSWR(debouncedSearch, (key) => searchStation(key));
 
   const [locatePopup, setLocatePopup] = useState(false);
 
