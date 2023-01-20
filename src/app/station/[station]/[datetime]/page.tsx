@@ -1,6 +1,8 @@
 import StationBoardDisplayContainer from "../../../../components/station_board/StationBoardDisplayContainer";
 import { stationBoard } from "../../../../requests/vendo/stationBoard";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page({ params }: { params: { station: string; datetime: string } }) {
   const data = await stationBoard(params.station, parseInt(params.datetime));
 
