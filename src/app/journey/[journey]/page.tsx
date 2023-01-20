@@ -8,6 +8,8 @@ import JourneyShareButton from "./JourneyShareButton";
 
 export const revalidate = 60;
 
+export const dynamic = "force-dynamic";
+
 export default async function Page({ params }: { params: { journey: string } }): Promise<JSX.Element> {
   const data = await journeyDetails(params.journey);
 
