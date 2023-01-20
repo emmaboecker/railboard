@@ -1,7 +1,6 @@
-import React, { Suspense } from "react";
+import React from "react";
 import GoBackButton from "../../../components/ui/button/GoBackButton";
 import { getStationInfoData } from "../../../data/station_info";
-import { asyncComponent } from "../../../utils/async_component_fix";
 import FilterButtonContainer from "./FilterButtonContainer";
 import ReloadButton from "./ReloadButton";
 import StationShareButton from "./StationShareButton";
@@ -14,6 +13,7 @@ export default async function Layout({
   params?: { station?: string; datetime?: string };
 }) {
   const station = parseInt(params?.station ?? "8000105");
+  const data = await getStationInfoData(station);
 
   const datetime = (params?.datetime && parseInt(params.datetime)) || Date.now();
 
@@ -23,10 +23,8 @@ export default async function Layout({
         <div className={"absolute left-0 ml-3 flex h-full"}>
           <GoBackButton className={"my-[9px]"} />
         </div>
-        <div className={"my-auto ml-14 text-lg font-semibold sm:m-auto"}>
-          <Suspense fallback={""}>
-            <StationName stationId={station} />
-          </Suspense>
+        <div className={"my-auto ml-14 truncate text-lg font-semibold sm:m-auto"}>
+          <h1>{data.name}</h1>
         </div>
         <div className={"absolute right-0 flex h-full gap-1 px-2"}>
           <ReloadButton stationId={station} className={"my-auto text-sm"} />
@@ -38,9 +36,3 @@ export default async function Layout({
     </div>
   );
 }
-
-const StationName = asyncComponent(async (props: { stationId: number }) => {
-  const data = await getStationInfoData(props.stationId);
-
-  return <h1>{data.name}</h1>;
-});

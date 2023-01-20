@@ -22,16 +22,16 @@ export default function NameAndPlatformDisplay(props: NameDisplayProps): JSX.Ele
       >
         {props.trainData.name}
       </div>
-      {props.trainData.scheduledPlatform != null && (
-        <div className={"absolute right-0 flex flex-row rounded-md bg-zinc-700"}>
+      {scheduledPlatform != null && (
+        <div className={"absolute right-0 flex flex-row rounded-md border-2 border-zinc-700 bg-zinc-800"}>
           <div className={"flex flex-row p-1"}>
             <p className={"m-auto"}>Gl.</p>
             <div className={clsx("my-auto pl-1", isDifferentPlatform === true && "text-red-500 line-through")}>
-              {props.trainData.scheduledPlatform}
+              {scheduledPlatform}
             </div>
             {isDifferentPlatform === true && (
               <>
-                <div className={"my-auto pl-1"}>{props.trainData.realtimePlatform}</div>
+                <div className={"my-auto pl-1"}>{platform}</div>
               </>
             )}
           </div>

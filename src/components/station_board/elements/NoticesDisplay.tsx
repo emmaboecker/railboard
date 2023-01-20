@@ -1,21 +1,17 @@
+import { BiErrorAlt } from "react-icons/bi";
+
 export type NoticesDisplayProps = {
   notices: string[];
 };
 
-export default function NoticesDisplay(
-  props: NoticesDisplayProps
-): JSX.Element {
+export default function NoticesDisplay(props: NoticesDisplayProps): JSX.Element {
   return (
-    <div
-      className={
-        "text-md ml-0 mr-auto flex flex-col justify-start text-red-500"
-      }
-    >
-      {props.notices.map((notice) => (
-        <p className={"mr-auto"} key={notice}>
-          - {notice}
-        </p>
-      ))}
-    </div>
+    <>
+      {props.notices.length > 0 && (
+        <div className={"text-md ml-0 mr-auto flex flex-row justify-start gap-2 truncate align-middle text-red-500"}>
+          <BiErrorAlt className={"my-auto"} /> Es sind Meldungen verfügbar
+        </div>
+      )}
+    </>
   );
 }
