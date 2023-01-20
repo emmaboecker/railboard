@@ -112,19 +112,21 @@ export default function StationSearchBar(props: StationSearchBarProps): JSX.Elem
                   </div>
                 ) : (
                   <div className="flex w-full flex-col">
-                    {data.map((station) => (
-                      <StationResultDisplay
-                        station={station}
-                        favourites={favourites}
-                        setFavourites={setFavourites}
-                        key={station.evaNr}
-                        onClick={(station) => {
-                          props.setSelectedStationId(station.evaNr);
-                          setSearch(station.name);
-                          setOpen(false);
-                        }}
-                      />
-                    ))}
+                    {data
+                      .filter((station) => station.evaNr != null && station.weight != null)
+                      .map((station) => (
+                        <StationResultDisplay
+                          station={station}
+                          favourites={favourites}
+                          setFavourites={setFavourites}
+                          key={station.evaNr}
+                          onClick={(station) => {
+                            props.setSelectedStationId(station.evaNr);
+                            setSearch(station.name);
+                            setOpen(false);
+                          }}
+                        />
+                      ))}
                   </div>
                 )}
               </>
@@ -180,22 +182,24 @@ export default function StationSearchBar(props: StationSearchBarProps): JSX.Elem
                     className={"relative flex h-fit w-full flex-col justify-start gap-2 pt-5 text-white"}
                   >
                     {locateData &&
-                      locateData.map((station) => (
-                        <button
-                          key={station.id}
-                          onClick={() => {
-                            setSearch(station.name);
-                            setOpen(false);
-                            props.setSelectedStationId(station.id);
-                            setLocatePopup(false);
-                          }}
-                          className={
-                            "flex w-full flex-row justify-between gap-2 truncate rounded-md p-2 hover:bg-zinc-700"
-                          }
-                        >
-                          {station.name}
-                        </button>
-                      ))}
+                      locateData
+                        .filter((station) => station.id != null)
+                        .map((station) => (
+                          <button
+                            key={station.id}
+                            onClick={() => {
+                              setSearch(station.name);
+                              setOpen(false);
+                              props.setSelectedStationId(station.id);
+                              setLocatePopup(false);
+                            }}
+                            className={
+                              "flex w-full flex-row justify-between gap-2 truncate rounded-md p-2 hover:bg-zinc-700"
+                            }
+                          >
+                            {station.name}
+                          </button>
+                        ))}
                   </Dialog.Description>
                 </Dialog.Panel>
               </Transition.Child>
@@ -237,7 +241,8 @@ function StationResultDisplay(props: StationResultDisplayProps): JSX.Element {
             props.setFavourites((prevState) =>
               prevState.concat([
                 {
-                  evaNr: props.station.evaNr,
+                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  evaNr: props.station.evaNr!,
                   name: props.station.name,
                   locationId: props.station.locationId,
                 },

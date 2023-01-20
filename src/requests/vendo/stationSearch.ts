@@ -10,12 +10,12 @@ export type StationSearchResult = {
     latitude: number;
     longitude: number;
   };
-  evaNr: string;
+  evaNr?: string;
   locationId: string;
   locationType: string;
   name: string;
   products: string[];
-  weight: number;
+  weight?: number;
 };
 
 // const getBaseUrl = () => {
