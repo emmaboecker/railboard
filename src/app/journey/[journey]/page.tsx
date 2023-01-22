@@ -13,8 +13,6 @@ export const dynamic = "force-dynamic";
 export default async function Page({ params }: { params: { journey: string } }): Promise<JSX.Element> {
   const data = await journeyDetails(params.journey);
 
-  console.log(JSON.stringify(data));
-
   return (
     <>
       <div className={"h-screen text-white"}>
@@ -30,7 +28,7 @@ export default async function Page({ params }: { params: { journey: string } }):
         <div className={"flex w-full pt-14 align-middle"}>
           <div className={"flex flex-col gap-0 p-2 text-lg font-bold text-zinc-400 sm:m-auto sm:flex-row sm:gap-1"}>
             <span className={"text-white"}>
-              {data.name} {data.productType === "RB" && `(${data.verkehrsmittelNummer})`}
+              {data.name} {data.productType === "RB" && data.transportNumber != null && `(${data.transportNumber})`}
             </span>
             {data.attributes.find((value) => value.key === "OP") && (
               <>

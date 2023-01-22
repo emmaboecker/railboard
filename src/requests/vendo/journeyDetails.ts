@@ -23,7 +23,7 @@ export type JourneyDetailsVendoResponse = {
   notes: string[];
   himNotices: HimNotice[];
   attributes: Text[];
-  verkehrsmittelNummer: string;
+  transportNumber?: string;
   destination: string;
   productType: string;
   journeyDay: string;
