@@ -20,6 +20,8 @@ export default async function Page({
     lookahead = parseInt(searchParams.lookahead as string);
   }
 
+  console.log(JSON.stringify(params));
+
   const date = dayjs(decodeURIComponent(params.datetime));
 
   const data = await stationBoard(params.station, date, lookbehind, lookahead);

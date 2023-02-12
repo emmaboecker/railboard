@@ -106,15 +106,22 @@ export async function stationBoard(
     end = end.minute(end.minute() - (end.minute() % 5));
   }
 
-  const response = await fetch(
-    `${getApiBaseUrl()}/v1/station_board/${eva}?timeStart=${start.format()}&timeEnd=${end.format()}`,
-    {
-      method: "GET",
-      next: {
-        revalidate: 30,
-      },
-    }
-  );
+  const timeStart = encodeURIComponent(start.toISOString());
+
+  const timeEnd = encodeURIComponent(end.toISOString());
+
+  const url = `${getApiBaseUrl()}/v1/station_board/${eva}?timeStart=${timeStart}&timeEnd=${timeEnd}`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    next: {
+      revalidate: 30,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch station board (${url}) : ${await response.text()}`);
+  }
 
   return response.json();
 }

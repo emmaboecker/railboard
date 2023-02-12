@@ -24,7 +24,7 @@ export default function ReloadButton(props: { stationId: number; className: stri
       onClick={() => {
         setReloading(true);
         const date = new Date();
-        router.replace(`/station/${props.stationId}/${dayjs(date).format()}`);
+        router.replace(`/station/${props.stationId}/${dayjs(date).toISOString()}`);
       }}
       disabled={reloading}
     >

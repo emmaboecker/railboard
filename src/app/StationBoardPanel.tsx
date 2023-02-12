@@ -62,7 +62,7 @@ export default function StationBoardPanel() {
           className={"p-3"}
           onClick={() => {
             setRedirecting(true);
-            router.push(`/station/${selectedStationId}/${dayjs(date).format()}`);
+            router.push(`/station/${selectedStationId}/${dayjs(date).toISOString()}`);
           }}
           disabled={!selectedStationId || redirecting}
         >
