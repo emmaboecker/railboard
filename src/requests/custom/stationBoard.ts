@@ -107,7 +107,7 @@ export async function stationBoard(
   }
 
   const response = await fetch(
-    `${getApiBaseUrl()}/v1/station_board/${eva}?timeStart=${start.toISOString()}&timeEnd=${end.toISOString()}`,
+    `${getApiBaseUrl()}/v1/station_board/${eva}?timeStart=${start.format()}&timeEnd=${end.format()}`,
     {
       method: "GET",
       next: {
