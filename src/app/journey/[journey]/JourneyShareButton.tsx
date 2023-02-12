@@ -14,6 +14,14 @@ export default function JourneyShareButton({
   className?: string;
   journey: RisJourneyDetails;
 }) {
+  const names = journey.stops.map(
+    (stop) => stop.transport.category + " " + (stop.transport.line ?? stop.transport.number.toString())
+  );
+
+  const uniqueNames = names.filter((element, index) => {
+    return names.indexOf(element) === index;
+  });
+
   const shareJourney = useCallback(() => {
     (async () => {
       const share = await createShare({
@@ -22,10 +30,10 @@ export default function JourneyShareButton({
       });
       await navigator.share({
         url: share,
-        text: ` auf ${document.location.host}`,
+        text: `${uniqueNames.join(", ")} auf ${document.location.host}`,
       });
     })();
-  }, [journeyId]);
+  }, [journeyId, uniqueNames]);
 
   return <ShareButton onClick={shareJourney} className={className} />;
 }
