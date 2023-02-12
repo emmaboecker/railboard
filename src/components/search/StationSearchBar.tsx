@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useClickOutside, useDebouncedValue, useLocalStorage } from "@mantine/hooks";
 import { Dispatch, Fragment, SetStateAction, useState } from "react";
 import { Star } from "tabler-icons-react";
-import searchStation, { StationSearchResult } from "../../requests/vendo/stationSearch";
+import searchStation, { StationSearchResult } from "../../requests/custom/stationSearch";
 import Favourite from "../../utils/favourites";
 import useSWR from "swr";
 import Button from "../ui/button/Button";

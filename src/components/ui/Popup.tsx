@@ -19,7 +19,7 @@ export default function Popup(props: PopupProps) {
         as="div"
         className="relative z-10"
         /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-        onClose={() => {}}
+        onClose={props.onClose}
       >
         <Transition.Child
           as={"div"}
@@ -44,7 +44,7 @@ export default function Popup(props: PopupProps) {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel
-                className={"md:w-[70vw] xl:w-[50vw] flex w-[90vw] flex-col rounded-lg bg-zinc-800 p-5 text-violet-400"}
+                className={"flex w-[90vw] flex-col rounded-lg bg-zinc-800 p-5 text-violet-400 md:w-[70vw] xl:w-[50vw]"}
               >
                 <Dialog.Title className={"flex w-full flex-row justify-between text-xl font-bold"}>
                   <p>{props.title}</p>

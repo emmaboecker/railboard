@@ -10,6 +10,7 @@ import TransportTypeFilter, {
   transportTypes,
 } from "../components/station_board/filter/TransportTypeFilter";
 import { useLocalStorage } from "@mantine/hooks";
+import dayjs from "dayjs";
 
 export default function StationBoardPanel() {
   const [selectedStationId, setSelectedStationId] = useState<string | undefined>(undefined);
@@ -61,7 +62,7 @@ export default function StationBoardPanel() {
           className={"p-3"}
           onClick={() => {
             setRedirecting(true);
-            router.push(`/station/${selectedStationId}/${date.getTime()}`);
+            router.push(`/station/${selectedStationId}/${dayjs(date).format()}`);
           }}
           disabled={!selectedStationId || redirecting}
         >

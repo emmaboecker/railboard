@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 import ShareButton from "../../../components/ui/button/ShareButton";
 import { createShare } from "../../../utils/share";
-import { JourneyDetailsVendoResponse } from "../../../requests/vendo/journeyDetails";
+import { RisJourneyDetails } from "../../../requests/ris/journeyDetails";
 
 export default function JourneyShareButton({
   journeyId,
@@ -12,7 +12,7 @@ export default function JourneyShareButton({
 }: {
   journeyId: string;
   className?: string;
-  journey: JourneyDetailsVendoResponse;
+  journey: RisJourneyDetails;
 }) {
   const shareJourney = useCallback(() => {
     (async () => {
@@ -22,10 +22,10 @@ export default function JourneyShareButton({
       });
       await navigator.share({
         url: share,
-        text: `${journey.name} auf ${document.location.host}`,
+        text: ` auf ${document.location.host}`,
       });
     })();
-  }, [journey.name, journeyId]);
+  }, [journeyId]);
 
   return <ShareButton onClick={shareJourney} className={className} />;
 }
