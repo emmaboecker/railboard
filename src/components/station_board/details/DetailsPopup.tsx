@@ -109,7 +109,7 @@ export default function DetailsPopup(props: {
       {uniqueMessages.length > 0 && (
         <div className={"flex w-full flex-col"}>
           <h4 className={"mx-auto text-xl font-semibold"}>Meldungen</h4>
-          <div className={"text-red-500"}>
+          <div className={"text-red-400"}>
             <ul className={"list-disc pl-4 text-start"}>
               {uniqueMessages.map((message) => (
                 <li className={"mr-auto list-item"} key={message.id}>
@@ -130,7 +130,7 @@ export default function DetailsPopup(props: {
           <div className={"text-zinc-300"}>
             <ul className={"list-disc pl-4 text-start"}>
               {props.train.additionalInfo.route.map((route) => (
-                <li className={clsx("mr-auto list-item", route.added && "text-green-400", route.cancelled && "text-red-400")} key={route.name}>
+                <li className={clsx("mr-auto list-item", route.added && "text-green-400", route.cancelled && "text-red-400 line-through")} key={route.name}>
                   {route.name}
                 </li>
               ))}

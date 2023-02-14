@@ -44,10 +44,17 @@ export default function StopDisplay(props: {
             />
           </div>
           <div className="flex w-full flex-col justify-start truncate pr-4">
-            <div className={clsx("mr-6 w-fit truncate text-lg font-bold", stop.cancelled && "line-through")}>
+            <div
+              className={clsx(
+                "mr-6 w-fit truncate text-lg font-bold",
+                stop.cancelled && "text-red-400 line-through",
+                stop.additional && "text-green-400"
+              )}
+            >
               {stop.stopName}
             </div>
             {stop.cancelled && <p className={"w-fit text-red-500 no-underline"}>Fällt aus</p>}
+            {stop.additional && <p className={"w-fit text-green-500 no-underline"}>Zusatzhalt</p>}
             {stop.messages
               .filter(
                 (message) =>
@@ -64,7 +71,7 @@ export default function StopDisplay(props: {
                 />
               ))}
             {stop.disruptions
-              .filter((disruption) => !(props.stops[props.index - 1]?.disruptions.includes(disruption) ?? true))
+              .filter((disruption) => props.stops[props.index - 1]?.disruptions.includes(disruption) ?? true)
               .map((disruption) => (
                 <MessageDisplay
                   text={disruption.text}

@@ -16,7 +16,7 @@ export default function NoticesDisplay(props: NoticesDisplayProps): JSX.Element 
   return (
     <>
       {uniqueMessages.length > 0 && (
-        <div className={"text-md ml-0 mr-auto flex flex-row justify-start gap-2 truncate align-middle text-red-500"}>
+        <div className={"text-md ml-0 mr-auto flex flex-row justify-start gap-2 truncate align-middle text-red-400"}>
           <BiErrorAlt className={"my-auto"} /> Es sind Meldungen verfügbar
         </div>
       )}
