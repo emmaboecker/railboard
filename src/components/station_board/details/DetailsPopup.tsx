@@ -60,7 +60,11 @@ export default function DetailsPopup(props: {
     <Popup
       open={props.open}
       setOpen={props.setOpen}
-      title={<p className={clsx(props.train.cancelled && "text-red-400 line-through")}>{props.train.category + " " + props.train.lineIndicator}</p>}
+      title={
+        <p className={clsx(props.train.cancelled && "text-red-400 line-through")}>
+          {props.train.category + " " + props.train.lineIndicator}
+        </p>
+      }
       className={"flex flex-col gap-3"}
     >
       <div className={"relative flex w-full flex-row justify-start py-3 align-middle"}>
@@ -130,7 +134,14 @@ export default function DetailsPopup(props: {
           <div className={"text-zinc-300"}>
             <ul className={"list-disc pl-4 text-start"}>
               {props.train.additionalInfo.route.map((route) => (
-                <li className={clsx("mr-auto list-item", route.added && "text-green-400", route.cancelled && "text-red-400 line-through")} key={route.name}>
+                <li
+                  className={clsx(
+                    "mr-auto list-item",
+                    route.added && "text-green-400",
+                    route.cancelled && "text-red-400 line-through"
+                  )}
+                  key={route.name}
+                >
                   {route.name}
                 </li>
               ))}
@@ -228,7 +239,7 @@ function TimeDisplay(props: { scheduledTime: string; time?: string }): JSX.Eleme
       </div>
       {time && (
         <>
-          <div className={clsx("m-auto text-lg", isTooLate == null || isTooLate ? "text-red-500" : "text-green-500")}>
+          <div className={clsx("m-auto text-lg", isTooLate && diffMins > 0 ? "text-red-500" : "text-green-500")}>
             {formatTime(time)}
           </div>
         </>
