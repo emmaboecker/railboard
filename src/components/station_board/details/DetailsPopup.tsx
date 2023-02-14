@@ -60,7 +60,7 @@ export default function DetailsPopup(props: {
     <Popup
       open={props.open}
       setOpen={props.setOpen}
-      title={props.train.category + " " + props.train.lineIndicator}
+      title={<p className={clsx(props.train.cancelled && "text-red-400 line-through")}>{props.train.category + " " + props.train.lineIndicator}</p>}
       className={"flex flex-col gap-3"}
     >
       <div className={"relative flex w-full flex-row justify-start py-3 align-middle"}>
@@ -124,7 +124,20 @@ export default function DetailsPopup(props: {
           </div>
         </div>
       )}
-      
+      {props.train.additionalInfo != null && (
+        <div className={"flex w-full flex-col"}>
+          <h4 className={"mx-auto text-xl font-semibold"}>Route</h4>
+          <div className={"text-zinc-300"}>
+            <ul className={"list-disc pl-4 text-start"}>
+              {props.train.additionalInfo.route.map((route) => (
+                <li className={clsx("mr-auto list-item", route.added && "text-green-400", route.cancelled && "text-red-400")} key={route.name}>
+                  {route.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
       {/*{(props.train.product === "ICE" ||*/}
       {/*  props.train.product === "IC_EC" ||*/}
       {/*  props.train.product === "RB") && (*/}
