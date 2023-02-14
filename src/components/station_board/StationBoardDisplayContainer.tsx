@@ -73,7 +73,7 @@ function filterFormat(transportType: TransportType, category: string): string[] 
       productTypes = ["INTERCITY_TRAIN", "IC", "EC", "NJ", "EN"];
       break;
     case TransportType.InterregionalAndFastTrains:
-      productTypes = ["IR"];
+      productTypes = ["IR", "INTER_REGIONAL_TRAIN"];
       break;
     case TransportType.SuburbanTrains:
       productTypes = ["CITY_TRAIN", "S"];

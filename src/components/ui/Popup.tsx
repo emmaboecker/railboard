@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 export type PopupProps = {
   children: React.ReactNode;
-  onClose: () => void | undefined;
+  onClose?: () => void | undefined;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   title: React.ReactNode;
@@ -19,7 +19,7 @@ export default function Popup(props: PopupProps) {
         as="div"
         className="relative z-10"
         /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-        onClose={props.onClose}
+        onClose={props.onClose ?? (() => undefined)}
       >
         <Transition.Child
           as={"div"}

@@ -58,7 +58,6 @@ export default function DetailsPopup(props: {
 
   return (
     <Popup
-      onClose={() => undefined}
       open={props.open}
       setOpen={props.setOpen}
       title={props.train.category + " " + props.train.lineIndicator}
@@ -67,21 +66,23 @@ export default function DetailsPopup(props: {
       <div className={"relative flex w-full flex-row justify-start py-3 align-middle"}>
         <div className={"w-full flex-grow overflow-hidden"}>
           <table className="my-auto mr-0 max-w-full border-spacing-5">
-            <tr>
-              <td className={"text-left font-semibold text-zinc-500"}>Von: </td>
-              <td className={"truncate pl-2 text-left"}>
-                {props.train.originEva != null && (
-                  <Link href={`/station/${props.train.originEva}`}>{props.train.originName}</Link>
-                )}
-                {props.train.originEva == null && <>{props.train.originName}</>}
-              </td>
-            </tr>
-            <tr>
-              <td className={"text-left font-semibold text-zinc-500"}>Nach: </td>
-              <td className={"truncate pl-2 text-left"}>
-                <Link href={`/station/${props.train.destinationEva}`}>{props.train.destinationName}</Link>
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <td className={"text-left font-semibold text-zinc-500"}>Von: </td>
+                <td className={"truncate pl-2 text-left"}>
+                  {props.train.originEva != null && (
+                    <Link href={`/station/${props.train.originEva}`}>{props.train.originName}</Link>
+                  )}
+                  {props.train.originEva == null && <>{props.train.originName}</>}
+                </td>
+              </tr>
+              <tr>
+                <td className={"text-left font-semibold text-zinc-500"}>Nach: </td>
+                <td className={"truncate pl-2 text-left"}>
+                  <Link href={`/station/${props.train.destinationEva}`}>{props.train.destinationName}</Link>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <PlatformDisplay scheduledPlatform={scheduledPlatform} platform={platform} />
@@ -123,6 +124,7 @@ export default function DetailsPopup(props: {
           </div>
         </div>
       )}
+      
       {/*{(props.train.product === "ICE" ||*/}
       {/*  props.train.product === "IC_EC" ||*/}
       {/*  props.train.product === "RB") && (*/}

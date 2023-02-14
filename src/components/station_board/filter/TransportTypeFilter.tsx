@@ -127,7 +127,7 @@ export function getReadableName(transportType: TransportType): string {
       readableName = "IC- & EC-Züge";
       break;
     case TransportType.InterregionalAndFastTrains:
-      readableName = "Schnellzüge";
+      readableName = "Interregionalzüge";
       break;
     case TransportType.RegionalAndOtherTrains:
       readableName = "Nahverkehr & Sonstige Züge";

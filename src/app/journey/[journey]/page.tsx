@@ -26,11 +26,18 @@ export default async function Page({ params }: { params: { journey: string } }):
   });
 
   const admins = data.stops.map((stop) => {
+    let adminName;
     if (stop.administration.name !== stop.administration.risName) {
-      return stop.administration.name + " (" + stop.administration.risName + ")";
+      adminName = stop.administration.name + " (" + stop.administration.risName + ")";
     } else {
-      return stop.administration.name;
+      adminName = stop.administration.name;
     }
+
+    if (adminName.includes("Nahverkehrszug") || adminName.includes("Nahreisezug")) {
+      adminName = stop.administration.id + ` (${adminName})`;
+    }
+
+    return adminName;
   });
 
   const uniqueAdmins = admins.filter((element, index) => {
@@ -42,8 +49,8 @@ export default async function Page({ params }: { params: { journey: string } }):
   });
 
   const commonMessages = data.stops
-    .map((stop) => stop.messages.map((message) => message.text))
-    .reduce((a, b) => a.filter((c) => b.includes(c)));
+    .map((stop) => stop.messages.map((message) => message))
+    .reduce((a, b) => a.filter((c) => b.map((m) => m.text).includes(c.text)));
 
   return (
     <>
@@ -69,13 +76,28 @@ export default async function Page({ params }: { params: { journey: string } }):
           </div>
         </div>
         <div className={"mb-5 flex w-full flex-col gap-1 p-2"}>
-          {commonMessages.map((message) => (
-            <MessageDisplay text={message} color={"red"} key={message} showIcon />
-          ))}
+          {commonMessages
+            .sort((a, b) => (a.displayPriority ?? 0) - (b.displayPriority ?? b.type === "CUSTOMER_TEXT" ? 1 : 0))
+            .map((message) => (
+              <MessageDisplay
+                text={message.text}
+                color={message.type === "CUSTOMER_TEXT" ? "gray" : "red"}
+                key={message.text}
+                showIcon
+              />
+            ))}
         </div>
         <div className={"relative h-screen w-full"}>
-          {data.stops.map((stop) => {
-            return <StopDisplay stop={stop} commonMessages={commonMessages} key={stop.stopName} />;
+          {data.stops.map((stop, index) => {
+            return (
+              <StopDisplay
+                stop={stop}
+                commonMessages={commonMessages.map((message) => message.text)}
+                stops={data.stops}
+                index={index}
+                key={stop.stopName}
+              />
+            );
           })}
         </div>
       </div>

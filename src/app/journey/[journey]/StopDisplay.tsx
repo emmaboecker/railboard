@@ -8,7 +8,12 @@ import MessageDisplay from "./MessageDisplay";
 import PlatformDisplay from "../../../components/station_board/elements/PlatformDisplay";
 import clsx from "clsx";
 
-export default function StopDisplay(props: { stop: RisJourneyStop; commonMessages: string[] }) {
+export default function StopDisplay(props: {
+  stop: RisJourneyStop;
+  stops: RisJourneyStop[];
+  index: number;
+  commonMessages: string[];
+}) {
   const stop = props.stop;
 
   const scheduledPlatform = stop.scheduledPlatform;
@@ -44,20 +49,32 @@ export default function StopDisplay(props: { stop: RisJourneyStop; commonMessage
             </div>
             {stop.cancelled && <p className={"w-fit text-red-500 no-underline"}>Fällt aus</p>}
             {stop.messages
-              .filter((message) => !commonMessages.includes(message.text))
+              .filter(
+                (message) =>
+                  !commonMessages.includes(message.text) &&
+                  (props.stops[props.index - 1]?.messages.includes(message) ?? true)
+              )
               .map((message) => (
-                <MessageDisplay text={message.text} color={"red"} key={message.text} showIcon={false} disabled />
+                <MessageDisplay
+                  text={message.text}
+                  color={message.type === "CUSTOMER_TEXT" ? "gray" : "red"}
+                  key={message.text}
+                  showIcon={false}
+                  disabled
+                />
               ))}
-            {stop.disruptions.map((disruption) => (
-              <MessageDisplay
-                text={disruption.text}
-                shortText={disruption.textShort}
-                color={"gray"}
-                key={disruption.text}
-                showIcon={false}
-                disabled
-              />
-            ))}
+            {stop.disruptions
+              .filter((disruption) => !(props.stops[props.index - 1]?.disruptions.includes(disruption) ?? true))
+              .map((disruption) => (
+                <MessageDisplay
+                  text={disruption.text}
+                  shortText={disruption.textShort}
+                  color={"gray"}
+                  key={disruption.text}
+                  showIcon={false}
+                  disabled
+                />
+              ))}
           </div>
           <div className={clsx("absolute right-0 mr-2 flex flex-row", stop.cancelled && "line-through")}>
             <PlatformDisplay scheduledPlatform={scheduledPlatform} platform={platform} />

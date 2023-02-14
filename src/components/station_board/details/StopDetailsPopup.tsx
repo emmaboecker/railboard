@@ -20,6 +20,15 @@ export default function StopDetailsPopup(props: {
 
   dayjs.extend(timezone);
 
+  let adminName =
+    props.stop.administration.name +
+    (props.stop.administration.name !== props.stop.administration.risName
+      ? `(${props.stop.administration.risName})`
+      : ``);
+
+  if (adminName.includes("Nahverkehrszug") || adminName.includes("Nahreisezug")) {
+    adminName = props.stop.administration.id + ` (${adminName})`;
+  }
   return (
     <Popup
       onClose={() => props.setOpen(false)}
@@ -36,12 +45,7 @@ export default function StopDetailsPopup(props: {
               props.stop.transport.line !== props.stop.transport.number.toString() &&
               " (" + props.stop.transport.number + ")"}
           </h3>
-          <h5 className="w-fit text-zinc-300">
-            {props.stop.administration.name}{" "}
-            {props.stop.administration.name !== props.stop.administration.risName && (
-              <>({props.stop.administration.risName})</>
-            )}
-          </h5>
+          <h5 className="w-fit text-zinc-300">{adminName}</h5>
         </div>
         <PlatformDisplay scheduledPlatform={scheduledPlatform} platform={platform} />
       </div>
@@ -71,11 +75,21 @@ export default function StopDetailsPopup(props: {
                 <>{disruption.text}</>
               </li>
             ))}
-            {props.stop.messages.map((message) => (
-              <li className={"mr-auto list-item text-red-500"} key={message.text}>
-                <>{message.text}</>
-              </li>
-            ))}
+            {props.stop.messages
+              .sort((a, b) => (a.displayPriority ?? 0) - (b.displayPriority ?? b.type === "CUSTOMER_TEXT" ? 1 : 0))
+              .map((message) => (
+                <li
+                  className={clsx(
+                    "mr-auto list-item",
+                    message.type === "CUSTOMER_TEXT" ? "text-zinc-100" : "text-red-400"
+                  )}
+                  key={message.text}
+                >
+                  <>
+                    {message.text}
+                  </>
+                </li>
+              ))}
           </ul>
         </div>
       )}
