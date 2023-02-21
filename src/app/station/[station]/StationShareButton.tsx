@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { ReactNode, useCallback } from "react";
 import ShareButton from "../../../components/ui/button/ShareButton";
 import { getStationInfoData } from "../../../data/station_info";
 import { createShare } from "../../../utils/share";
@@ -9,10 +9,14 @@ export default function StationShareButton({
   station,
   datetime,
   className,
+  size,
+  children,
 }: {
   station: number;
   datetime?: number;
   className?: string;
+  size?: number;
+  children?: ReactNode;
 }) {
   const shareStation = useCallback(() => {
     (async () => {
@@ -31,5 +35,5 @@ export default function StationShareButton({
     })();
   }, [datetime, station]);
 
-  return <ShareButton onClick={shareStation} className={className} />;
+  return <ShareButton onClick={shareStation} className={className} size={size}>{children}</ShareButton>;
 }

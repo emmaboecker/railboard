@@ -60,6 +60,8 @@ export default function DetailsPopup(props: {
     <Popup
       open={props.open}
       setOpen={props.setOpen}
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onClose={() => {}}
       title={
         <p className={clsx(props.train.cancelled && "text-red-400 line-through")}>
           {props.train.category + " " + props.train.lineIndicator}
@@ -174,7 +176,7 @@ export default function DetailsPopup(props: {
           >
             <div
               className={
-                "flex flex-row gap-1 rounded-md bg-zinc-700/60 py-1 px-2 align-middle transition-all duration-100 hover:bg-zinc-700"
+                "flex flex-row gap-1 rounded-md bg-zinc-700/60 py-1 px-3 align-middle transition-all duration-100 hover:bg-zinc-700"
               }
             >
               {detailsLoading ? (
@@ -197,7 +199,7 @@ export default function DetailsPopup(props: {
         ) : (
           <div
             className={
-              "pointer-events-none flex flex-row gap-1 rounded-md bg-zinc-700/60 py-1 px-2 align-middle transition-all duration-100 hover:bg-zinc-700"
+              "pointer-events-none flex flex-row gap-1 rounded-md bg-zinc-700/60 py-1 px-3 align-middle transition-all duration-100 hover:bg-zinc-700"
             }
           >
             <HiExternalLink size={20} className={"my-auto"} />

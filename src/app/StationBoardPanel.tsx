@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { PageTitle } from "../components/ui/PageTitle";
 import StationSearchBar from "../components/search/StationSearchBar";
 import Button from "../components/ui/button/Button";
-import TransportTypeFilter, {
+import TransportTypeFilterButtonPopup, {
   TransportType,
   transportTypes,
 } from "../components/station_board/filter/TransportTypeFilter";
@@ -35,7 +35,10 @@ export default function StationBoardPanel() {
         <div className={"flex flex-row gap-2"}>
           <StationSearchBar setSelectedStationId={setSelectedStationId} />
           <div className={"w-fit"}>
-            <TransportTypeFilter setTransportTypes={setTransportTypes} transportTypes={currentTransportTypes} />
+            <TransportTypeFilterButtonPopup
+              setTransportTypes={setTransportTypes}
+              transportTypes={currentTransportTypes}
+            />
           </div>
         </div>
         <div className="h-5" />

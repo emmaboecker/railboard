@@ -59,7 +59,7 @@ export default function StopDisplay(props: {
               .filter(
                 (message) =>
                   !commonMessages.includes(message.text) &&
-                  (props.stops[props.index - 1]?.messages.includes(message) ?? true)
+                  (!props.stops[props.index - 1]?.messages.map((m) => m.text).includes(message.text) ?? true)
               )
               .map((message) => (
                 <MessageDisplay
