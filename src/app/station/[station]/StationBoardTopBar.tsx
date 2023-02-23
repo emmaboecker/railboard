@@ -33,7 +33,7 @@ export default function StationBoardTopBar(props: {
   return (
     <>
       <div className={"relative h-[100svh] text-white"}>
-        <div className={"absolute z-20 flex h-14 w-full border-b-4 border-b-zinc-700 bg-zinc-800 align-middle"}>
+        <div className={"absolute flex h-14 w-full border-b-4 border-b-zinc-700 bg-zinc-800 align-middle"}>
           <div className={"absolute left-0 ml-3 flex h-full"}>
             <GoBackButton className={"my-[9px]"} />
           </div>
