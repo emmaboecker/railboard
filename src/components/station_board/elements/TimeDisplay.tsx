@@ -27,7 +27,12 @@ export default function TimeDisplay(props: TimeDisplayProps): JSX.Element {
   );
 }
 
-export function InternalTimeDisplay(props: { scheduledTime: string; time?: string }): JSX.Element {
+export function InternalTimeDisplay(props: {
+  scheduledTime: string;
+  time?: string;
+  cancelled?: boolean;
+  additional?: boolean;
+}): JSX.Element {
   const isTooLate = props.time ? new Date(props.scheduledTime).getTime() < new Date(props.time).getTime() : undefined;
   const isTooEarly = props.time ? new Date(props.scheduledTime).getTime() > new Date(props.time).getTime() : undefined;
 
@@ -39,14 +44,12 @@ export function InternalTimeDisplay(props: { scheduledTime: string; time?: strin
 
   return (
     <div className={clsx("m-auto flex w-full flex-col justify-center align-middle")}>
-      <div className={clsx("m-auto flex flex-col")}>
+      <div className={clsx("m-auto flex flex-col text-white")}>
         <p
           className={clsx(
-            isTooLate == null || isTooEarly == null
-              ? "text-white"
-              : (isTooLate || isTooEarly) && (diffMins > 0 || diffMins < 0)
-              ? "text-sm text-white line-through"
-              : "text-white"
+            (isTooLate || isTooEarly) && (diffMins > 0 || diffMins < 0) && "text-sm line-through",
+            props.cancelled && "text-red-300 line-through",
+            props.additional && "text-green-300"
           )}
         >
           {formatTime(scheduledTime)}
@@ -56,7 +59,16 @@ export function InternalTimeDisplay(props: { scheduledTime: string; time?: strin
       </div>
       {time && (
         <>
-          <div className={clsx("m-auto text-lg", isTooLate && diffMins > 0 ? "text-red-500" : "text-green-500")}>
+          <div
+            className={clsx(
+              "m-auto text-lg",
+              isTooLate && diffMins > 0
+                ? "text-red-500"
+                : !props.cancelled
+                ? "text-green-500"
+                : "text-red-300 line-through"
+            )}
+          >
             {formatTime(time)}
           </div>
         </>

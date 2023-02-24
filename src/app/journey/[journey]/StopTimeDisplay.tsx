@@ -4,10 +4,14 @@ export type TimeDisplayProps = {
   arrivalTime?: {
     scheduled?: string;
     realtime?: string;
+    cancelled?: boolean;
+    additional?: boolean;
   };
   departureTime?: {
     scheduled?: string;
     realtime?: string;
+    cancelled?: boolean;
+    additional?: boolean;
   };
 };
 
@@ -20,8 +24,26 @@ export default function StopTimeDisplay(props: TimeDisplayProps): JSX.Element {
 
   return (
     <div className={"flex h-full w-full flex-row justify-center align-middle"}>
-      {scheduledArrival && <InternalTimeDisplay scheduledTime={scheduledArrival} time={actualArrival} />}
-      {scheduledDepart && <InternalTimeDisplay scheduledTime={scheduledDepart} time={actualDepart} />}
+      <div className={"m-auto flex h-full w-full items-center"}>
+        {scheduledArrival && (
+          <InternalTimeDisplay
+            scheduledTime={scheduledArrival}
+            time={actualArrival}
+            cancelled={props.arrivalTime?.cancelled}
+            additional={props.arrivalTime?.additional}
+          />
+        )}
+      </div>
+      <div className={"m-auto flex h-full w-full items-center"}>
+        {scheduledDepart && (
+          <InternalTimeDisplay
+            scheduledTime={scheduledDepart}
+            time={actualDepart}
+            cancelled={props.departureTime?.cancelled}
+            additional={props.departureTime?.additional}
+          />
+        )}
+      </div>
     </div>
   );
 }

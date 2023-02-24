@@ -1,5 +1,7 @@
+import { getApiBaseUrl } from "../get_base_url";
+
 export default async function journeyDetails(id: string): Promise<RisJourneyDetails> {
-  const rawResponse = await fetch(`https://api.rail.stckoverflw.net/ris/v1/journey_details/${id}`, {
+  const rawResponse = await fetch(`${getApiBaseUrl()}/ris/v1/journey_details/${id}`, {
     method: "GET",
     next: {
       revalidate: 60,
@@ -24,14 +26,11 @@ export type RisJourneyStop = {
   stopId: string;
   stopName: string;
 
-  arrival?: JourneyStopTime;
+  arrival?: JourneyStopEvent;
 
-  departure?: JourneyStopTime;
+  departure?: JourneyStopEvent;
   messages: JourneyDetailsMessage[];
   disruptions: JourneyStopDisruption[];
-  on_demand: boolean;
-  cancelled: boolean;
-  additional: boolean;
 
   transport: Transport;
 
@@ -41,9 +40,11 @@ export type RisJourneyStop = {
   administration: JourneyStopAdministration;
 };
 
-export type JourneyStopTime = {
+export type JourneyStopEvent = {
+  cancelled: boolean;
+  additional: boolean;
+  onDemand: boolean;
   scheduled: string;
-
   realtime?: string;
   timeType: string;
 };

@@ -31,15 +31,19 @@ export default function StopDisplay(props: {
         onClick={() => setOpen(true)}
       >
         <div className={"flex w-full flex-row justify-start"}>
-          <div className={clsx("w-full min-w-[100px] max-w-[120px]", stop.cancelled && "line-through")}>
+          <div className={clsx("w-full min-w-[100px] max-w-[120px]")}>
             <StopTimeDisplay
               arrivalTime={{
                 scheduled: stop.arrival?.scheduled,
                 realtime: stop.arrival?.realtime,
+                cancelled: stop.arrival?.cancelled,
+                additional: stop.arrival?.additional,
               }}
               departureTime={{
                 scheduled: stop.departure?.scheduled,
                 realtime: stop.departure?.realtime,
+                cancelled: stop.departure?.cancelled,
+                additional: stop.departure?.additional,
               }}
             />
           </div>
@@ -47,14 +51,30 @@ export default function StopDisplay(props: {
             <div
               className={clsx(
                 "mr-6 w-fit truncate text-lg font-bold",
-                stop.cancelled && "text-red-400 line-through",
-                stop.additional && "text-green-400"
+                (stop.departure?.cancelled ?? true) && (stop.arrival?.cancelled ?? true) && "text-red-400 line-through",
+                (stop.departure?.additional ?? true) && (stop.arrival?.additional ?? true) && "text-green-400"
               )}
             >
               {stop.stopName}
             </div>
-            {stop.cancelled && <p className={"w-fit text-red-500 no-underline"}>Fällt aus</p>}
-            {stop.additional && <p className={"w-fit text-green-500 no-underline"}>Zusatzhalt</p>}
+            {(stop.departure?.cancelled ?? true) && (stop.arrival?.cancelled ?? true) && (
+              <p className={"w-fit text-red-500 no-underline"}>Fällt aus</p>
+            )}
+            {(stop.departure?.additional ?? true) && (stop.arrival?.additional ?? true) && (
+              <p className={"w-fit text-green-500 no-underline"}>Zusatzhalt</p>
+            )}
+            {(stop.departure?.cancelled ?? false) && !(stop.arrival?.cancelled ?? true) && (
+              <p className={"w-fit text-red-500 no-underline"}>Abfahrt fällt aus</p>
+            )}
+            {(stop.departure?.additional ?? false) && !(stop.arrival?.additional ?? true) && (
+              <p className={"w-fit text-green-500 no-underline"}>Zusätzliche Abfahrt</p>
+            )}
+            {!(stop.departure?.cancelled ?? true) && (stop.arrival?.cancelled ?? false) && (
+              <p className={"w-fit text-red-500 no-underline"}>Ankunft fällt aus</p>
+            )}
+            {!(stop.departure?.additional ?? true) && (stop.arrival?.additional ?? false) && (
+              <p className={"w-fit text-green-500 no-underline"}>Zusätzliche Ankunft</p>
+            )}
             {stop.messages
               .filter(
                 (message) =>
@@ -83,7 +103,7 @@ export default function StopDisplay(props: {
                 />
               ))}
           </div>
-          <div className={clsx("absolute right-0 mr-2 flex flex-row", stop.cancelled && "line-through")}>
+          <div className={clsx("absolute right-0 mr-2 flex flex-row")}>
             <PlatformDisplay scheduledPlatform={scheduledPlatform} platform={platform} />
           </div>
         </div>

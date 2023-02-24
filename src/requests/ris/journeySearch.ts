@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { getApiBaseUrl } from "../get_base_url";
 
 export type RisJourneySearchElement = {
   journeyID: string;
@@ -29,7 +30,7 @@ export async function journeySearch(
   date: dayjs.Dayjs
 ): Promise<RisJourneySearchElement[]> {
   const response = await fetch(
-    `https://api.rail.stckoverflw.net/ris/v1/journey_search/${category}/${number}?date=${date.format("YYYY-MM-DD")}`,
+    `${getApiBaseUrl()}/ris/v1/journey_search/${category}/${number}?date=${date.format("YYYY-MM-DD")}`,
     {
       method: "GET",
     }
