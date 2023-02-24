@@ -42,8 +42,23 @@ export default function DetailsPopup(props: {
       props.train.trainNumber.toString(),
       dayjs(props.train.departure?.timeScheduled ?? props.train.arrival?.timeScheduled)
     ).then((journeys) => {
-      const first = journeys[0];
-      setJourneyId(first?.journeyID);
+      let first = journeys[0];
+      if (first == null) {
+        const time = dayjs(props.train.departure?.timeScheduled ?? props.train.arrival?.timeScheduled);
+        journeySearch(
+          props.train.category,
+          props.train.trainNumber.toString(),
+          time.set("date", time.date() - 1)
+        ).then((journeys) => {
+          first = journeys[0];
+          if (first == null) {
+            return;
+          }
+          setJourneyId(first?.journeyID);
+        })
+      } else {
+        setJourneyId(first?.journeyID);
+      }
     });
   }, [
     journeyId,

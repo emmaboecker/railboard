@@ -1,13 +1,10 @@
 export async function getStationInfoData(stationId: number): Promise<StationInfo> {
-  const options = {
+  const stationInfo: StationInfoResponse = await fetch("https://hafas-graphql-cf.nycode.dev/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: `{"query":"query Query {station(id: ${stationId}) {id name isMeta}}","operationName":"Query"}`,
-  };
-
-  const stationInfo: StationInfoResponse = await fetch("https://hafas-graphql-cf.nycode.dev/", options).then(
-    (response) => response.json()
-  );
+    cache: "no-store",
+  }).then((response) => response.json());
 
   return stationInfo.data.station;
 }
