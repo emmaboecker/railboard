@@ -4,7 +4,7 @@ specifiers:
   '@fontsource/source-sans-pro': ^4.5.11
   '@fontsource/ubuntu': ^4.5.11
   '@headlessui/react': ^1.7.3
-  '@mantine/hooks': ^5.5.5
+  '@mantine/hooks': ^6.0.0
   '@tanstack/query-core': ^4.12.0
   '@types/hafas-client': ^6.0.0
   '@types/nanoid-dictionary': ^4.2.0
@@ -45,7 +45,7 @@ dependencies:
   '@fontsource/source-sans-pro': 4.5.11
   '@fontsource/ubuntu': 4.5.11
   '@headlessui/react': 1.7.3_biqbaboplfbrettd7655fr4n2y
-  '@mantine/hooks': 5.5.5_react@18.2.0
+  '@mantine/hooks': 6.0.0_react@18.2.0
   '@upstash/redis': 1.16.1
   clsx: 1.2.1
   dayjs: 1.11.5
@@ -1392,8 +1392,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: false
 
-  /@mantine/hooks/5.5.5_react@18.2.0:
-    resolution: {integrity: sha512-qWZAZm203s0knYk6Ut4VPvur9H5BMul02cCb9E09s60iSjnLRHDC3f73VmSzmLZNVfgE+7hXUhguR/1lC7js4Q==}
+  /@mantine/hooks/6.0.0_react@18.2.0:
+    resolution: {integrity: sha512-boszkajLaA4qvd/ebDhqZBbMuUXlvJv8EM0jTaXz09IaGPachBKG5WKpXEcwWh2qmrUQL6pyhIbLMgPnvwS0QQ==}
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
