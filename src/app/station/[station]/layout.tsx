@@ -1,5 +1,5 @@
 import React from "react";
-import { getStationInfoData } from "../../../data/station_info";
+import { stationInformation } from "../../../requests/ris/stationInformation";
 import StationBoardTopBar from "./StationBoardTopBar";
 
 export default async function Layout({
@@ -9,8 +9,8 @@ export default async function Layout({
   children?: React.ReactNode;
   params?: { station?: string; datetime?: string };
 }) {
-  const station = parseInt(params?.station ?? "8000105");
-  const data = await getStationInfoData(station);
+  const station = params?.station ?? "8000105";
+  const data = await stationInformation(station);
 
   const datetime = (params?.datetime && parseInt(params.datetime)) || Date.now();
 

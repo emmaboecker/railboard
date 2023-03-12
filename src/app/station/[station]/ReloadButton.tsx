@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 
-export default function ReloadButton(props: { stationId: number; className: string }) {
+export default function ReloadButton(props: { stationId: string; className: string }) {
   const router = useRouter();
 
   const [reloading, setReloading] = useState(false);

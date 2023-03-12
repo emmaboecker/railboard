@@ -11,13 +11,13 @@ import TransportTypeFilterButtonPopup, {
 import Button from "../../../components/ui/button/Button";
 import GoBackButton from "../../../components/ui/button/GoBackButton";
 import Popup from "../../../components/ui/Popup";
-import { StationInfo } from "../../../data/station_info";
+import { StationInformation } from "../../../requests/ris/stationInformation";
 import ReloadButton from "./ReloadButton";
 import StationShareButton from "./StationShareButton";
 
 export default function StationBoardTopBar(props: {
-  data: StationInfo;
-  station: number;
+  data: StationInformation;
+  station: string;
   datetime?: number;
   children?: React.ReactNode;
 }) {
@@ -38,7 +38,7 @@ export default function StationBoardTopBar(props: {
             <GoBackButton className={"my-[9px]"} />
           </div>
           <div className={"my-auto ml-[4.25rem] truncate text-lg font-semibold"}>
-            <h1>{data.name}</h1>
+            <h1>{data.names.nameLong}</h1>
           </div>
           <div className={"absolute right-0 flex h-full gap-1 px-2"}>
             <ReloadButton stationId={station} className={"my-auto text-sm"} />
