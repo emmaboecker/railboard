@@ -8,7 +8,7 @@ import { redis } from "../../server/redis";
 export const Share = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("station"),
-    eva: z.number().int(),
+    eva: z.string(),
     timestamp: z.number().int().optional(),
   }),
   z.object({

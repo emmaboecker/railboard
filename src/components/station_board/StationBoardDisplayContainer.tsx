@@ -6,10 +6,10 @@ import { FixedSizeList as List } from "react-window";
 import StationBoardDisplayElement from "./StationBoardDisplayElement";
 import { TransportType, transportTypes } from "./filter/TransportTypeFilter";
 import DetailsPopup from "./details/DetailsPopup";
-import { StationBoardResponse } from "../../requests/vendo/stationBoard";
+import { StationBoard } from "../../requests/custom/stationBoard";
 
 export type StationBoardDisplayContainerProps = {
-  data: StationBoardResponse;
+  data: StationBoard;
 };
 
 export default function StationBoardDisplayContainer(props: StationBoardDisplayContainerProps): JSX.Element {
@@ -20,11 +20,11 @@ export default function StationBoardDisplayContainer(props: StationBoardDisplayC
     defaultValue: transportTypes,
   });
 
-  const filteredData = props.data.stationBoard.filter((train) => {
+  const filteredData = props.data.items.filter((train) => {
     let isIncluded = false;
     currentTransportTypes.forEach((value) => {
-      const productTypes = getProductTypesFromVendoType(value);
-      if (productTypes.includes(train.productType ?? "")) {
+      const productTypes = filterFormat(value, train.trainType);
+      if (productTypes.includes(train.trainType ?? "")) {
         isIncluded = true;
       }
     });
@@ -41,7 +41,7 @@ export default function StationBoardDisplayContainer(props: StationBoardDisplayC
       <div style={style}>
         <button
           className={"absolute h-full w-full border-b-[1px] border-zinc-600 pr-2 hover:bg-zinc-800/50"}
-          key={trainData.journeyId}
+          key={trainData.risId ?? trainData.irisId}
           onClick={() => {
             setOpen(!open);
           }}
@@ -62,39 +62,45 @@ export default function StationBoardDisplayContainer(props: StationBoardDisplayC
   );
 }
 
-function getProductTypesFromVendoType(transportType: TransportType): string[] {
-  let productTypes: string[];
+function filterFormat(transportType: TransportType, category: string): string[] {
+  let productTypes: string[] = [];
 
   switch (transportType) {
     case TransportType.HighspeedTrains:
-      productTypes = ["ICE"];
+      productTypes = ["HIGH_SPEED_TRAIN", "ICE", "ECE", "FLX", "TGV", "RJ"];
       break;
     case TransportType.ICAndECTrains:
-      productTypes = ["IC_EC"];
+      productTypes = ["INTERCITY_TRAIN", "IC", "EC", "NJ", "EN"];
       break;
     case TransportType.InterregionalAndFastTrains:
-      productTypes = ["IR"];
-      break;
-    case TransportType.RegionalAndOtherTrains:
-      productTypes = ["RB"];
+      productTypes = ["IR", "INTER_REGIONAL_TRAIN"];
       break;
     case TransportType.SuburbanTrains:
-      productTypes = ["SBAHN"];
+      productTypes = ["CITY_TRAIN", "S"];
       break;
     case TransportType.Tram:
-      productTypes = ["STR"];
+      productTypes = ["TRAM", "STR", "STB"];
       break;
     case TransportType.Subway:
-      productTypes = ["UBAHN"];
+      productTypes = ["SUBWAY", "U"];
       break;
     case TransportType.Busses:
-      productTypes = ["BUS"];
+      productTypes = ["BUS", "Bus"];
       break;
     case TransportType.Boats:
-      productTypes = ["SCHIFF"];
+      productTypes = ["FERRY"];
       break;
     case TransportType.CallRequiringTransportTypes:
-      productTypes = ["ANRUFPFLICHTIGEVERKEHRE"];
+      productTypes = ["SHUTTLE"];
+      break;
+    case TransportType.RegionalAndOtherTrains:
+      if (
+        transportTypes
+          .filter((value) => value !== TransportType.RegionalAndOtherTrains)
+          .find((value) => filterFormat(value, category).includes(category)) == null
+      ) {
+        productTypes = ["REGIONAL_TRAIN", "RE", "RB", "HLB", "VIA", category];
+      }
       break;
   }
 

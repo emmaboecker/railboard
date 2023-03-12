@@ -5,7 +5,7 @@ import React, { ButtonHTMLAttributes, DetailedHTMLProps, useEffect, useState } f
 import Button from "../../../components/ui/button/Button";
 
 export default function ShareButton(
-  props: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+  props: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & { size?: number }
 ) {
   const [hidden, setHidden] = useState(true);
 
@@ -15,7 +15,8 @@ export default function ShareButton(
 
   return (
     <Button {...props} hidden={hidden}>
-      <ImShare2 size={20} />
+      <ImShare2 size={props.size ?? 20} />
+      {props.children}
     </Button>
   );
 }

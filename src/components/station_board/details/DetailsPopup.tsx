@@ -1,110 +1,165 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { HiExternalLink } from "react-icons/hi";
-import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { formatTime } from "../../../utils/time";
-import { StationBoardTrain } from "../../../requests/vendo/stationBoard";
 import Popup from "../../ui/Popup";
 import { TailSpin } from "react-loader-spinner";
+import { StationBoardItem } from "../../../requests/custom/stationBoard";
+import Link from "next/link";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import { journeySearch } from "../../../requests/ris/journeySearch";
+import PlatformDisplay from "../elements/PlatformDisplay";
 
 export default function DetailsPopup(props: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  train: StationBoardTrain;
+  train: StationBoardItem;
 }) {
-  const router = useRouter();
-
-  // const number = props.train.name.match(/\d+/);
-  //
-  // dayjs.extend(utc);
-  // dayjs.extend(timezone);
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  // const date = new Date((props.train.departure ?? props.train.arrival!).time.scheduledTime);
-  // const time = dayjs.tz(date, "Europe/Berlin");
-
-  const scheduledPlatform = props.train.scheduledPlatform;
-  const platform = props.train.realtimePlatform;
-
-  const isDifferentPlatform =
-    scheduledPlatform != null ? (platform != null ? scheduledPlatform !== platform : undefined) : undefined;
+  const scheduledPlatform = props.train.platformScheduled;
+  const platform = props.train.platformRealtime;
 
   const [detailsLoading, setDetailsLoading] = useState(false);
 
+  const messages = props.train.additionalInfo?.messages ?? [];
+
+  const uniqueMessages = messages.filter((element, index) => {
+    return (
+      (element.messageStatus === "CauseOfDelay" || element.messageStatus === "QualityChange") &&
+      messages.findIndex((e) => e.id === element.id || e.matchedText === element.matchedText) === index
+    );
+  });
+
+  const [journeyId, setJourneyId] = useState<string | undefined>(props.train.risId);
+
+  useEffect(() => {
+    if (journeyId != null) return;
+    if (!props.open) return;
+    journeySearch(
+      props.train.category,
+      props.train.trainNumber.toString(),
+      dayjs(props.train.departure?.timeScheduled ?? props.train.arrival?.timeScheduled)
+    ).then((journeys) => {
+      let first = journeys[0];
+      if (first == null) {
+        const time = dayjs(props.train.departure?.timeScheduled ?? props.train.arrival?.timeScheduled);
+        journeySearch(
+          props.train.category,
+          props.train.trainNumber.toString(),
+          time.set("date", time.date() - 1)
+        ).then((journeys) => {
+          first = journeys[0];
+          if (first == null) {
+            return;
+          }
+          setJourneyId(first?.journeyID);
+        })
+      } else {
+        setJourneyId(first?.journeyID);
+      }
+    });
+  }, [
+    journeyId,
+    props.open,
+    props.train.arrival?.timeScheduled,
+    props.train.category,
+    props.train.departure?.timeScheduled,
+    props.train.trainNumber,
+  ]);
+
+  dayjs.extend(timezone);
+
   return (
     <Popup
-      onClose={() => undefined}
-      open={props.open}
+      open={props.open || detailsLoading}
       setOpen={props.setOpen}
-      title={props.train.name}
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onClose={() => {}}
+      title={
+        <p className={clsx(props.train.cancelled && "text-red-400 line-through")}>
+          {props.train.category + " " + props.train.lineIndicator}
+        </p>
+      }
       className={"flex flex-col gap-3"}
     >
       <div className={"relative flex w-full flex-row justify-start py-3 align-middle"}>
-        <div className={"w-full overflow-hidden"}>
+        <div className={"w-full flex-grow overflow-hidden"}>
           <table className="my-auto mr-0 max-w-full border-spacing-5">
-            {props.train.arrival && (
+            <tbody>
               <tr>
                 <td className={"text-left font-semibold text-zinc-500"}>Von: </td>
-                <td className={"truncate pl-2 text-left"}>{props.train.arrival.origin}</td>
+                <td className={"truncate pl-2 text-left"}>
+                  {props.train.originEva != null && (
+                    <Link href={`/station/${props.train.originEva}`}>{props.train.originName}</Link>
+                  )}
+                  {props.train.originEva == null && <>{props.train.originName}</>}
+                </td>
               </tr>
-            )}
-            {props.train.departure && (
               <tr>
                 <td className={"text-left font-semibold text-zinc-500"}>Nach: </td>
-                <td className={"truncate pl-2 text-left"}>{props.train.departure.destination}</td>
+                <td className={"truncate pl-2 text-left"}>
+                  <Link href={`/station/${props.train.destinationEva}`}>{props.train.destinationName}</Link>
+                </td>
               </tr>
-            )}
+            </tbody>
           </table>
         </div>
-        {props.train.scheduledPlatform != null && (
-          <div className={"right-0 flex pl-2 align-middle"}>
-            <div className={"my-auto flex flex-row rounded-md border-2 border-zinc-700 bg-zinc-800"}>
-              <div className={"flex flex-row p-1"}>
-                <p className={"m-auto"}>Gl.</p>
-                <div className={clsx("my-auto pl-1", isDifferentPlatform === true && "text-red-500 line-through")}>
-                  {scheduledPlatform}
-                </div>
-                {isDifferentPlatform === true && (
-                  <>
-                    <div className={"my-auto pl-1"}>{platform}</div>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+        <PlatformDisplay scheduledPlatform={scheduledPlatform} platform={platform} />
       </div>
       <div>
         <div className={"mx-5 flex flex-col justify-center gap-3 xsm:flex-row xsm:gap-10"}>
           {props.train.arrival != null && (
             <div>
               <h5 className={"mb-2 text-xl font-semibold text-zinc-400"}>Ankunft</h5>
-              <TimeDisplay
-                scheduledTime={props.train.arrival.time.scheduled}
-                time={props.train.arrival.time.realtime}
-              />
+              <TimeDisplay scheduledTime={props.train.arrival.timeScheduled} time={props.train.arrival.timeRealtime} />
             </div>
           )}
           {props.train.departure && (
             <div>
               <h5 className={"mb-2 text-xl font-semibold text-zinc-400"}>Abfahrt</h5>
               <TimeDisplay
-                scheduledTime={props.train.departure.time.scheduled}
-                time={props.train.departure.time.realtime}
+                scheduledTime={props.train.departure.timeScheduled}
+                time={props.train.departure.timeRealtime}
               />
             </div>
           )}
         </div>
       </div>
-      {props.train.notes.length > 0 && (
+      {uniqueMessages.length > 0 && (
         <div className={"flex w-full flex-col"}>
           <h4 className={"mx-auto text-xl font-semibold"}>Meldungen</h4>
-          <div className={"text-red-500"}>
+          <div className={"text-red-400"}>
             <ul className={"list-disc pl-4 text-start"}>
-              {props.train.notes.map((notice) => (
-                <li className={"mr-auto list-item"} key={notice}>
-                  {notice}
+              {uniqueMessages.map((message) => (
+                <li className={"mr-auto list-item"} key={message.id}>
+                  <>
+                    {dayjs(message.timestamp, ["DD-MM-YYYYTHH:mm:ss"]).format("HH:mm")}
+                    {": "}
+                    {message.matchedText ?? message.category ?? message.code ?? message.id}
+                  </>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+      {props.train.additionalInfo != null && (
+        <div className={"flex w-full flex-col"}>
+          <h4 className={"mx-auto text-xl font-semibold"}>Route</h4>
+          <div className={"text-zinc-300"}>
+            <ul className={"list-disc pl-4 text-start"}>
+              {props.train.additionalInfo.route.map((route) => (
+                <li
+                  className={clsx(
+                    "mr-auto list-item",
+                    route.added && "text-green-400",
+                    route.cancelled && "text-red-400 line-through"
+                  )}
+                  key={route.name}
+                >
+                  {route.name}
                 </li>
               ))}
             </ul>
@@ -127,42 +182,53 @@ export default function DetailsPopup(props: {
       {/*  </>*/}
       {/*)}*/}
       <div className={"flex w-full flex-row justify-end"}>
-        <button
-          onClick={() => {
-            setDetailsLoading(true);
-            router.push(`/journey/${encodeURIComponent(props.train.journeyId)}`);
-          }}
-          disabled={detailsLoading}
-        >
+        {journeyId != null ? (
+          <Link
+            href={`/journey/${encodeURIComponent(journeyId)}`}
+            onClick={() => {
+              setDetailsLoading(true);
+            }}
+          >
+            <div
+              className={
+                "flex flex-row gap-1 rounded-md bg-zinc-700/60 py-1 px-3 align-middle transition-all duration-100 hover:bg-zinc-700"
+              }
+            >
+              {detailsLoading ? (
+                <TailSpin
+                  width={20}
+                  height={20}
+                  color="#ffffff"
+                  ariaLabel="tail-spin-loading"
+                  radius="1"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                />
+              ) : (
+                <HiExternalLink size={20} className={"my-auto"} />
+              )}
+              <p>Details</p>
+            </div>
+          </Link>
+        ) : (
           <div
             className={
-              "flex flex-row gap-1 rounded-md bg-zinc-700/60 py-1 px-2 align-middle transition-all duration-100 hover:bg-zinc-700"
+              "pointer-events-none flex flex-row gap-1 rounded-md bg-zinc-700/60 py-1 px-3 align-middle transition-all duration-100 hover:bg-zinc-700"
             }
           >
-            {detailsLoading ? (
-              <TailSpin
-                width={20}
-                height={20}
-                color="#ffffff"
-                ariaLabel="tail-spin-loading"
-                radius="1"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-              />
-            ) : (
-              <HiExternalLink size={20} className={"my-auto"} />
-            )}
+            <HiExternalLink size={20} className={"my-auto"} />
             <p>Details</p>
           </div>
-        </button>
+        )}
       </div>
     </Popup>
   );
 }
 
 function TimeDisplay(props: { scheduledTime: string; time?: string }): JSX.Element {
-  const isTooLate = props.time ? new Date(props.scheduledTime).getTime() !== new Date(props.time).getTime() : undefined;
+  const isTooLate = props.time ? new Date(props.scheduledTime).getTime() < new Date(props.time).getTime() : undefined;
+  const isTooEarly = props.time ? new Date(props.scheduledTime).getTime() > new Date(props.time).getTime() : undefined;
 
   const scheduledTime = new Date(props.scheduledTime.toString());
   const time = props.time != null ? new Date(props.time.toString()) : undefined;
@@ -171,16 +237,26 @@ function TimeDisplay(props: { scheduledTime: string; time?: string }): JSX.Eleme
   const diffMins = Math.floor(diffSeconds / 60);
 
   return (
-    <div className={clsx("m-auto flex w-full flex-col justify-center align-middle")}>
-      <div className={clsx("m-auto flex h-full flex-row gap-1 align-middle")}>
-        <p className={clsx("m-auto text-white", isTooLate != null && isTooLate && "line-through")}>
+    <div className={clsx("m-auto flex w-full flex-col items-center justify-center")}>
+      <div className={clsx("m-auto flex h-full flex-row items-center gap-1")}>
+        <p
+          className={clsx(
+            "my-auto",
+            isTooLate == null || isTooEarly == null
+              ? "text-white"
+              : (isTooLate || isTooEarly) && (diffMins > 0 || diffMins < 0)
+              ? "text-md text-white line-through"
+              : "text-white"
+          )}
+        >
           {formatTime(scheduledTime)}
         </p>
-        {isTooLate && <p className={"text-md my-auto text-red-500"}>(+{diffMins})</p>}
+        {isTooLate && diffMins > 0 && <p className={"text-md my-auto text-red-500"}>(+{diffMins})</p>}
+        {isTooEarly && diffMins < 0 && <p className={"text-md text-green-500"}>({diffMins})</p>}
       </div>
       {time && (
         <>
-          <div className={clsx("m-auto text-lg", isTooLate == null || isTooLate ? "text-red-500" : "text-green-500")}>
+          <div className={clsx("m-auto text-lg", isTooLate && diffMins > 0 ? "text-red-500" : "text-green-500")}>
             {formatTime(time)}
           </div>
         </>

@@ -1,18 +1,22 @@
 "use client";
 
-import { useCallback } from "react";
+import { ReactNode, useCallback } from "react";
 import ShareButton from "../../../components/ui/button/ShareButton";
-import { getStationInfoData } from "../../../data/station_info";
+import { stationInformation } from "../../../requests/ris/stationInformation";
 import { createShare } from "../../../utils/share";
 
 export default function StationShareButton({
   station,
   datetime,
   className,
+  size,
+  children,
 }: {
-  station: number;
+  station: string;
   datetime?: number;
   className?: string;
+  size?: number;
+  children?: ReactNode;
 }) {
   const shareStation = useCallback(() => {
     (async () => {
@@ -22,14 +26,14 @@ export default function StationShareButton({
           eva: station,
           timestamp: datetime,
         }),
-        getStationInfoData(station),
+        stationInformation(station),
       ]);
       await navigator.share({
         url: share,
-        text: `${data.name} auf ${document.location.host}`,
+        text: `${data.names.nameLong} auf ${document.location.host}`,
       });
     })();
   }, [datetime, station]);
 
-  return <ShareButton onClick={shareStation} className={className} />;
+  return <ShareButton onClick={shareStation} className={className} size={size}>{children}</ShareButton>;
 }

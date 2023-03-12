@@ -38,15 +38,16 @@ export const transportTypes = [
 export type TransportTypeFilterProps = {
   transportTypes: TransportType[];
   setTransportTypes: Dispatch<SetStateAction<TransportType[]>>;
+  children?: React.ReactNode;
 };
 
-export default function TransportTypeFilter(props: TransportTypeFilterProps) {
+export default function TransportTypeFilterButtonPopup(props: TransportTypeFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <Button onClick={() => setIsOpen(true)} className={"h-full px-3"}>
-        <FaFilter />
+        {props.children ?? <FaFilter />}
       </Button>
       <Popup
         onClose={() => setIsOpen(false)}
@@ -55,32 +56,43 @@ export default function TransportTypeFilter(props: TransportTypeFilterProps) {
         title={"Verkehrsmittel"}
         className={"flex flex-col gap-4"}
       >
-        {transportTypes.map((type) => {
-          return (
-            <Fragment key={type}>
-              <TransportTypeToggle
-                transportTypes={props.transportTypes}
-                setTransportTypes={props.setTransportTypes}
-                transportType={type}
-              />
-            </Fragment>
-          );
-        })}
-        <div className={"flex w-full flex-col gap-2 sm:flex-row sm:gap-1 md:gap-2"}>
-          <Button className={"w-full text-white"} onClick={() => props.setTransportTypes(transportTypes)}>
-            <div className={"m-auto flex flex-row justify-center gap-2"}>
-              <BiSelectMultiple size={22} className={"my-auto"} />
-              <p className={"my-auto"}>Alle Auswählen</p>
-            </div>
-          </Button>
-          <Button className={"w-full text-white"} onClick={() => props.setTransportTypes([])}>
-            <div className={"m-auto flex flex-row justify-center gap-2"}>
-              <FiXSquare size={22} className={"my-auto"} />
-              <p className={"my-auto"}>Alle Abwählen</p>
-            </div>
-          </Button>
-        </div>
+        <TransportTypeFilters {...props} />
       </Popup>
+    </>
+  );
+}
+
+export function TransportTypeFilters(props: {
+  transportTypes: TransportType[];
+  setTransportTypes: Dispatch<SetStateAction<TransportType[]>>;
+}) {
+  return (
+    <>
+      {transportTypes.map((type) => {
+        return (
+          <Fragment key={type}>
+            <TransportTypeToggle
+              transportTypes={props.transportTypes}
+              setTransportTypes={props.setTransportTypes}
+              transportType={type}
+            />
+          </Fragment>
+        );
+      })}
+      <div className={"flex w-full flex-col gap-2 sm:flex-row sm:gap-1 md:gap-2"}>
+        <Button className={"w-full text-white"} onClick={() => props.setTransportTypes(transportTypes)}>
+          <div className={"m-auto flex flex-row justify-center gap-2"}>
+            <BiSelectMultiple size={22} className={"my-auto"} />
+            <p className={"my-auto"}>Alle Auswählen</p>
+          </div>
+        </Button>
+        <Button className={"w-full text-white"} onClick={() => props.setTransportTypes([])}>
+          <div className={"m-auto flex flex-row justify-center gap-2"}>
+            <FiXSquare size={22} className={"my-auto"} />
+            <p className={"my-auto"}>Alle Abwählen</p>
+          </div>
+        </Button>
+      </div>
     </>
   );
 }
@@ -127,7 +139,7 @@ export function getReadableName(transportType: TransportType): string {
       readableName = "IC- & EC-Züge";
       break;
     case TransportType.InterregionalAndFastTrains:
-      readableName = "Schnellzüge";
+      readableName = "Interregionalzüge";
       break;
     case TransportType.RegionalAndOtherTrains:
       readableName = "Nahverkehr & Sonstige Züge";
