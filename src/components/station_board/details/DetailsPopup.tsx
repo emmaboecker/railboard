@@ -73,7 +73,7 @@ export default function DetailsPopup(props: {
 
   return (
     <Popup
-      open={props.open}
+      open={props.open || detailsLoading}
       setOpen={props.setOpen}
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       onClose={() => {}}
