@@ -1,7 +1,7 @@
 "use client";
 
 import { IoIosInformationCircle } from "react-icons/io";
-import React, { useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 
 export default function MessageDisplay(props: {
@@ -13,11 +13,13 @@ export default function MessageDisplay(props: {
 }) {
   const [clicked, setClicked] = useState(false);
 
+  const markup = { __html: props.shortText && !clicked ? props.shortText : props.text };
+
   if (!props.disabled) {
     return (
       <button
         className={clsx(
-          "m-auto mr-5 ml-0 flex flex-row gap-2",
+          "m-auto mr-5 ml-0 flex flex-row justify-start gap-2 text-start",
           !clicked && "w-full truncate",
           props.color === "gray" ? "text-zinc-200" : "text-red-400"
         )}
@@ -33,7 +35,11 @@ export default function MessageDisplay(props: {
             color={props.color === "gray" ? "gray" : "#f87171"}
           />
         )}
-        <span className={"my-auto"}>{props.shortText && !clicked ? props.shortText : props.text}</span>
+        <span
+          className={"my-auto"}
+          dangerouslySetInnerHTML={clicked ? markup : undefined}
+          children={!clicked ? (props.shortText && !clicked ? props.shortText : props.text) : undefined}
+        ></span>
       </button>
     );
   }
@@ -41,7 +47,7 @@ export default function MessageDisplay(props: {
   return (
     <div
       className={clsx(
-        "m-auto mr-5 ml-0 flex flex-row gap-2",
+        "m-auto mr-5 ml-0 flex flex-row gap-2 text-start",
         props.color === "gray" ? "text-zinc-200" : "text-red-400"
       )}
     >
@@ -52,7 +58,7 @@ export default function MessageDisplay(props: {
           color={props.color === "gray" ? "gray" : "#f87171"}
         />
       )}
-      <span className={"my-auto"}>{props.shortText && !clicked ? props.shortText : props.text}</span>
+      <span className={"my-auto"} dangerouslySetInnerHTML={markup}></span>
     </div>
   );
 }
