@@ -31,7 +31,7 @@ export default function TrainSearchPanel() {
                   setDate(new Date());
                 }}
               >
-                jetzt
+                heute
               </Button>
             </div>
             <TrainSearchBar date={date} />
