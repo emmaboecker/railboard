@@ -35,9 +35,11 @@ export default function MessageDisplay(props: {
             color={props.color === "gray" ? "gray" : "#f87171"}
           />
         )}
+          {/* eslint-disable-next-line react/no-danger-with-children */}
         <span
           className={"my-auto"}
           dangerouslySetInnerHTML={clicked ? markup : undefined}
+          // eslint-disable-next-line react/no-children-prop
           children={!clicked ? (props.shortText && !clicked ? props.shortText : props.text) : undefined}
         ></span>
       </button>
