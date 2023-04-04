@@ -10,8 +10,8 @@ import { StationBoardItem } from "../../../requests/custom/stationBoard";
 import Link from "next/link";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
-import { journeySearch } from "../../../requests/ris/journeySearch";
 import PlatformDisplay from "../elements/PlatformDisplay";
+import journeySearch from "../../../requests/ris/journeySearch";
 
 export default function DetailsPopup(props: {
   open: boolean;
@@ -45,17 +45,15 @@ export default function DetailsPopup(props: {
       let first = journeys[0];
       if (first == null) {
         const time = dayjs(props.train.departure?.timeScheduled ?? props.train.arrival?.timeScheduled);
-        journeySearch(
-          props.train.category,
-          props.train.trainNumber.toString(),
-          time.set("date", time.date() - 1)
-        ).then((journeys) => {
-          first = journeys[0];
-          if (first == null) {
-            return;
+        journeySearch(props.train.category, props.train.trainNumber.toString(), time.set("date", time.date() - 1)).then(
+          (journeys) => {
+            first = journeys[0];
+            if (first == null) {
+              return;
+            }
+            setJourneyId(first?.journeyID);
           }
-          setJourneyId(first?.journeyID);
-        })
+        );
       } else {
         setJourneyId(first?.journeyID);
       }

@@ -24,17 +24,18 @@ export type RisJourneySearchTransport = {
   replacementTransport?: string;
 };
 
-export async function journeySearch(
+export default function journeySearch(
   category: string,
   number: string,
   date: dayjs.Dayjs
 ): Promise<RisJourneySearchElement[]> {
-  const response = await fetch(
-    `${getApiBaseUrl()}/ris/v1/journey_search/${category}/${number}?date=${date.format("YYYY-MM-DD")}`,
-    {
-      method: "GET",
-    }
-  );
+  
 
-  return response.json();
+  const response = fetch(
+    `${getApiBaseUrl()}/ris/v1/journey_search/${category}/${number}?date=${date.format("YYYY-MM-DD")}`
+  ).then((response) => response.json());
+
+  console.log(response);
+
+  return response;
 }

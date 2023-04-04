@@ -1,44 +1,67 @@
 "use client";
 
-// import { Fragment, useState } from "react";
-// import { useClickOutside, useDebouncedValue } from "@mantine/hooks";
-// import useSWR from "swr";
-// import { Transition } from "@headlessui/react";
-// import dayjs from "dayjs";
-// import { useRouter } from "next/navigation";
+import { Transition } from "@headlessui/react";
+import { useClickOutside, useDebouncedValue } from "@mantine/hooks";
+import dayjs from "dayjs";
+import { useRouter } from "next/navigation";
+import { Fragment, useState } from "react";
+import useSWR from "swr";
+import { getApiBaseUrl } from "../../requests/get_base_url";
+import { RisJourneySearchElement } from "../../requests/ris/journeySearch";
 
 export type TrainSearchBarProps = {
   date: Date;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function TrainSearchBar(props: TrainSearchBarProps): JSX.Element {
-  // const [search, setSearch] = useState("");
-  // const [debouncedSearch] = useDebouncedValue(search, 500);
+  const [category, setCategory] = useState("");
+  const [number, setNumber] = useState("");
+  const [debouncedCategory] = useDebouncedValue(category, 300);
+  const [debouncedNumber] = useDebouncedValue(number, 300);
 
-  // const [open, setOpen] = useState(false);
-  // const ref = useClickOutside(() => setOpen(false));
+  const [open, setOpen] = useState(false);
+  const ref = useClickOutside(() => setOpen(false));
 
-  // const router = useRouter();
+  const router = useRouter();
 
-  // const { data } = useSWR(debouncedSearch, () => undefined);
+  const date = dayjs(props.date).format("YYYY-MM-DD");
+
+  const { data } = useSWR(
+    `${getApiBaseUrl()}/ris/v1/journey_search/${debouncedCategory}/${debouncedNumber}?date=${date}`,
+    (key) => fetch(key).then((res) => res.json() as Promise<RisJourneySearchElement[]>)
+  );
 
   return (
     <div className="relative w-full">
-      {/* <input
-        className=" w-full rounded-md bg-zinc-800 p-2 text-white outline-none"
-        onFocus={() => setOpen(true)}
-        onChange={(e) => {
-          setSearch(e.currentTarget.value);
-        }}
-        onClick={() => {
-          setOpen(true);
-        }}
-        value={search}
-        placeholder={"Suche nach einem Zuglauf"}
-      />
+      <div className="flex flex-row gap-5">
+        <input
+          className="w-[20%] rounded-md bg-zinc-800 p-2 text-white outline-none"
+          onFocus={() => setOpen(true)}
+          onChange={(e) => {
+            setCategory(e.currentTarget.value);
+          }}
+          onClick={() => {
+            setOpen(true);
+          }}
+          value={category}
+          placeholder={"Kategorie"}
+        />
+
+        <input
+          className="w-full flex-grow rounded-md bg-zinc-800 p-2 text-white outline-none"
+          onFocus={() => setOpen(true)}
+          onChange={(e) => {
+            setNumber(e.currentTarget.value);
+          }}
+          onClick={() => {
+            setOpen(true);
+          }}
+          value={number}
+          placeholder={"Zugnummer"}
+        />
+      </div>
       <Transition
-        show={open && search !== ""}
+        show={open && category !== "" && category != null && number !== "" && number != null}
         as={Fragment}
         enter="transition ease-out duration-200"
         enterFrom="opacity-0 translate-y-1"
@@ -61,10 +84,10 @@ export default function TrainSearchBar(props: TrainSearchBarProps): JSX.Element 
                   <div className={"max-h-96 overflow-auto"}>
                     {data.map((trip) => (
                       <TrainResultDisplay
-                        key={trip.jid}
+                        key={trip.journeyID}
                         trip={trip}
                         onClick={async () => {
-                          await router.push(`/journey/${trip.jid}`);
+                          await router.push(`/journey/${trip.journeyID}`);
                         }}
                       />
                     ))}
@@ -74,55 +97,47 @@ export default function TrainSearchBar(props: TrainSearchBarProps): JSX.Element 
             )}
           </>
         </div>
-      </Transition> */}
+      </Transition>
     </div>
   );
 }
 
-// type TrainResultDisplayProps = {
-//   trip: Trip;
-//   onClick: () => void;
-// };
+type TrainResultDisplayProps = {
+  trip: RisJourneySearchElement;
+  onClick: () => void;
+};
 
-// function TrainResultDisplay(props: TrainResultDisplayProps) {
-//   return (
-//     <>
-//       <div className={"flex rounded-md p-2 hover:bg-zinc-700"}>
-//         <button
-//           className="flex w-full text-start align-middle text-base"
-//           onClick={() => {
-//             props.onClick();
-//           }}
-//         >
-//           <div className="flex h-full w-full flex-row">
-//             <div className="flex w-full flex-col justify-start truncate pr-1 align-middle">
-//               <div className="my-auto w-full">
-//                 <div className="my-auto text-lg font-semibold">{props.trip.train.name}</div>
-//               </div>
-//               <div className="my-auto">
-//                 <div className={"flex flex-row gap-1 truncate font-sans text-zinc-400"}>
-//                   <p>Von:</p>
-//                   <p className={"truncate text-white"}>{props.trip.firstStop.station.title} </p>
-//                   <p>um</p>
-//                   <p className={"text-white"}>
-//                     {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-//                     {dayjs(new Date(props.trip.firstStop.departure!.scheduledTime)).format("HH:mm")}
-//                   </p>
-//                 </div>
-//                 <div className={"flex flex-row gap-1 truncate font-sans text-zinc-400"}>
-//                   <p>Nach:</p>
-//                   <p className={"truncate text-white"}>{props.trip.lastStop.station.title}</p>
-//                   <p>um</p>
-//                   <p className={"text-white"}>
-//                     {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-//                     {dayjs(new Date(props.trip.lastStop.arrival!.scheduledTime!)).format("HH:mm")}
-//                   </p>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </button>
-//       </div>
-//     </>
-//   );
-// }
+function TrainResultDisplay(props: TrainResultDisplayProps) {
+  return (
+    <>
+      <div className={"flex rounded-md p-2 hover:bg-zinc-700"}>
+        <button
+          className="flex w-full text-start align-middle text-base"
+          onClick={() => {
+            props.onClick();
+          }}
+        >
+          <div className="flex h-full w-full flex-row">
+            <div className="flex w-full flex-col justify-start truncate pr-1 align-middle">
+              <div className="my-auto w-full">
+                <div className="my-auto text-lg font-semibold">
+                  {props.trip.transport.category + " " + (props.trip.transport.line ?? props.trip.transport.number)}
+                </div>
+              </div>
+              <div className="my-auto">
+                <div className={"flex flex-row gap-1 truncate font-sans text-zinc-400"}>
+                  <p>Von:</p>
+                  <p className={"truncate text-white"}>{props.trip.originSchedule.name} </p>
+                </div>
+                <div className={"flex flex-row gap-1 truncate font-sans text-zinc-400"}>
+                  <p>Nach:</p>
+                  <p className={"truncate text-white"}>{props.trip.destinationSchedule.name}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+    </>
+  );
+}

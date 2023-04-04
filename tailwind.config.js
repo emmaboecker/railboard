@@ -11,5 +11,5 @@ module.exports = {
       sans: ["Ubuntu", "Roboto", "Open Sans", "ui-sans-serif", "system-ui", "sans-serif"],
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
