@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@fontsource/source-sans-pro':
-    specifier: ^4.5.11
-    version: 4.5.11
+    specifier: ^5.0.0
+    version: 5.0.0
   '@fontsource/ubuntu':
     specifier: ^4.5.11
     version: 4.5.11
@@ -1345,8 +1345,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@fontsource/source-sans-pro@4.5.11:
-    resolution: {integrity: sha512-f7iw44q1EjBv3MNcHCGAgrW/QVyweaEouFsJzykPhTOGnZFSwFJRISToXornOmuAy7xUUGiVdqOLiykgZoYB8A==}
+  /@fontsource/source-sans-pro@5.0.0:
+    resolution: {integrity: sha512-vdA21dHPm0daMU2KD8atishInl4ckrl3bMVYYlLslTBLKlUfHBkjfzbWKYjHdnsw8/NCyhy6H0alEsz5+zRiyQ==}
     dev: false
 
   /@fontsource/ubuntu@4.5.11:
