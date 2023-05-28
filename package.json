@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@fontsource/source-sans-pro": "^4.5.11",
-    "@fontsource/ubuntu": "^4.5.11",
+    "@fontsource/ubuntu": "^5.0.0",
     "@headlessui/react": "^1.7.3",
     "@mantine/hooks": "^6.0.0",
     "@upstash/redis": "^1.16.1",
