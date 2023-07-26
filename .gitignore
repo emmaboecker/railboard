@@ -20,6 +20,7 @@
 /build
 /public/sw.js
 /public/workbox-*.js
+/public/sw.js.map
 
 # misc
 .DS_Store

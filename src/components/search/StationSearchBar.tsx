@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useClickOutside, useDebouncedValue, useLocalStorage } from "@mantine/hooks";
 import { Dispatch, Fragment, SetStateAction, useState } from "react";
 import { Star } from "tabler-icons-react";
-import searchStation, { StationSearchResult } from "../../requests/custom/stationSearch";
+import searchStation from "../../requests/ris/stationSearch";
 import Favourite from "../../utils/favourites";
 import useSWR from "swr";
 import Button from "../ui/button/Button";
@@ -55,7 +55,7 @@ export default function StationSearchBar(props: StationSearchBarProps): JSX.Elem
               const geolocation = navigator.geolocation;
               geolocation.getCurrentPosition((position) => {
                 fetch(
-                  `https://v6.db.transport.rest/locations/nearby?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&results=5&language=de`
+                  `https://v6.db.transport.rest/locations/nearby?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&results=5&language=de`,
                 )
                   .then((response) => response.json())
                   .then((data) => {
@@ -112,14 +112,17 @@ export default function StationSearchBar(props: StationSearchBarProps): JSX.Elem
                   </div>
                 ) : (
                   <div className="flex w-full flex-col">
-                    {data
-                      .filter((station) => station.evaNr != null && station.weight != null)
+                    {data.stopPlaces
+                      .filter((station) => station.evaNumber != null)
                       .map((station) => (
                         <StationResultDisplay
-                          station={station}
+                          station={{
+                            evaNr: station.evaNumber!,
+                            name: station.names.DE.nameLong,
+                          }}
                           favourites={favourites}
                           setFavourites={setFavourites}
-                          key={station.evaNr}
+                          key={station.evaNumber}
                           onClick={(station) => {
                             props.setSelectedStationId(station.evaNr);
                             setSearch(station.name);
@@ -212,10 +215,10 @@ export default function StationSearchBar(props: StationSearchBarProps): JSX.Elem
 }
 
 type StationResultDisplayProps = {
-  station: Favourite | StationSearchResult;
+  station: Favourite;
   favourites: Favourite[];
   setFavourites: Dispatch<SetStateAction<Favourite[]>>;
-  onClick: (station: Favourite | StationSearchResult) => void;
+  onClick: (station: Favourite) => void;
 };
 
 function StationResultDisplay(props: StationResultDisplayProps): JSX.Element {
@@ -244,9 +247,8 @@ function StationResultDisplay(props: StationResultDisplayProps): JSX.Element {
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   evaNr: props.station.evaNr!,
                   name: props.station.name,
-                  locationId: props.station.locationId,
                 },
-              ])
+              ]),
             );
           }
         }}

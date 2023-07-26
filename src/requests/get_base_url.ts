@@ -4,5 +4,5 @@ export function getApiBaseUrl() {
     return env;
   }
 
-  return "https://api.rail.stckoverflw.net";
+  return "https://api.rail.boecker.dev";
 }
