@@ -3,12 +3,36 @@ import GoBackButton from "../../../components/ui/button/GoBackButton";
 import JourneyShareButton from "./JourneyShareButton";
 import journeyDetails from "../../../requests/ris/journeyDetails";
 import StopDisplay from "./StopDisplay";
+import { Metadata } from "next";
 
 export const revalidate = 60;
 
 export const dynamic = "force-dynamic";
 
-export default async function Page({ params }: { params: { journey: string } }): Promise<JSX.Element> {
+type Props = { params: { journey: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const data = await journeyDetails(params.journey);
+
+  const names = data.stops.map(
+    (stop) => stop.transport.category + " " + (stop.transport.line ?? stop.transport.number.toString())
+  );
+
+  const uniqueNames = names.filter((element, index) => {
+    return names.indexOf(element) === index;
+  });
+  return {
+    title: `${uniqueNames.join(", ")} - Reise | Railboard`,
+    openGraph: {
+      type: "website",
+      title: `${uniqueNames.join(", ")} auf Railboard`,
+      description: `Die aktuelle Reise von ${uniqueNames.join(", ")} auf Railboard.`,
+      siteName: "Railboard",
+    },
+  };
+}
+
+export default async function Page({ params }: Props): Promise<JSX.Element> {
   const data = await journeyDetails(params.journey);
 
   const names = data.stops.map(
