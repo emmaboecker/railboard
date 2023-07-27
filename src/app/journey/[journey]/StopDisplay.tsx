@@ -38,12 +38,14 @@ export default function StopDisplay(props: {
                 realtime: stop.arrival?.realtime,
                 cancelled: stop.arrival?.cancelled,
                 additional: stop.arrival?.additional,
+                timeType: stop.arrival?.timeType,
               }}
               departureTime={{
                 scheduled: stop.departure?.scheduled,
                 realtime: stop.departure?.realtime,
                 cancelled: stop.departure?.cancelled,
                 additional: stop.departure?.additional,
+                timeType: stop.arrival?.timeType,
               }}
             />
           </div>
@@ -57,6 +59,8 @@ export default function StopDisplay(props: {
             >
               {stop.stopName}
             </div>
+            {/* Arrival type: {stop.arrival?.timeType}
+            Departure type: {stop.departure?.timeType} */}
             {(stop.departure?.cancelled ?? true) && (stop.arrival?.cancelled ?? true) && (
               <p className={"w-fit text-red-500 no-underline"}>Fällt aus</p>
             )}

@@ -6,12 +6,14 @@ export type TimeDisplayProps = {
     realtime?: string;
     cancelled?: boolean;
     additional?: boolean;
+    timeType?: string;
   };
   departureTime?: {
     scheduled?: string;
     realtime?: string;
     cancelled?: boolean;
     additional?: boolean;
+    timeType?: string;
   };
 };
 
@@ -31,6 +33,7 @@ export default function StopTimeDisplay(props: TimeDisplayProps): JSX.Element {
             time={actualArrival}
             cancelled={props.arrivalTime?.cancelled}
             additional={props.arrivalTime?.additional}
+            timeType={props.arrivalTime?.timeType}
           />
         )}
       </div>
@@ -41,6 +44,7 @@ export default function StopTimeDisplay(props: TimeDisplayProps): JSX.Element {
             time={actualDepart}
             cancelled={props.departureTime?.cancelled}
             additional={props.departureTime?.additional}
+            timeType={props.departureTime?.timeType}
           />
         )}
       </div>

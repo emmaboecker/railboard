@@ -32,6 +32,7 @@ export function InternalTimeDisplay(props: {
   time?: string;
   cancelled?: boolean;
   additional?: boolean;
+  timeType?: string;
 }): JSX.Element {
   const isTooLate = props.time ? new Date(props.scheduledTime).getTime() < new Date(props.time).getTime() : undefined;
   const isTooEarly = props.time ? new Date(props.scheduledTime).getTime() > new Date(props.time).getTime() : undefined;
@@ -66,7 +67,9 @@ export function InternalTimeDisplay(props: {
                 ? "text-red-500"
                 : !props.cancelled
                 ? "text-green-500"
-                : "text-red-300 line-through"
+                : "text-red-300 line-through",
+              props.timeType === "REAL" && "font-bold",
+              props.timeType === "SCHEDULE" && "italic" 
             )}
           >
             {formatTime(time)}
