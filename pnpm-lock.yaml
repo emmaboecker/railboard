@@ -15,8 +15,8 @@ dependencies:
     specifier: ^1.7.3
     version: 1.7.3(react-dom@18.2.0)(react@18.2.0)
   '@mantine/hooks':
-    specifier: ^6.0.0
-    version: 6.0.0(react@18.2.0)
+    specifier: ^7.0.0
+    version: 7.0.0(react@18.2.0)
   '@upstash/redis':
     specifier: ^1.16.1
     version: 1.16.1
@@ -1443,10 +1443,10 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: false
 
-  /@mantine/hooks@6.0.0(react@18.2.0):
-    resolution: {integrity: sha512-boszkajLaA4qvd/ebDhqZBbMuUXlvJv8EM0jTaXz09IaGPachBKG5WKpXEcwWh2qmrUQL6pyhIbLMgPnvwS0QQ==}
+  /@mantine/hooks@7.0.0(react@18.2.0):
+    resolution: {integrity: sha512-HdZ6qE15OKNA3esbO72+mRqztMcdGphL/wl/ks8N7iAlSUu7sFtgZN+IU6MfJxGc/MEN3x5dEceWG6FgwOmHOw==}
     peerDependencies:
-      react: '>=16.8.0'
+      react: ^18.2.0
     dependencies:
       react: 18.2.0
     dev: false
