@@ -48,8 +48,8 @@ dependencies:
     specifier: ^4.6.0
     version: 4.6.0(react@18.2.0)
   react-loader-spinner:
-    specifier: ^5.3.4
-    version: 5.3.4(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^6.0.0
+    version: 6.0.0(react-dom@18.2.0)(react@18.2.0)
   react-virtualized-auto-sizer:
     specifier: ^1.0.7
     version: 1.0.7(react-dom@18.2.0)(react@18.2.0)
@@ -4306,8 +4306,8 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
-  /react-loader-spinner@5.3.4(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-G2vw4ssX+RDZ/vfaeva06yfNqyFViv/u+tVZ3kFLy5TKNlNx2DbuwreBSpRtPespQA+VxinxUJsigwLwG9erOg==}
+  /react-loader-spinner@6.0.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-C2LsUDFH8OG84Ypi+EQ6Qnqvvvl9H931z4SjF/RBvAQ86petD5c6P5e2jepFlJ4eEaHswDPGsnSJIzxtrJ/ujA==}
     peerDependencies:
       react: ^16.0.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
