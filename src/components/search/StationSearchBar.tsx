@@ -112,7 +112,7 @@ export default function StationSearchBar(props: StationSearchBarProps): JSX.Elem
                   </div>
                 ) : (
                   <div className="flex w-full flex-col">
-                    {data.stopPlaces
+                    {data
                       .filter((station) => station.evaNumber != null)
                       .map((station) => (
                         <StationResultDisplay

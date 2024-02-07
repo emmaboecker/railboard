@@ -1,25 +1,23 @@
 import { getApiBaseUrl } from "../get_base_url";
 
 export type StationSearchResponse = {
-  stopPlaces: {
-    availableTransports: string[];
-    evaNumber: string;
-    groupMembers: string[];
-    names: {
-      DE: {
-        nameLong: string;
-        speechLong: string;
-        speechShort: string;
-        symbol: string;
-      };
+  availableTransports: string[];
+  evaNumber: string;
+  groupMembers: string[];
+  names: {
+    DE: {
+      nameLong: string;
+      speechLong: string;
+      speechShort: string;
+      symbol: string;
     };
-    position: {
-      latitude: 0;
-      longitude: 0;
-    };
-    stationID: "string";
-  }[];
-};
+  };
+  position: {
+    latitude: 0;
+    longitude: 0;
+  };
+  stationID: "string";
+}[];
 
 // const getBaseUrl = () => {
 //   if (typeof window !== "undefined") return ""; // browser should use relative url
