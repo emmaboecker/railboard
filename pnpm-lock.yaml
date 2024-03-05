@@ -74,8 +74,8 @@ devDependencies:
     specifier: ^0.5.9
     version: 0.5.9(tailwindcss@3.1.8)
   '@tanstack/query-core':
-    specifier: ^4.12.0
-    version: 4.12.0
+    specifier: ^5.0.0
+    version: 5.0.0
   '@types/hafas-client':
     specifier: ^6.0.0
     version: 6.0.0
@@ -1657,8 +1657,8 @@ packages:
       tailwindcss: 3.1.8(postcss@8.4.18)
     dev: true
 
-  /@tanstack/query-core@4.12.0:
-    resolution: {integrity: sha512-KEiFPNLMFByhNL2s6RBFL6Z5cNdwwQzFpW/II3GY+rEuQ343ZEoVyQ48zlUXXkEkbamQFIFg2onM8Pxf0Yo01A==}
+  /@tanstack/query-core@5.0.0:
+    resolution: {integrity: sha512-Y1BpiA6BblJd/UlVqxEVeAG7IACn568YJuTTItAiecBI7En+33g780kg+/8lhgl+BzcUPN7o+NjBrSRGJoemyQ==}
     dev: true
 
   /@types/eslint-scope@3.7.4:
