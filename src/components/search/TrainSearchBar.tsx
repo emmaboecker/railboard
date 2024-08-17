@@ -27,7 +27,7 @@ export default function TrainSearchBar(props: TrainSearchBarProps): JSX.Element 
   const date = dayjs(props.date).format("YYYY-MM-DD");
 
   const { data } = useSWR(
-    `${getApiBaseUrl()}/ris/v1/journey_search/${debouncedCategory}/${debouncedNumber}?date=${date}`,
+    `${getApiBaseUrl()}/ris/v1/journey_search/${debouncedCategory}/${encodeURIComponent(debouncedNumber)}?date=${date}`,
     (key) => fetch(key).then((res) => res.json() as Promise<RisJourneySearchElement[]>)
   );
 

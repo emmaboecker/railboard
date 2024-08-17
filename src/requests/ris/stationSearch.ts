@@ -26,7 +26,7 @@ export type StationSearchResponse = {
 // };
 
 export default async function searchStation(query: string, limit: number = 10): Promise<StationSearchResponse> {
-  const response = await fetch(`${getApiBaseUrl()}/ris/v1/station_search/${query}?limit=${limit}`, {
+  const response = await fetch(`${getApiBaseUrl()}/ris/v1/station_search/${encodeURIComponent(query)}?limit=${limit}`, {
     method: "GET",
   });
 

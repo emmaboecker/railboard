@@ -29,10 +29,10 @@ export default function journeySearch(
   number: string,
   date: dayjs.Dayjs
 ): Promise<RisJourneySearchElement[]> {
-  
+
 
   const response = fetch(
-    `${getApiBaseUrl()}/ris/v1/journey_search/${category}/${number}?date=${date.format("YYYY-MM-DD")}`
+    `${getApiBaseUrl()}/ris/v1/journey_search/${category}/${encodeURIComponent(number)}?date=${date.format("YYYY-MM-DD")}`
   ).then((response) => response.json());
 
   console.log(response);
