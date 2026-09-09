@@ -15,8 +15,8 @@ dependencies:
     specifier: ^1.7.3
     version: 1.7.3(react-dom@18.2.0)(react@18.2.0)
   '@mantine/hooks':
-    specifier: ^6.0.0
-    version: 6.0.0(react@18.2.0)
+    specifier: ^9.0.0
+    version: 9.6.1(react@18.2.0)
   '@upstash/redis':
     specifier: ^1.16.1
     version: 1.16.1
@@ -1443,10 +1443,10 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: false
 
-  /@mantine/hooks@6.0.0(react@18.2.0):
-    resolution: {integrity: sha512-boszkajLaA4qvd/ebDhqZBbMuUXlvJv8EM0jTaXz09IaGPachBKG5WKpXEcwWh2qmrUQL6pyhIbLMgPnvwS0QQ==}
+  /@mantine/hooks@9.6.1(react@18.2.0):
+    resolution: {integrity: sha512-pfxM95WozngB0ZALw6h99QV1TQ0qniOkFhzi0+dmSnKpxkVSR0xeNsvPpGDj9Teu+M69fRoE4IkzyMnu5Xld3w==}
     peerDependencies:
-      react: '>=16.8.0'
+      react: ^19.2.0
     dependencies:
       react: 18.2.0
     dev: false
@@ -2080,6 +2080,7 @@ packages:
 
   /acorn-import-assertions@1.8.0(acorn@8.10.0):
     resolution: {integrity: sha512-m7VZ3jwz4eK6A4Vtt8Ew1/mNbP24u0FhdyfA7fSvnJR6LMdfOYnmuIrrJAgrYfYJ10F/otaHTtrtrtmHdMNzEw==}
+    deprecated: package has been renamed to acorn-import-attributes
     peerDependencies:
       acorn: ^8
     dependencies:
